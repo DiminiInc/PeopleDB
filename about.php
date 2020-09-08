@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/head.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/head.php";
+	include_once($path);
+	?>
 	<title>About - PeopleDB</title>
 	<meta name="description" content="About - PeopleDB"> 
 	<link rel="canonical" href="http://peopledb.localhost">
@@ -17,10 +17,10 @@
 </head>
 <body id="site">
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/header.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/header.php";
+	include_once($path);
+	?>
 	<div id="about-content">
 		<div id="about-block">
 			<div>
@@ -47,9 +47,9 @@
 		</div>
 	</div>
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/footer.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/footer.php";
+	include_once($path);
+	?>
 </body>
 </html>

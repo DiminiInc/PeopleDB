@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/head.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/head.php";
+	include_once($path);
+	?>
 	<title>PeopleDB</title>
 	<meta name="description" content="PeopleDB"> 
 	<link rel="canonical" href="http://peopledb.localhost">
@@ -17,59 +17,52 @@
 </head>
 <body id="site">
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/header.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/header.php";
+	include_once($path);
+	?>
 	<div id="content">
-		<!-- <div id="search-field">
-			<form action="index.php" method="get" name="form">
-				<input name="search_string" type="text" placeholder="Search.." size="20" maxlength="40" class="login-input-field">
-				<input name="submit" type="submit" value="Search" class="submit-button">   
-			</form>
-		</div> -->
 		<div id="add-person">
 			<a href="/person/edit.php" class="btn btn-primary">Add person</a>
 		</div>
 		<div id="search-results">
 			<table id="personsTable" class="table table-striped table-bordered" style="width:100%">
-		        <thead>
-		            <tr>
-		            	<th>ID</th>
-		                <th>Last Name</th>
-		                <th>First Name</th>
-		                <th>Middle Name</th>
-		                <th>Nickname</th>
-		                <th>Acquintance type</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		        	<?php 
-		        		$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						$search_string='';
-						// if(isset($_GET['search_string'])) { $search_string=$_GET['search_string']; } 
-						$result = mysqli_query($link,"SELECT * FROM person");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							$person_id = $myrow['id'];
-							echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'><td>".$myrow['id']."</td><td>".$myrow['last_name']."</td><td>".$myrow['first_name']."</td><td>".$myrow['middle_name']."</td><td>".$myrow['nickname']."</td><td>".$myrow['acquintance_type']."</td></tr>";
-						}
-						while($myrow = mysqli_fetch_array($result));
-						mysqli_close($link);
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Last Name</th>
+						<th>First Name</th>
+						<th>Middle Name</th>
+						<th>Nickname</th>
+						<th>Acquintance type</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$path = $_SERVER['DOCUMENT_ROOT'];
+					$path .= "/connection.php";
+					require_once($path);
+					$link = mysqli_connect($host, $user, $pass, $database) 
+					or die("Error " . mysqli_error($link));
+					$link->set_charset("utf8");
+					$search_string='';
+					$result = mysqli_query($link,"SELECT * FROM person");
+					$myrow = mysqli_fetch_array($result);
+					do{
+						$person_id = $myrow['id'];
+						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'><td>".$myrow['id']."</td><td>".$myrow['last_name']."</td><td>".$myrow['first_name']."</td><td>".$myrow['middle_name']."</td><td>".$myrow['nickname']."</td><td>".$myrow['acquintance_type']."</td></tr>";
+					}
+					while($myrow = mysqli_fetch_array($result));
+					mysqli_close($link);
 					?>
-		        </tbody>
-		    </table>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<?php 
-		$path = $_SERVER['DOCUMENT_ROOT'];
-		$path .= "/footer.php";
-		include_once($path);
-    ?>
+	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path .= "/footer.php";
+	include_once($path);
+	?>
 </body>
 </html>
