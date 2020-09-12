@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<?php 
 	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/head.php";
-	include_once($path);
+	require_once($path . "/head.php");
 	?>
 	<title>PeopleDB</title>
 	<meta name="description" content="PeopleDB"> 
@@ -17,30 +16,25 @@
 </head>
 <body id="site">
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/header.php";
-	include_once($path);
+	require_once($path . "/header.php");
 	?>
 	<div id="content">
 		<div id="head-section">
 			<?php 
-			$path = $_SERVER['DOCUMENT_ROOT'];
-			$path .= "/connection.php";
-			require_once($path);
-			$link = mysqli_connect($host, $user, $pass, $database) 
-			or die("Error " . mysqli_error($link));
-			$link->set_charset("utf8");
-			if(isset($_GET['id'])) { $id=$_GET['id']; } else {$id = 0;} 
-			$result = mysqli_query($link,"SELECT * FROM person where id='$id'");
-			$myrow = mysqli_fetch_array($result);
-			do{
-				$person_id = $myrow['id'];
-				echo "<div><h1>".$myrow['last_name']." ".$myrow['first_name']." ".$myrow['middle_name']."</h1>";
-				echo "<h4>".$myrow['nickname']." - ".$myrow['acquintance_type']."</h4></div>";
-				echo "<div><button name='submit' type='submit' value='Update data' form='extForm' class='btn btn-primary btn-lg'>Update</button></div>";
-			}
-			while($myrow = mysqli_fetch_array($result));
-			mysqli_close($link);
+			require_once($path . "/connection.php");
+			$link = mysqli_connect($host, $user, $pass, $database);
+			mysqli_set_charset($link, "utf8");
+			if (isset($_GET['id'])) { 
+				$id = $_GET['id']; 
+			} else {
+				$id = 0;
+			} 
+			$result = mysqli_query($link, "SELECT * FROM person where id='$id'");
+			$row = mysqli_fetch_array($result);
+			$person_id = $row['id'];
+			echo "<div><h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>";
+			echo "<h4>" . $row['nickname'] . " - " . $row['acquintance_type'] . "</h4></div>";
+			echo "<div><button name='submit' type='submit' value='Update data' form='extForm' class='btn btn-primary btn-lg'>Update</button></div>";
 			?>
 		</div>
 		<div class="data-section">
@@ -56,792 +50,756 @@
 				<button class="tablinks" onclick="loginTabsChange(event, 'likes')">Likes</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'property')">Property</button>
 			</div>
-			<?php 
-			$path = $_SERVER['DOCUMENT_ROOT'];
-			$path .= "/connection.php";
-			require_once($path);
-			$link = mysqli_connect($host, $user, $pass, $database) 
-			or die("Error " . mysqli_error($link));
-			$link->set_charset("utf8");
-			if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-			echo "<form id='extForm' action='update.php?id=$id' method='post' name='form'>";
-			mysqli_close($link);
-			?>
-			<div id="general" class="tabcontent active">
-				<h2>General</h2>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<tbody>
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM person where id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							$mother_id = $myrow['mother'];
-							$father_id = $myrow['father'];
-							$mother = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$mother_id'"));
-							$father = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$father_id'"));
-							echo '<tr><td>Last name</td><td><input name="person_last_name" type="varchar" placeholder="Last name" class="login-input-label" size="20" maxlength="40" value="'.$myrow['last_name'].'"></td></tr>';
-							echo '<tr><td>First name</td><td><input name="person_first_name" type="varchar" placeholder="First name" class="login-input-label" size="20" maxlength="40" value="'.$myrow['first_name'].'"></td></tr>';
-							echo '<tr><td>Middle name</td><td><input name="person_middle_name" type="varchar" placeholder="Middle name" class="login-input-label" size="20" maxlength="40" value="'.$myrow['middle_name'].'"></td></tr>';
-							echo '<tr><td>Nickname</td><td><input name="person_nickname" type="varchar" placeholder="Nickname" class="login-input-label" size="20" maxlength="40" value="'.$myrow['nickname'].'"></td></tr>';
-							echo '<tr><td>Acquintance type</td><td><input name="person_acquintance_type" type="varchar" placeholder="Acquintance type" class="login-input-label" size="20" maxlength="40" value="'.$myrow['acquintance_type'].'" list="person_acquintance_type_list"><datalist id="person_acquintance_type_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT acquintance_type FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['acquintance_type']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Sex</td><td><input name="person_sex" type="varchar" placeholder="Sex" class="login-input-label" size="20" maxlength="40" value="'.$myrow['sex'].'" list="person_sex_list"><datalist id="person_sex_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT sex FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['sex']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Gender</td><td><input name="person_gender" type="varchar" placeholder="Gender" class="login-input-label" size="20" maxlength="40" value="'.$myrow['gender'].'" list="person_gender_list"><datalist id="person_gender_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT gender FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['gender']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';;
-							echo '<tr><td>Birth day</td><td><input name="person_birth_day" type="varchar" placeholder="Birth day" class="login-input-label" size="20" maxlength="40" value="'.$myrow['birth_day'].'"></td></tr>';
-							echo '<tr><td>Birth month</td><td><input name="person_birth_month" type="varchar" placeholder="Birth month" class="login-input-label" size="20" maxlength="40" value="'.$myrow['birth_month'].'"></td></tr>';
-							echo '<tr><td>Birth year</td><td><input name="person_birth_year" type="varchar" placeholder="Birth year" class="login-input-label" size="20" maxlength="40" value="'.$myrow['birth_year'].'"></td></tr>';
-							echo '<tr><td>Birth hour</td><td><input name="person_birth_hour" type="varchar" placeholder="Birth hour" class="login-input-label" size="20" maxlength="40" value="'.$myrow['birth_hour'].'"></td></tr>';
-							echo '<tr><td>Birth minute</td><td><input name="person_birth_minute" type="varchar" placeholder="Birth minute" class="login-input-label" size="20" maxlength="40" value="'.$myrow['birth_minute'].'"></td></tr>';
-							echo '<tr><td>Relationship status</td><td><input name="person_relationship_status" type="varchar" placeholder="Relationship status" class="login-input-label" size="20" maxlength="40" value="'.$myrow['relationship_status'].'" list="person_relationship_status_list"><datalist id="person_relationship_status_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT relationship_status FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['relationship_status']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Height</td><td><input name="person_height" type="varchar" placeholder="Height" class="login-input-label" size="20" maxlength="40" value="'.$myrow['height'].'"></td></tr>';
-							echo '<tr><td>Weight</td><td><input name="person_weight" type="varchar" placeholder="Weight" class="login-input-label" size="20" maxlength="40" value="'.$myrow['weight'].'"></td></tr>';
-							echo '<tr><td>Home city</td><td><input name="person_home_city" type="varchar" placeholder="Home city" class="login-input-label" size="20" maxlength="40" value="'.$myrow['home_city'].'" list="person_home_city_list"><datalist id="person_home_city_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT home_city FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['home_city']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Country</td><td><input name="person_country" type="varchar" placeholder="Country" class="login-input-label" size="20" maxlength="40" value="'.$myrow['country'].'" list="person_country_list"><datalist id="person_country_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT country FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['country']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>City</td><td><input name="person_city" type="varchar" placeholder="City" class="login-input-label" size="20" maxlength="40" value="'.$myrow['city'].'" list="person_city_list"><datalist id="person_city_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT city FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['city']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Street</td><td><input name="person_street" type="varchar" placeholder="Street" class="login-input-label" size="20" maxlength="40" value="'.$myrow['street'].'" list="person_street_list"><datalist id="person_street_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT street FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['street']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Building</td><td><input name="person_building" type="varchar" placeholder="Building" class="login-input-label" size="20" maxlength="40" value="'.$myrow['building'].'"></td></tr>';
-							echo '<tr><td>Floor</td><td><input name="person_floor" type="varchar" placeholder="Floor" class="login-input-label" size="20" maxlength="40" value="'.$myrow['floor'].'"></td></tr>';
-							echo '<tr><td>Apartment</td><td><input name="person_apartment" type="varchar" placeholder="Apartment" class="login-input-label" size="20" maxlength="40" value="'.$myrow['apartment'].'"></td></tr>';
-							$mother_id = $myrow['mother'];
-							$mother = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$mother_id'"));
-							echo '<tr><td>Mother</td><td><input name="person_mother" type="varchar" placeholder="Mother" class="login-input-label" size="20" maxlength="40" value="'.$mother['id'].". ".$mother['last_name']." ".$mother['first_name']." ".$mother['middle_name'].'" list="person_mother_list"><datalist id="person_mother_list">';
-							$sub_result = mysqli_query($link,"SELECT id, last_name, first_name, middle_name FROM person where sex=0");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['id'].". ".$my_sub_row['last_name']." ".$my_sub_row['first_name']." ".$my_sub_row['middle_name']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							$father_id = $myrow['father'];
-							$father = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$father_id'"));
-							echo '<tr><td>Father</td><td><input name="person_father" type="varchar" placeholder="Father" class="login-input-label" size="20" maxlength="40" value="'.$father['id'].". ".$father['last_name']." ".$father['first_name']." ".$father['middle_name'].'" list="person_father_list"><datalist id="person_father_list">';
-							$sub_result = mysqli_query($link,"SELECT id, last_name, first_name, middle_name FROM person where sex=1");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['id'].". ".$my_sub_row['last_name']." ".$my_sub_row['first_name']." ".$my_sub_row['middle_name']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Religion</td><td><input name="person_religion" type="varchar" placeholder="Religion" class="login-input-label" size="20" maxlength="40" value="'.$myrow['religion'].'" list="person_religion_list"><datalist id="person_religion_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT religion FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['religion']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Political views</td><td><input name="person_political_views" type="varchar" placeholder="Political views" class="login-input-label" size="20" maxlength="40" value="'.$myrow['political_views'].'" list="person_political_views_list"><datalist id="person_political_views_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT political_views FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['political_views']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Personal priority</td><td><input name="person_personal_priority" type="varchar" placeholder="Personal priority" class="login-input-label" size="20" maxlength="40" value="'.$myrow['personal_priority'].'" list="person_personal_priority_list"><datalist id="person_personal_priority_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT personal_priority FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['personal_priority']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Important in others</td><td><input name="person_important_in_others" type="varchar" placeholder="Important in others" class="login-input-label" size="20" maxlength="40" value="'.$myrow['important_in_others'].'" list="person_important_in_others_list"><datalist id="person_important_in_others_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT important_in_others FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['important_in_others']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Views on smoking</td><td><input name="person_views_on_smoking" type="varchar" placeholder="Views on smoking" class="login-input-label" size="20" maxlength="40" value="'.$myrow['views_on_smoking'].'" list="person_views_on_smoking_list"><datalist id="person_views_on_smoking_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT views_on_smoking FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['views_on_smoking']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Views on alcohol</td><td><input name="person_views_on_alcohol" type="varchar" placeholder="Views on alcohol" class="login-input-label" size="20" maxlength="40" value="'.$myrow['views_on_alcohol'].'" list="person_views_on_alcohol_list"><datalist id="person_views_on_alcohol_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT views_on_alcohol FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['views_on_alcohol']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Views on drugs</td><td><input name="person_views_on_drugs" type="varchar" placeholder="Views on drugs" class="login-input-label" size="20" maxlength="40" value="'.$myrow['views_on_drugs'].'" list="person_views_on_drugs_list"><datalist id="person_views_on_drugs_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT views_on_drugs FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['views_on_drugs']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Drive license</td><td><input name="person_drive_license" type="varchar" placeholder="Drive license" class="login-input-label" size="20" maxlength="40" value="'.$myrow['drive_license'].'"></td></tr>';
-							echo '<tr><td>School results</td><td><input name="person_school_results" type="varchar" placeholder="School results" class="login-input-label" size="20" maxlength="40" value="'.$myrow['school_results'].'"></td></tr>';
-							echo '<tr><td>EGE results</td><td><input name="person_ege_results" type="varchar" placeholder="EGE results" class="login-input-label" size="20" maxlength="40" value="'.$myrow['ege_results'].'"></td></tr>';
-							echo '<tr><td>University results</td><td><input name="person_univer_results" type="varchar" placeholder="University results" class="login-input-label" size="20" maxlength="40" value="'.$myrow['univer_results'].'"></td></tr>';
-							echo '<tr><td>IQ test</td><td><input name="person_iq_test" type="varchar" placeholder="IQ test" class="login-input-label" size="20" maxlength="40" value="'.$myrow['iq_test'].'"></td></tr>';
-							echo '<tr><td>Socionic test</td><td><input name="person_socionic_test" type="varchar" placeholder="Socionic test" class="login-input-label" size="20" maxlength="40" value="'.$myrow['socionic_test'].'"></td></tr>';
-							echo '<tr><td>Political test</td><td><input name="person_political_test" type="varchar" placeholder="Political test" class="login-input-label" size="20" maxlength="40" value="'.$myrow['political_test'].'"></td></tr>';
-							echo '<tr><td>Bennet test</td><td><input name="person_bennet_test" type="varchar" placeholder="Bennet test" class="login-input-label" size="20" maxlength="40" value="'.$myrow['bennet_test'].'"></td></tr>';
-							echo '<tr><td>Hikka test</td><td><input name="person_hikka_test" type="varchar" placeholder="Hikka test" class="login-input-label" size="20" maxlength="40" value=""'.$myrow['hikka_test'].'"></td></tr>';
-							echo '<tr><td>Death status</td><td><input name="person_death_status" type="varchar" placeholder="Death status" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_status'].'" list="person_death_status_list"><datalist id="person_death_status_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT death_status FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['death_status']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-							echo '<tr><td>Death day</td><td><input name="person_death_day" type="varchar" placeholder="Death day" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_day'].'"></td></tr>';
-							echo '<tr><td>Death month</td><td><input name="person_death_month" type="varchar" placeholder="Death month" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_month'].'"></td></tr>';
-							echo '<tr><td>Death year</td><td><input name="person_death_year" type="varchar" placeholder="Death year" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_year'].'"></td></tr>';
-							echo '<tr><td>Death hour</td><td><input name="person_death_hour" type="varchar" placeholder="Death hour" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_hour'].'"></td></tr>';
-							echo '<tr><td>Death minute</td><td><input name="person_death_minute" type="varchar" placeholder="Death minute" class="login-input-label" size="20" maxlength="40" value="'.$myrow['death_minute'].'"></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+			<form id='extForm' action='<?php echo "update.php?id=$id"; ?>' method='post' name='form'>
+				<div id="general" class="tabcontent active">
+					<h2>General</h2>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<tbody>
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM person where id='$id'");
+							$row = mysqli_fetch_array($result);
+							$mother_id = $row['mother'];
+							$father_id = $row['father'];
+							$mother = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$mother_id'"));
+							$father = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$father_id'"));
+							echo '<tr>
+									<td>Last name</td>
+									<td><input name="person_last_name" placeholder="Last name" value="' . $row['last_name'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>First name</td>
+									<td><input name="person_first_name" placeholder="First name" value="' . $row['first_name'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Middle name</td>
+									<td><input name="person_middle_name" placeholder="Middle name" value="' . $row['middle_name'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Nickname</td>
+									<td><input name="person_nickname" placeholder="Nickname" value="' . $row['nickname'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Acquintance type</td>
+									<td>
+										<input name="person_acquintance_type" placeholder="Acquintance type" value="' . $row['acquintance_type'] . '" list="person_acquintance_type_list">
+									</td>
+								</tr>';
+							echo '<tr>
+									<td>Sex</td>
+									<td><input name="person_sex" placeholder="Sex" value="' . $row['sex'] . '" list="person_sex_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Gender</td>
+									<td><input name="person_gender" placeholder="Gender" value="' . $row['gender'] . '" list="person_gender_list"></td>
+								</tr>';;
+							echo '<tr>
+									<td>Birth day</td>
+									<td><input name="person_birth_day" placeholder="Birth day" value="' . $row['birth_day'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Birth month</td>
+									<td><input name="person_birth_month" placeholder="Birth month" value="' . $row['birth_month'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Birth year</td>
+									<td><input name="person_birth_year" placeholder="Birth year" value="' . $row['birth_year'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Birth hour</td>
+									<td><input name="person_birth_hour" placeholder="Birth hour" value="' . $row['birth_hour'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Birth minute</td>
+									<td><input name="person_birth_minute" placeholder="Birth minute" value="' . $row['birth_minute'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Relationship status</td>
+									<td><input name="person_relationship_status" placeholder="Relationship status" value="' . $row['relationship_status'] . '" list="person_relationship_status_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Height</td>
+									<td><input name="person_height" placeholder="Height" value="' . $row['height'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Weight</td>
+									<td><input name="person_weight" placeholder="Weight" value="' . $row['weight'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Home city</td>
+									<td><input name="person_home_city" placeholder="Home city" value="' . $row['home_city'] . '" list="person_home_city_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Country</td>
+									<td><input name="person_country" placeholder="Country" value="' . $row['country'] . '" list="person_country_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>City</td>
+									<td><input name="person_city" placeholder="City" value="' . $row['city'] . '" list="person_city_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Street</td>
+									<td><input name="person_street" placeholder="Street" value="' . $row['street'] . '" list="person_street_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Building</td>
+									<td><input name="person_building" placeholder="Building" value="' . $row['building'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Floor</td>
+									<td><input name="person_floor" placeholder="Floor" value="' . $row['floor'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Apartment</td>
+									<td><input name="person_apartment" placeholder="Apartment" value="' . $row['apartment'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Mother</td>
+									<td><input name="person_mother" placeholder="Mother" value="' . $mother['id'] . ". " . $mother['last_name'] . " " . $mother['first_name'] . " " . $mother['middle_name'] . '" list="person_mother_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Father</td>
+									<td><input name="person_father" placeholder="Father" value="' . $father['id'] . ". " . $father['last_name'] . " " . $father['first_name'] . " " . $father['middle_name'] . '" list="person_father_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Religion</td>
+									<td><input name="person_religion" placeholder="Religion" value="' . $row['religion'] . '" list="person_religion_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Political views</td>
+									<td><input name="person_political_views" placeholder="Political views" value="' . $row['political_views'] . '" list="person_political_views_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Personal priority</td>
+									<td><input name="person_personal_priority" placeholder="Personal priority" value="' . $row['personal_priority'] . '" list="person_personal_priority_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Important in others</td>
+									<td><input name="person_important_in_others" placeholder="Important in others" value="' . $row['important_in_others'] . '" list="person_important_in_others_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Views on smoking</td>
+									<td><input name="person_views_on_smoking" placeholder="Views on smoking" value="' . $row['views_on_smoking'] . '" list="person_views_on_smoking_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Views on alcohol</td>
+									<td><input name="person_views_on_alcohol" placeholder="Views on alcohol" value="' . $row['views_on_alcohol'] . '" list="person_views_on_alcohol_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Views on drugs</td>
+									<td><input name="person_views_on_drugs" placeholder="Views on drugs" value="' . $row['views_on_drugs'] . '" list="person_views_on_drugs_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Drive license</td>
+									<td><input name="person_drive_license" placeholder="Drive license" value="' . $row['drive_license'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>School results</td>
+									<td><input name="person_school_results" placeholder="School results" value="' . $row['school_results'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>EGE results</td>
+									<td><input name="person_ege_results" placeholder="EGE results" value="' . $row['ege_results'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>University results</td>
+									<td><input name="person_univer_results" placeholder="University results" value="' . $row['univer_results'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>IQ test</td>
+									<td><input name="person_iq_test" placeholder="IQ test" value="' . $row['iq_test'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Socionic test</td>
+									<td><input name="person_socionic_test" placeholder="Socionic test" value="' . $row['socionic_test'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Political test</td>
+									<td><input name="person_political_test" placeholder="Political test" value="' . $row['political_test'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Bennet test</td>
+									<td><input name="person_bennet_test" placeholder="Bennet test" value="' . $row['bennet_test'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Hikka test</td>
+									<td><input name="person_hikka_test" placeholder="Hikka test" value=""' . $row['hikka_test'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death status</td>
+									<td><input name="person_death_status" placeholder="Death status" value="' . $row['death_status'] . '" list="person_death_status_list"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death day</td>
+									<td><input name="person_death_day" placeholder="Death day" value="' . $row['death_day'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death month</td>
+									<td><input name="person_death_month" placeholder="Death month" value="' . $row['death_month'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death year</td>
+									<td><input name="person_death_year" placeholder="Death year" value="' . $row['death_year'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death hour</td>
+									<td><input name="person_death_hour" placeholder="Death hour" value="' . $row['death_hour'] . '"></td>
+								</tr>';
+							echo '<tr>
+									<td>Death minute</td>
+									<td><input name="person_death_minute" placeholder="Death minute" value="' . $row['death_minute'] . '"></td>
+								</tr>';
+							?>
+						</tbody>
+					</table>
+					<datalist id="person_acquintance_type_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT acquintance_type FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['acquintance_type'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="contacts" class="tabcontent">
-				<h2>Contacts</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT account FROM contacts");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'contactsTableBody', [";
-				do{
-					echo "'{$myrow['account']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT status FROM contacts");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['status']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Account</td><td>Identificator</td><td>Status</td></tr>
-					</thead>
-					<tbody id="contactsTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM contacts where owner='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="contacts_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="contacts_account[]" type="varchar" placeholder="Account type" class="login-input-label" maxlength="40" value="'.$myrow['account'].'" list="contacts_account_list"><datalist id="contacts_account_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT account FROM contacts");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['account']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="contacts_account_id[]" type="varchar" placeholder="Account ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['account_id'].'"></td><td><input name="contacts_status[]" type="varchar" placeholder="Status" class="login-input-label" size="20" maxlength="40" value="'.$myrow['status'].'" list="contacts_status_list"><datalist id="contacts_status_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT status FROM contacts");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['status']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_sex_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT sex FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['sex'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>	
+					</datalist>
+					<datalist id="person_gender_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT gender FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['gender'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="education" class="tabcontent">
-				<h2>Education</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT type FROM education");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'educationTableBody', [";
-				do{
-					echo "'{$myrow['type']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT institution FROM education");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['institution']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT `group` FROM education");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['group']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Type</td><td>Institution</td><td>Start year</td><td>End year</td><td>Group</td></tr>
-					</thead>
-					<tbody id="educationTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM education where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="education_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="education_type[]" type="varchar" placeholder="Type" class="login-input-label" maxlength="40" value="'.$myrow['type'].'" list="education_type_list"><datalist id="education_type_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT type FROM education");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['type']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="education_institution[]" type="varchar" placeholder="Institution" class="login-input-label" size="20" maxlength="40" value="'.$myrow['institution'].'" list="education_institution_list"><datalist id="education_institution_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT institution FROM education");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['institution']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="education_year_start[]" type="varchar" placeholder="Year start" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_start'].'"></td><td><input name="education_year_end[]" type="varchar" placeholder="Year end" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_end'].'"></td><td><input name="education_group[]" type="varchar" placeholder="Group" class="login-input-label" size="20" maxlength="40" value="'.$myrow['group'].'" list="education_group_list"><datalist id="education_group_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT `group` FROM education");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['group']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_relationship_status_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT relationship_status FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['relationship_status'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="army" class="tabcontent">
-				<h2>Army</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT unit FROM army");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'armyTableBody', [";
-				do{
-					echo "'{$myrow['unit']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT rank FROM army");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['rank']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Medical profile</td><td>Unit</td><td>Start year</td><td>End year</td><td>Rank</td></tr>
-					</thead>
-					<tbody id="armyTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM army where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="army_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="army_suitablility[]" type="varchar" placeholder="Suitability" class="login-input-label" size="20" maxlength="40" value="'.$myrow['suitablility'].'"></td><td><input name="army_unit[]" type="varchar" placeholder="Unit" class="login-input-label" maxlength="40" value="'.$myrow['unit'].'" list="army_unit_list"><datalist id="army_unit_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT unit FROM army");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['unit']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="army_year_start[]" type="varchar" placeholder="Year start" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_start'].'"></td><td><input name="army_year_end[]" type="varchar" placeholder="Year end" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_end'].'"></td><td><input name="army_rank[]" type="varchar" placeholder="Rank" class="login-input-label" size="20" maxlength="40" value="'.$myrow['rank'].'" list="army_rank_list"><datalist id="army_rank_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT rank FROM army");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['rank']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_home_city_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT home_city FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['home_city'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="work" class="tabcontent">
-				<h2>Work</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT company FROM work");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'workTableBody', [";
-				do{
-					echo "'{$myrow['company']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT post FROM work");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['post']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Company</td><td>Post</td><td>Start year</td><td>End year</td></tr>
-					</thead>
-					<tbody id="workTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM work where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="work_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="work_company[]" type="varchar" placeholder="Company" class="login-input-label" maxlength="40" value="'.$myrow['company'].'" list="work_company_list"><datalist id="work_company_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT company FROM work");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['company']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="work_post[]" type="varchar" placeholder="Post" class="login-input-label" maxlength="40" value="'.$myrow['post'].'" list="work_post_list"><datalist id="work_post_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT post FROM work");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['post']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="work_year_start[]" type="varchar" placeholder="Year start" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_start'].'"></td><td><input name="work_year_end[]" type="varchar" placeholder="Year end" class="login-input-label" size="20" maxlength="40" value="'.$myrow['year_end'].'"></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_country_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT country FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['country'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="relationship" class="tabcontent">
-				<h2>Relationship</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'relationshipTableBody')\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Person 1</td><td>Person 2</td><td>Relation type</td><td>Start year</td><td>Start month</td><td>Start day</td><td>End year</td><td>End month</td><td>End day</td></tr>
-					</thead>
-					<tbody id="relationshipTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM relationship where person_1='$id' or person_2='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							$person_1_id = $myrow['person_1'];
-							$person_1 = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$person_1_id'"));
-							$person_2_id = $myrow['person_2'];
-							$person_2 = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$person_2_id'"));
-							echo '<tr><td><input name="relationship_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="relationship_person_1[]" type="varchar" placeholder="Person 1" class="login-input-label" maxlength="40" value="'.$person_1['id'].". ".$person_1['last_name']." ".$person_1['first_name']." ".$person_1['middle_name'].'" list="relationship_person_list"><datalist id="relationship_person_list">';
-							$sub_result = mysqli_query($link,"SELECT id, last_name, first_name, middle_name FROM person");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['id'].". ".$my_sub_row['last_name']." ".$my_sub_row['first_name']." ".$my_sub_row['middle_name']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="relationship_person_2[]" type="varchar" placeholder="Person 2" class="login-input-label" maxlength="40" value="'.$person_2['id'].". ".$person_2['last_name']." ".$person_2['first_name']." ".$person_2['middle_name'].'" list="relationship_person_list"></td><td><input name="relationship_relation_type[]" type="varchar" placeholder="Relation type" class="login-input-label" size="20" maxlength="40" value="'.$myrow['relation_type'].'" list="relationship_relation_type_list"><datalist id="relationship_relation_type_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT relation_type FROM relationship");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['relation_type']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="relationship_year_start[]" type="varchar" placeholder="Year start" class="login-input-label" size="10" maxlength="40" value="'.$myrow['year_start'].'"></td><td><input name="relationship_month_start[]" type="varchar" placeholder="Month start" class="login-input-label" size="10" maxlength="40" value="'.$myrow['month_start'].'"></td><td><input name="relationship_day_start[]" type="varchar" placeholder="Day start" class="login-input-label" size="10" maxlength="40" value="'.$myrow['day_start'].'"></td><td><input name="relationship_year_end[]" type="varchar" placeholder="Year end" class="login-input-label" size="10" maxlength="40" value="'.$myrow['year_end'].'"></td><td><input name="relationship_month_end[]" type="varchar" placeholder="Month end" class="login-input-label" size="10" maxlength="40" value="'.$myrow['month_end'].'"></td><td><input name="relationship_day_end[]" type="varchar" placeholder="Day end" class="login-input-label" size="10" maxlength="40" value="'.$myrow['day_end'].'"></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_city_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT city FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['city'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="skills" class="tabcontent">
-				<h2>Skills</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT skill FROM skills");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'skillsTableBody', [";
-				do{
-					echo "'{$myrow['skill']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT level FROM skills");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['level']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Skill</td><td>Level</td></tr>
-					</thead>
-					<tbody id="skillsTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM skills where person='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="skills_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="skills_skill[]" type="varchar" placeholder="Skill" class="login-input-label" maxlength="40" value="'.$myrow['skill'].'" list="skills_skill_list"><datalist id="skills_skill_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT skill FROM skills");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['skill']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="skills_level[]" type="varchar" placeholder="Level" class="login-input-label" size="20" maxlength="40" value="'.$myrow['level'].'" list="skills_level_list"><datalist id="skills_level_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT level FROM skills");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['level']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_street_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT street FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['street'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="languages" class="tabcontent">
-				<h2>Languages</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT language FROM languages");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'languagesTableBody', [";
-				do{
-					echo "'{$myrow['language']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT level FROM languages");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['level']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Language</td><td>Level</td></tr>
-					</thead>
-					<tbody id="languagesTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM languages where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="languages_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="languages_language[]" type="varchar" placeholder="Language" class="login-input-label" maxlength="40" value="'.$myrow['language'].'" list="languages_language_list"><datalist id="languages_language_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT language FROM languages");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['language']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="languages_level[]" type="varchar" placeholder="Level" class="login-input-label" size="20" maxlength="40" value="'.$myrow['level'].'" list="languages_level_list"><datalist id="languages_level_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT level FROM languages");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['level']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_mother_list">
+						<?php
+						$result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=0");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="likes" class="tabcontent">
-				<h2>Likes</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT like_status FROM likes");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'likesTableBody', [";
-				do{
-					echo "'{$myrow['like_status']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "],[";
-				$result = mysqli_query($link,"SELECT DISTINCT object_type FROM likes");
-				$myrow = mysqli_fetch_array($result);
-				do{
-					echo "'{$myrow['object_type']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Status</td><td>Object type</td><td>Object</td></tr>
-					</thead>
-					<tbody id="likesTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM likes where person='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="likes_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="likes_like_status[]" type="varchar" placeholder="Like status" class="login-input-label" maxlength="40" value="'.$myrow['like_status'].'" list="likes_like_status_list"><datalist id="likes_like_status_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT like_status FROM likes");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['like_status']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="likes_object_type[]" type="varchar" placeholder="Object type" class="login-input-label" size="20" maxlength="40" value="'.$myrow['object_type'].'" list="likes_object_type_list"><datalist id="likes_object_types_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT object_type FROM likes");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['object_type']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="likes_object[]" type="varchar" placeholder="Object" class="login-input-label" size="20" maxlength="40" value="'.$myrow['object'].'"></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_father_list">
+						<?php
+						$result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=1");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-			<div id="property" class="tabcontent">
-				<h2>Property</h2>
-				<?php 
-				$path = $_SERVER['DOCUMENT_ROOT'];
-				$path .= "/connection.php";
-				require_once($path);
-				$link = mysqli_connect($host, $user, $pass, $database) 
-				or die("Error " . mysqli_error($link));
-				$link->set_charset("utf8");
-				$result = mysqli_query($link,"SELECT DISTINCT property_type FROM property");
-				$myrow = mysqli_fetch_array($result);
-				echo "<div><button type=\"button\" onclick=\"addInput(event, 'propertyTableBody', [";
-				do{
-					echo "'{$myrow['property_type']}',";
-				}
-				while($myrow=mysqli_fetch_array($result));
-				echo "])\" class=\"btn btn-primary\">Add more</button></div>";
-				mysqli_close($link);
-				?>
-				<table class="table table-striped table-bordered" style="width:100%">
-					<thead>
-						<tr><td>ID</td><td>Property type</td><td>Property</td></tr>
-					</thead>
-					<tbody id="propertyTableBody">
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } else {$id = 0;} 
-						$result = mysqli_query($link,"SELECT * FROM property where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo '<tr><td><input name="property_ids[]" type="varchar" placeholder="ID" class="login-input-label" size="20" maxlength="40" value="'.$myrow['id'].'"></td><td><input name="property_property_type[]" type="varchar" placeholder="Property type" class="login-input-label" maxlength="40" value="'.$myrow['property_type'].'" list="property_property_type_list"><datalist id="property_property_type_list">';
-							$sub_result = mysqli_query($link,"SELECT DISTINCT property_type FROM property");
-							$my_sub_row = mysqli_fetch_array($sub_result);
-							do{	
-								echo "<option value='".$my_sub_row['property_type']."'>";
-							}
-							while($my_sub_row=mysqli_fetch_array($sub_result));
-							echo'</datalist></td><td><input name="property_property_name[]" type="varchar" placeholder="Property name" class="login-input-label" size="20" maxlength="40" value="'.$myrow['property_name'].'"></td></tr>';
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+					</datalist>
+					<datalist id="person_religion_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT religion FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['religion'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
 						?>
-					</tbody>
-				</table>
-			</div>
-		</form>
+					</datalist>
+					<datalist id="person_political_views_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT political_views FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['political_views'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_personal_priority_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT personal_priority FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['personal_priority'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_important_in_others_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT important_in_others FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['important_in_others'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_views_on_smoking_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT views_on_smoking FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['views_on_smoking'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_views_on_alcohol_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT views_on_alcohol FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['views_on_alcohol'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_views_on_drugs_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT views_on_drugs FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['views_on_drugs'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_death_status_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT death_status FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['death_status'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="contacts" class="tabcontent">
+					<h2>Contacts</h2>
+					<div><button type="button" onclick="addInput(event, 'contactsTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Account</td><td>Identificator</td><td>Status</td></tr>
+						</thead>
+						<tbody id="contactsTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM contacts where owner='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="contacts_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="contacts_account[]" placeholder="Account type" value="' . $row['account'] . '" list="contacts_account_list"></td>
+										<td><input name="contacts_account_id[]" placeholder="Account ID" value="' . $row['account_id'] . '"></td>
+										<td><input name="contacts_status[]" placeholder="Status" value="' . $row['status'] . '" list="contacts_status_list"></td></tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="contacts_account_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT account FROM contacts");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['account'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="contacts_status_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT status FROM contacts");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['status'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="education" class="tabcontent">
+					<h2>Education</h2>
+					<div><button type="button" onclick="addInput(event, 'educationTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Type</td><td>Institution</td><td>Start year</td><td>End year</td><td>Group</td></tr>
+						</thead>
+						<tbody id="educationTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM education where person_id='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="education_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="education_type[]" placeholder="Type" value="' . $row['type'] . '" list="education_type_list"></td>
+										<td><input name="education_institution[]" placeholder="Institution" value="' . $row['institution'] . '" list="education_institution_list"></td>
+										<td><input name="education_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
+										<td><input name="education_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
+										<td><input name="education_group[]" placeholder="Group" value="' . $row['group'] . '" list="education_group_list"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="education_type_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT type FROM education");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['type'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="education_institution_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT institution FROM education");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['institution'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>	
+					</datalist>
+					<datalist id="education_group_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT `group` FROM education");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['group'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="army" class="tabcontent">
+					<h2>Army</h2>
+					<div><button type="button" onclick="addInput(event, 'armyTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Medical profile</td><td>Unit</td><td>Start year</td><td>End year</td><td>Rank</td></tr>
+						</thead>
+						<tbody id="armyTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="army_suitablility[]" placeholder="Suitability" value="' . $row['suitablility'] . '"></td>
+										<td><input name="army_unit[]" placeholder="Unit" value="' . $row['unit'] . '" list="army_unit_list"></td>
+										<td><input name="army_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
+										<td><input name="army_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
+										<td><input name="army_rank[]" placeholder="Rank" value="' . $row['rank'] . '" list="army_rank_list"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="army_unit_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT unit FROM army");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['unit'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="army_rank_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT rank FROM army");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['rank'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="work" class="tabcontent">
+					<h2>Work</h2>
+					<div><button type="button" onclick="addInput(event, 'workTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Company</td><td>Post</td><td>Start year</td><td>End year</td></tr>
+						</thead>
+						<tbody id="workTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM work where person_id='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="work_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="work_company[]" placeholder="Company" value="' . $row['company'] . '" list="work_company_list"></td>
+										<td><input name="work_post[]" placeholder="Post" value="' . $row['post'] . '" list="work_post_list"></td>
+										<td><input name="work_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
+										<td><input name="work_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="work_company_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT company FROM work");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['company'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="work_post_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT post FROM work");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['post'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="relationship" class="tabcontent">
+					<h2>Relationship</h2>
+					<div><button type="button" onclick="addInput(event, 'relationshipTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Person 1</td><td>Person 2</td><td>Relation type</td><td>Start year</td><td>Start month</td><td>Start day</td><td>End year</td><td>End month</td><td>End day</td></tr>
+						</thead>
+						<tbody id="relationshipTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM relationship where person_1='$id' or person_2='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								$person_1_id = $row['person_1'];
+								$person_2_id = $row['person_2'];
+								$person_1 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
+								$person_2 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
+								echo '<tr>
+										<td><input name="relationship_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="relationship_person_1[]" placeholder="Person 1" value="' . $person_1['id'] . ". " . $person_1['last_name'] . " " . $person_1['first_name'] . " " . $person_1['middle_name'] . '" list="relationship_person_list"></td>
+										<td><input name="relationship_person_2[]" placeholder="Person 2" value="' . $person_2['id'] . ". " . $person_2['last_name'] . " " . $person_2['first_name'] . " " . $person_2['middle_name'] . '" list="relationship_person_list"></td>
+										<td><input name="relationship_relation_type[]" placeholder="Relation type" value="' . $row['relation_type'] . '" list="relationship_relation_type_list"></td>
+										<td><input name="relationship_year_start[]" placeholder="Year start" size="10" value="' . $row['year_start'] . '"></td>
+										<td><input name="relationship_month_start[]" placeholder="Month start" size="10" value="' . $row['month_start'] . '"></td>
+										<td><input name="relationship_day_start[]" placeholder="Day start" size="10" value="' . $row['day_start'] . '"></td><td>
+										<input name="relationship_year_end[]" placeholder="Year end" size="10" value="' . $row['year_end'] . '"></td>
+										<td><input name="relationship_month_end[]" placeholder="Month end" size="10" value="' . $row['month_end'] . '"></td>
+										<td><input name="relationship_day_end[]" placeholder="Day end" size="10" value="' . $row['day_end'] . '"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="relationship_person_list">
+						<?php
+						$result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="relationship_relation_type_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT relation_type FROM relationship");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['relation_type'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="skills" class="tabcontent">
+					<h2>Skills</h2>
+					<div><button type="button" onclick="addInput(event, 'skillsTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Skill</td><td>Level</td></tr>
+						</thead>
+						<tbody id="skillsTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM skills where person='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="skills_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="skills_skill[]" placeholder="Skill" value="' . $row['skill'] . '" list="skills_skill_list"></td>
+										<td><input name="skills_level[]" placeholder="Level" value="' . $row['level'] . '" list="skills_level_list"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="skills_skill_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT skill FROM skills");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['skill'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="skills_level_list">
+						<?php 
+						$result = mysqli_query($link, "SELECT DISTINCT level FROM skills");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['level'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="languages" class="tabcontent">
+					<h2>Languages</h2>
+					<div><button type="button" onclick="addInput(event, 'languagesTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Language</td><td>Level</td></tr>
+						</thead>
+						<tbody id="languagesTableBody">
+							<?php  
+							$result = mysqli_query($link, "SELECT * FROM languages where person_id='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="languages_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="languages_language[]" placeholder="Language" value="' . $row['language'] . '" list="languages_language_list"></td>
+										<td><input name="languages_level[]" placeholder="Level" value="' . $row['level'] . '" list="languages_level_list"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="languages_language_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT language FROM languages");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['language'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="languages_level_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT level FROM languages");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['level'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="likes" class="tabcontent">
+					<h2>Likes</h2>
+					<div><button type="button" onclick="addInput(event, 'likesTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Status</td><td>Object type</td><td>Object</td></tr>
+						</thead>
+						<tbody id="likesTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM likes where person='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="likes_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="likes_like_status[]" placeholder="Like status" value="' . $row['like_status'] . '" list="likes_like_status_list"></td>
+										<td><input name="likes_object_type[]" placeholder="Object type" value="' . $row['object_type'] . '" list="likes_object_type_list"></td>
+										<td><input name="likes_object[]" placeholder="Object" value="' . $row['object'] . '"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="likes_like_status_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT like_status FROM likes");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['like_status'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="likes_object_types_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT object_type FROM likes");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['object_type'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+				<div id="property" class="tabcontent">
+					<h2>Property</h2>
+					<div><button type="button" onclick="addInput(event, 'propertyTableBody')" class="btn btn-primary">Add more</button></div>
+					<table class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr><td>ID</td><td>Property type</td><td>Property</td></tr>
+						</thead>
+						<tbody id="propertyTableBody">
+							<?php 
+							$result = mysqli_query($link, "SELECT * FROM property where person_id='$id'");
+							$row = mysqli_fetch_array($result);
+							do {
+								echo '<tr>
+										<td><input name="property_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="property_property_type[]" placeholder="Property type" value="' . $row['property_type'] . '" list="property_property_type_list"></td>
+										<td><input name="property_property_name[]" placeholder="Property name" value="' . $row['property_name'] . '"></td>
+									</tr>';
+							} while ($row = mysqli_fetch_array($result));
+							?>
+						</tbody>
+					</table>
+					<datalist id="property_property_type_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT property_type FROM property");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['property_type'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+				</div>
+			</form>
 		</div>
 	</div>
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/footer.php";
-	include_once($path);
+	mysqli_close($link);
+	require_once($path . "/footer.php");
 	?>
 </body>
 </html>

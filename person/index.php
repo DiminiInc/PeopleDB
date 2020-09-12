@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<?php 
 	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/head.php";
-	include_once($path);
+	require_once($path . "/head.php");
 	?>
 	<title>PeopleDB</title>
 	<meta name="description" content="PeopleDB"> 
@@ -17,30 +16,27 @@
 </head>
 <body id="site">
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/header.php";
-	include_once($path);
+	require_once($path . "/header.php");
 	?>
 	<div id="content">
 		<div id="head-section">
 			<?php 
-			$path = $_SERVER['DOCUMENT_ROOT'];
-			$path .= "/connection.php";
-			require_once($path);
-			$link = mysqli_connect($host, $user, $pass, $database) 
-			or die("Error " . mysqli_error($link));
-			$link->set_charset("utf8");
-			if(isset($_GET['id'])) { $id=$_GET['id']; } 
-			$result = mysqli_query($link,"SELECT * FROM person where id='$id'");
-			$myrow = mysqli_fetch_array($result);
-			do{
-				$person_id = $myrow['id'];
-				echo "<div><h1>".$myrow['last_name']." ".$myrow['first_name']." ".$myrow['middle_name']."</h1>";
-				echo "<h4>".$myrow['nickname']." - ".$myrow['acquintance_type']."</h4></div>";
-				echo "<div><a href=\"/person/edit.php?id=$id\"class=\"btn btn-primary btn-lg\">Edit</a></div>";
-			}
-			while($myrow = mysqli_fetch_array($result));
-			mysqli_close($link);
+			require_once($path . "/connection.php");
+			$link = mysqli_connect($host, $user, $pass, $database);
+			mysqli_set_charset($link, "utf8");
+			if (isset($_GET['id'])) { 
+				$id=$_GET['id']; 
+			} 
+			$result = mysqli_query($link, "SELECT * FROM person where id='$id'");
+			$row = mysqli_fetch_assoc($result);
+			$person_id = $row['id'];
+			echo "<div>
+					<h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>
+					<h4>" . $row['nickname'] . " - " . $row['acquintance_type'] . "</h4>
+				</div>
+				<div>
+					<a href=\"/person/edit.php?id=$id\"class=\"btn btn-primary btn-lg\">Edit</a>
+				</div>";
 			?>
 		</div>
 		<div class="data-section">
@@ -61,69 +57,64 @@
 				<table class="table table-striped table-bordered" style="width:100%">
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM person where id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							$mother_id = $myrow['mother'];
-							$father_id = $myrow['father'];
-							$mother = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$mother_id'"));
-							$father = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$father_id'"));
-							echo "<tr><td>Last name</td><td>".$myrow['last_name']."</td></tr>";
-							echo "<tr><td>First name</td><td>".$myrow['first_name']."</td></tr>";
-							echo "<tr><td>Middle name</td><td>".$myrow['middle_name']."</td></tr>";
-							echo "<tr><td>Nickname</td><td>".$myrow['nickname']."</td></tr>";
-							echo "<tr><td>Acquintance type</td><td>".$myrow['acquintance_type']."</td></tr>";
-							echo "<tr><td>Sex</td><td>".$myrow['sex']."</td></tr>";
-							echo "<tr><td>Gender</td><td>".$myrow['gender']."</td></tr>";
-							echo "<tr><td>Birth day</td><td>".$myrow['birth_day']."</td></tr>";
-							echo "<tr><td>Birth month</td><td>".$myrow['birth_month']."</td></tr>";
-							echo "<tr><td>Birth year</td><td>".$myrow['birth_year']."</td></tr>";
-							echo "<tr><td>Birth hour</td><td>".$myrow['birth_hour']."</td></tr>";
-							echo "<tr><td>Birth minute</td><td>".$myrow['birth_minute']."</td></tr>";
-							echo "<tr><td>Relationship status</td><td>".$myrow['relationship_status']."</td></tr>";
-							echo "<tr><td>Height</td><td>".$myrow['height']."</td></tr>";
-							echo "<tr><td>Weight</td><td>".$myrow['weight']."</td></tr>";
-							echo "<tr><td>Home city</td><td>".$myrow['home_city']."</td></tr>";
-							echo "<tr><td>Country</td><td>".$myrow['country']."</td></tr>";
-							echo "<tr><td>City</td><td>".$myrow['city']."</td></tr>";
-							echo "<tr><td>Street</td><td>".$myrow['street']."</td></tr>";
-							echo "<tr><td>Building</td><td>".$myrow['building']."</td></tr>";
-							echo "<tr><td>Floor</td><td>".$myrow['floor']."</td></tr>";
-							echo "<tr><td>Apartment</td><td>".$myrow['apartment']."</td></tr>";
-							echo "<tr onclick='window.location=\"/person/index.php?id=$mother_id\";'><td>Mother</td><td>".$mother['last_name']." ".$mother['first_name']." ".$mother['middle_name']." "."</td></tr>";
-							echo "<tr onclick='window.location=\"/person/index.php?id=$father_id\";'><td>Father</td><td>".$father['last_name']." ".$father['first_name']." ".$father['middle_name']." "."</td></tr>";
-							echo "<tr><td>Religion</td><td>".$myrow['religion']."</td></tr>";
-							echo "<tr><td>Political views</td><td>".$myrow['political_views']."</td></tr>";
-							echo "<tr><td>Personal priority</td><td>".$myrow['personal_priority']."</td></tr>";
-							echo "<tr><td>Import in others</td><td>".$myrow['important_in_others']."</td></tr>";
-							echo "<tr><td>Views on smoking</td><td>".$myrow['views_on_smoking']."</td></tr>";
-							echo "<tr><td>Views on alcohol</td><td>".$myrow['views_on_alcohol']."</td></tr>";
-							echo "<tr><td>Views on drugs</td><td>".$myrow['views_on_drugs']."</td></tr>";
-							echo "<tr><td>Drive license</td><td>".$myrow['drive_license']."</td></tr>";
-							echo "<tr><td>School results</td><td>".$myrow['school_results']."</td></tr>";
-							echo "<tr><td>EGE results</td><td>".$myrow['ege_results']."</td></tr>";
-							echo "<tr><td>University results</td><td>".$myrow['univer_results']."</td></tr>";
-							echo "<tr><td>IQ test</td><td>".$myrow['iq_test']."</td></tr>";
-							echo "<tr><td>Socionic test</td><td>".$myrow['socionic_test']."</td></tr>";
-							echo "<tr><td>Political test</td><td>".$myrow['political_test']."</td></tr>";
-							echo "<tr><td>Bennet test</td><td>".$myrow['bennet_test']."</td></tr>";
-							echo "<tr><td>Hikka test</td><td>".$myrow['hikka_test']."</td></tr>";
-							echo "<tr><td>Death status</td><td>".$myrow['death_status']."</td></tr>";
-							echo "<tr><td>Death day</td><td>".$myrow['death_day']."</td></tr>";
-							echo "<tr><td>Death month</td><td>".$myrow['death_month']."</td></tr>";
-							echo "<tr><td>Death year</td><td>".$myrow['death_year']."</td></tr>";
-							echo "<tr><td>Death hour</td><td>".$myrow['death_hour']."</td></tr>";
-							echo "<tr><td>Death minute</td><td>".$myrow['death_minute']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM person where id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						$mother_id = $row['mother'];
+						$father_id = $row['father'];
+						$mother = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$mother_id'"));
+						$father = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$father_id'"));
+						echo "<tr><td>Last name</td><td>" . $row['last_name'] . "</td></tr>
+							<tr><td>First name</td><td>" . $row['first_name'] . "</td></tr>
+							<tr><td>Middle name</td><td>" . $row['middle_name'] . "</td></tr>
+							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
+							<tr><td>Acquintance type</td><td>" . $row['acquintance_type'] . "</td></tr>
+							<tr><td>Sex</td><td>" . $row['sex'] . "</td></tr>
+							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
+							<tr><td>Birth day</td><td>" . $row['birth_day'] . "</td></tr>
+							<tr><td>Birth month</td><td>" . $row['birth_month'] . "</td></tr>
+							<tr><td>Birth year</td><td>" . $row['birth_year'] . "</td></tr>
+							<tr><td>Birth hour</td><td>" . $row['birth_hour'] . "</td></tr>
+							<tr><td>Birth minute</td><td>" . $row['birth_minute'] . "</td></tr>
+							<tr><td>Relationship status</td><td>" . $row['relationship_status'] . "</td></tr>
+							<tr><td>Height</td><td>" . $row['height'] . "</td></tr>
+							<tr><td>Weight</td><td>" . $row['weight'] . "</td></tr>
+							<tr><td>Home city</td><td>" . $row['home_city'] . "</td></tr>
+							<tr><td>Country</td><td>" . $row['country'] . "</td></tr>
+							<tr><td>City</td><td>" . $row['city'] . "</td></tr>
+							<tr><td>Street</td><td>" . $row['street'] . "</td></tr>
+							<tr><td>Building</td><td>" . $row['building'] . "</td></tr>
+							<tr><td>Floor</td><td>" . $row['floor'] . "</td></tr>
+							<tr><td>Apartment</td><td>" . $row['apartment'] . "</td></tr>
+							<tr onclick='window.location=\"/person/index.php?id=$mother_id\";'>
+								<td>Mother</td>
+								<td>" . $mother['last_name'] . " " . $mother['first_name'] . " " . $mother['middle_name'] . " "."</td>
+							</tr>
+							<tr onclick='window.location=\"/person/index.php?id=$father_id\";'>
+								<td>Father</td>
+								<td>" . $father['last_name'] . " " . $father['first_name'] . " " . $father['middle_name'] . " "."</td>
+							</tr>
+							<tr><td>Religion</td><td>" . $row['religion'] . "</td></tr>
+							<tr><td>Political views</td><td>" . $row['political_views'] . "</td></tr>
+							<tr><td>Personal priority</td><td>" . $row['personal_priority'] . "</td></tr>
+							<tr><td>Import in others</td><td>" . $row['important_in_others'] . "</td></tr>
+							<tr><td>Views on smoking</td><td>" . $row['views_on_smoking'] . "</td></tr>
+							<tr><td>Views on alcohol</td><td>" . $row['views_on_alcohol'] . "</td></tr>
+							<tr><td>Views on drugs</td><td>" . $row['views_on_drugs'] . "</td></tr>
+							<tr><td>Drive license</td><td>" . $row['drive_license'] . "</td></tr>
+							<tr><td>School results</td><td>" . $row['school_results'] . "</td></tr>
+							<tr><td>EGE results</td><td>" . $row['ege_results'] . "</td></tr>
+							<tr><td>University results</td><td>" . $row['univer_results'] . "</td></tr>
+							<tr><td>IQ test</td><td>" . $row['iq_test'] . "</td></tr>
+							<tr><td>Socionic test</td><td>" . $row['socionic_test'] . "</td></tr>
+							<tr><td>Political test</td><td>" . $row['political_test'] . "</td></tr>
+							<tr><td>Bennet test</td><td>" . $row['bennet_test'] . "</td></tr>
+							<tr><td>Hikka test</td><td>" . $row['hikka_test'] . "</td></tr>
+							<tr><td>Death status</td><td>" . $row['death_status'] . "</td></tr>
+							<tr><td>Death day</td><td>" . $row['death_day'] . "</td></tr>
+							<tr><td>Death month</td><td>" . $row['death_month'] . "</td></tr>
+							<tr><td>Death year</td><td>" . $row['death_year'] . "</td></tr>
+							<tr><td>Death hour</td><td>" . $row['death_hour'] . "</td></tr>
+							<tr><td>Death minute</td><td>" . $row['death_minute'] . "</td></tr>";
 						?>
 					</tbody>
 				</table>
@@ -136,20 +127,15 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM contacts where owner='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['account']."</td><td>".$myrow['account_id']."</td><td>".$myrow['status']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM contacts where owner='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['account'] . "</td>
+									<td>" . $row['account_id'] . "</td>
+									<td>" . $row['status'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -162,20 +148,17 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM education where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['type']."</td><td>".$myrow['institution']."</td><td>".$myrow['year_start']."</td><td>".$myrow['year_end']."</td><td>".$myrow['group']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM education where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['type'] . "</td>
+									<td>" . $row['institution'] . "</td>
+									<td>" . $row['year_start'] . "</td>
+									<td>" . $row['year_end'] . "</td>
+									<td>" . $row['group'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -188,20 +171,17 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM army where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['suitablility']."</td><td>".$myrow['unit']."</td><td>".$myrow['year_start']."</td><td>".$myrow['year_end']."</td><td>".$myrow['rank']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['suitablility'] . "</td>
+									<td>" . $row['unit'] . "</td>
+									<td>" . $row['year_start'] . "</td>
+									<td>" . $row['year_end'] . "</td>
+									<td>" . $row['rank'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -214,20 +194,16 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM work where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['company']."</td><td>".$myrow['post']."</td><td>".$myrow['year_start']."</td><td>".$myrow['year_end']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM work where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['company'] . "</td>
+									<td>" . $row['post'] . "</td>
+									<td>" . $row['year_start'] . "</td>
+									<td>" . $row['year_end'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -239,26 +215,26 @@
 						<tr><td>Person 1</td><td>Person 2</td><td>Relation type</td><td>Start year</td><td>Start month</td><td>Start day</td><td>End year</td><td>End month</td><td>End day</td></tr>
 					</thead>
 					<tbody>
-						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM relationship where person_1='$id' or person_2='$id'");
-						$myrow = mysqli_fetch_array($result);
-
-						do{
-							$person_1_id = $myrow['person_1'];
-							$person_1 = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$person_1_id'"));
-							$person_2_id = $myrow['person_2'];
-							$person_2 = mysqli_fetch_array(mysqli_query($link,"SELECT * FROM person where id='$person_2_id'"));
-							echo "<tr><td>".$person_1['last_name']." ".$person_1['first_name']." ".$person_1['middle_name']."</td><td>".$person_2['last_name']." ".$person_2['first_name']." ".$person_2['middle_name']."</td><td>".$myrow['relation_type']."</td><td>".$myrow['year_start']."</td><td>".$myrow['month_start']."</td><td>".$myrow['day_start']."</td><td>".$myrow['year_end']."</td><td>".$myrow['month_end']."</td><td>".$myrow['day_end']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						<?php
+						$result = mysqli_query($link, "SELECT * FROM relationship where person_1='$id' or person_2='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							$person_1_id = $row['person_1'];
+							$person_2_id = $row['person_2'];
+							$person_1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
+							$person_2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
+							echo "<tr>
+									<td>" . $person_1['last_name'] . " " . $person_1['first_name'] . " " . $person_1['middle_name'] . "</td>
+									<td>" . $person_2['last_name'] . " " . $person_2['first_name'] . " " . $person_2['middle_name'] . "</td>
+									<td>" . $row['relation_type'] . "</td>
+									<td>" . $row['year_start'] . "</td>
+									<td>" . $row['month_start'] . "</td>
+									<td>" . $row['day_start'] . "</td>
+									<td>" . $row['year_end'] . "</td>
+									<td>" . $row['month_end'] . "</td>
+									<td>" . $row['day_end'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -271,20 +247,14 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM skills where person='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['skill']."</td><td>".$myrow['level']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM skills where person='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['skill'] . "</td>
+									<td>" . $row['level'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -297,20 +267,14 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM languages where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['language']."</td><td>".$myrow['level']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM languages where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['language'] . "</td>
+									<td>" . $row['level'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -323,20 +287,15 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM likes where person='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['like_status']."</td><td>".$myrow['object_type']."</td><td>".$myrow['object']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM likes where person='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['like_status'] . "</td>
+									<td>" . $row['object_type'] . "</td>
+									<td>" . $row['object'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -349,20 +308,14 @@
 					</thead>
 					<tbody>
 						<?php 
-						$path = $_SERVER['DOCUMENT_ROOT'];
-						$path .= "/connection.php";
-						require_once($path);
-						$link = mysqli_connect($host, $user, $pass, $database) 
-						or die("Error " . mysqli_error($link));
-						$link->set_charset("utf8");
-						if(isset($_GET['id'])) { $id = $_GET['id']; } 
-						$result = mysqli_query($link,"SELECT * FROM property where person_id='$id'");
-						$myrow = mysqli_fetch_array($result);
-						do{
-							echo "<tr><td>".$myrow['property_type']."</td><td>".$myrow['property_name']."</td></tr>";
-						}
-						while($myrow=mysqli_fetch_array($result));
-						mysqli_close($link);
+						$result = mysqli_query($link, "SELECT * FROM property where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['property_type'] . "</td>
+									<td>" . $row['property_name'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
 						?>
 					</tbody>
 				</table>
@@ -370,9 +323,8 @@
 		</div>
 	</div>
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/footer.php";
-	include_once($path);
+	mysqli_close($link);
+	require_once($path . "/footer.php");
 	?>
 </body>
 </html>

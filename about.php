@@ -3,8 +3,7 @@
 <head>
 	<?php 
 	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/head.php";
-	include_once($path);
+	require_once($path . "/head.php");
 	?>
 	<title>About - PeopleDB</title>
 	<meta name="description" content="About - PeopleDB"> 
@@ -16,10 +15,8 @@
 	<meta property="og:description" content="About - PeopleDB" />
 </head>
 <body id="site">
-	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/header.php";
-	include_once($path);
+	<?php
+	require_once($path . "/header.php");
 	?>
 	<div id="about-content">
 		<div id="about-block">
@@ -46,10 +43,8 @@
 			</div>
 		</div>
 	</div>
-	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/footer.php";
-	include_once($path);
+	<?php
+	require_once($path . "/footer.php");
 	?>
 </body>
 </html>

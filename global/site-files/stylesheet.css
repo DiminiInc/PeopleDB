@@ -69,45 +69,30 @@
   src: local('Open Sans ExtraBold'), local('OpenSans-ExtraBold'), url('/global/site-files/fonts/OpenSans-ExtraBold.ttf') format('truetype');
 }
 
-/*#site html, #site body, #site div, #site span, #site h1, #site h2, #site h3, #site h4, #site h5, #site h6, #site p, #site a, #site img, #site b, #site u, #site i, #site ol, #site ul, #site li, #site form, #site label, #site table, #site tbody, #site thead, #site tr, #site th, #site td, #site footer, #site header, #site hgroup {
-	margin: 0;
-	padding: 0;
-	border: 0;
+#site {
+ background-color: #e9e9e9;
+ color: #161616;
+ font-family: 'Open Sans', Tahoma, Sans-Serif;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
 }
 
-#site ol, #site ul {
-	list-style: none;
+#site #header {
+ height: 60px;
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #161616;
+ color: #e9e9e9;
 }
 
-#site table {
-	border-collapse: collapse;
-	border-spacing: 0;
-  }*/
+#site #header img {
+ height: 50px;
+}
 
-  #site {
-   background-color: #e9e9e9;
-   color: #161616;
-   font-family: 'Open Sans', Tahoma, Sans-Serif;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
- }
-
- #site #header {
-   height: 60px;
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #161616;
-   color: #e9e9e9;
- }
-
- #site #header img {
-   height: 50px;
- }
-
- #site #header img:hover{
+#site #header img:hover{
   filter: brightness(1.3);
 }
 
@@ -121,7 +106,7 @@
   font-weight: 700;
 }
 
-#site #footer ul{
+#site #footer ul {
   margin-top: initial;
   margin-bottom: initial;
   padding-inline-start: initial;
@@ -132,12 +117,12 @@
 	padding: 10px;
 }
 
-#site #footer a{
+#site #footer a {
 	color: #e9e9e9;
 	text-decoration: none;
 }
 
-#site #content{
+#site #content {
   width: 95%;
   margin: 0 auto;
 }
@@ -158,11 +143,11 @@ div.dataTables_wrapper {
   border: 1px solid #161616;
 }
 
-#site #content #personsTable tr{
+#site #content #personsTable tr {
   cursor: pointer;
 }
 
-#site #content #head-section{
+#site #content #head-section {
   border-bottom: 5px solid #161616;
   display: flex;
   justify-content: space-between;
@@ -199,7 +184,7 @@ div.dataTables_wrapper {
   color: #161616;
 }
 
-.tablinks{
+.tablinks {
   font-size: larger;
   color: #e9e9e9;
 }
@@ -210,7 +195,7 @@ div.dataTables_wrapper {
   border-top: none;
 }
 
-.tabcontent.active{
+.tabcontent.active {
   display:block;
 }
 
@@ -253,7 +238,7 @@ a {
   color: #161616;
 }
 
-#site #about-content #about-block{
+#site #about-content #about-block {
   max-width: 1000px;
   margin: 20px auto;
   box-shadow: 0px 0px 5px #161616; 
@@ -261,25 +246,25 @@ a {
   background-color: white;
 }
 
-#site #about-content #about-block div{
+#site #about-content #about-block div {
   padding: 20px; 
   border-bottom: 1px solid #161616
 }
 
-#site #about-content #about-block div:first-child img{
+#site #about-content #about-block div:first-child img {
   display: inline-block; 
   height: 50px;
   margin-right: 15px; 
   vertical-align: middle; 
 }
 
-#site #about-content #about-block div:first-child strong{
+#site #about-content #about-block div:first-child strong {
   display: inline-block; 
   font-size: 150%;
   vertical-align: middle; 
 }
 
-#site #about-content #about-block div a{
+#site #about-content #about-block div a {
   color: #161616;
   text-decoration: none;
 }

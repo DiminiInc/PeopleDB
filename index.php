@@ -3,8 +3,7 @@
 <head>
 	<?php 
 	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/head.php";
-	include_once($path);
+	require_once($path . "/head.php");
 	?>
 	<title>PeopleDB</title>
 	<meta name="description" content="PeopleDB"> 
@@ -17,9 +16,7 @@
 </head>
 <body id="site">
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/header.php";
-	include_once($path);
+	require_once($path . "/header.php");
 	?>
 	<div id="content">
 		<div id="add-person">
@@ -39,20 +36,23 @@
 				</thead>
 				<tbody>
 					<?php 
-					$path = $_SERVER['DOCUMENT_ROOT'];
-					$path .= "/connection.php";
-					require_once($path);
-					$link = mysqli_connect($host, $user, $pass, $database) 
-					or die("Error " . mysqli_error($link));
-					$link->set_charset("utf8");
-					$search_string='';
-					$result = mysqli_query($link,"SELECT * FROM person");
-					$myrow = mysqli_fetch_array($result);
+					require_once($path . "/connection.php");
+					$link = mysqli_connect($host, $user, $pass, $database);
+					mysqli_set_charset($link, "utf8");
+					$result = mysqli_query($link, "SELECT * FROM person");
+					$row = mysqli_fetch_assoc($result);
 					do{
-						$person_id = $myrow['id'];
-						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'><td>".$myrow['id']."</td><td>".$myrow['last_name']."</td><td>".$myrow['first_name']."</td><td>".$myrow['middle_name']."</td><td>".$myrow['nickname']."</td><td>".$myrow['acquintance_type']."</td></tr>";
+						$person_id = $row['id'];
+						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'>
+								<td>" . $row['id'] . "</td>
+								<td>" . $row['last_name'] . "</td>
+								<td>" . $row['first_name'] . "</td>
+								<td>" . $row['middle_name'] . "</td>
+								<td>" . $row['nickname'] . "</td>
+								<td>" . $row['acquintance_type'] . "</td>
+							</tr>";
 					}
-					while($myrow = mysqli_fetch_array($result));
+					while($row = mysqli_fetch_assoc($result));
 					mysqli_close($link);
 					?>
 				</tbody>
@@ -60,9 +60,7 @@
 		</div>
 	</div>
 	<?php 
-	$path = $_SERVER['DOCUMENT_ROOT'];
-	$path .= "/footer.php";
-	include_once($path);
+	require_once($path . "/footer.php");
 	?>
 </body>
 </html>
