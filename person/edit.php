@@ -427,7 +427,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="contacts_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="contacts_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="contacts_account[]" placeholder="Account type" value="' . $row['account'] . '" list="contacts_account_list"></td>
 										<td><input name="contacts_account_id[]" placeholder="Account ID" value="' . $row['account_id'] . '"></td>
 										<td><input name="contacts_status[]" placeholder="Status" value="' . $row['status'] . '" list="contacts_status_list"></td></tr>';
@@ -467,7 +467,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="education_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="education_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="education_type[]" placeholder="Type" value="' . $row['type'] . '" list="education_type_list"></td>
 										<td><input name="education_institution[]" placeholder="Institution" value="' . $row['institution'] . '" list="education_institution_list"></td>
 										<td><input name="education_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
@@ -519,8 +519,8 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
 										<td><input name="army_suitablility[]" placeholder="Suitability" value="' . $row['suitablility'] . '"></td>
+										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="army_unit[]" placeholder="Unit" value="' . $row['unit'] . '" list="army_unit_list"></td>
 										<td><input name="army_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
 										<td><input name="army_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
@@ -562,7 +562,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="work_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="work_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="work_company[]" placeholder="Company" value="' . $row['company'] . '" list="work_company_list"></td>
 										<td><input name="work_post[]" placeholder="Post" value="' . $row['post'] . '" list="work_post_list"></td>
 										<td><input name="work_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
@@ -608,7 +608,7 @@
 								$person_1 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
 								$person_2 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
 								echo '<tr>
-										<td><input name="relationship_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="relationship_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="relationship_person_1[]" placeholder="Person 1" value="' . $person_1['id'] . ". " . $person_1['last_name'] . " " . $person_1['first_name'] . " " . $person_1['middle_name'] . '" list="relationship_person_list"></td>
 										<td><input name="relationship_person_2[]" placeholder="Person 2" value="' . $person_2['id'] . ". " . $person_2['last_name'] . " " . $person_2['first_name'] . " " . $person_2['middle_name'] . '" list="relationship_person_list"></td>
 										<td><input name="relationship_relation_type[]" placeholder="Relation type" value="' . $row['relation_type'] . '" list="relationship_relation_type_list"></td>
@@ -655,7 +655,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="skills_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="skills_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="skills_skill[]" placeholder="Skill" value="' . $row['skill'] . '" list="skills_skill_list"></td>
 										<td><input name="skills_level[]" placeholder="Level" value="' . $row['level'] . '" list="skills_level_list"></td>
 									</tr>';
@@ -695,7 +695,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="languages_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="languages_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="languages_language[]" placeholder="Language" value="' . $row['language'] . '" list="languages_language_list"></td>
 										<td><input name="languages_level[]" placeholder="Level" value="' . $row['level'] . '" list="languages_level_list"></td>
 									</tr>';
@@ -735,7 +735,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="likes_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="likes_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="likes_like_status[]" placeholder="Like status" value="' . $row['like_status'] . '" list="likes_like_status_list"></td>
 										<td><input name="likes_object_type[]" placeholder="Object type" value="' . $row['object_type'] . '" list="likes_object_type_list"></td>
 										<td><input name="likes_object[]" placeholder="Object" value="' . $row['object'] . '"></td>
@@ -776,7 +776,7 @@
 							$row = mysqli_fetch_array($result);
 							do {
 								echo '<tr>
-										<td><input name="property_ids[]" placeholder="ID" value="' . $row['id'] . '"></td>
+										<td><input name="property_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="property_property_type[]" placeholder="Property type" value="' . $row['property_type'] . '" list="property_property_type_list"></td>
 										<td><input name="property_property_name[]" placeholder="Property name" value="' . $row['property_name'] . '"></td>
 									</tr>';
