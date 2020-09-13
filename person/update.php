@@ -12,7 +12,12 @@ $person_first_name = $_POST['person_first_name'];
 $person_middle_name = $_POST['person_middle_name']; 
 $person_nickname = $_POST['person_nickname']; 
 $person_acquintance_type = $_POST['person_acquintance_type']; 
-$person_sex = $_POST['person_sex']; 
+if ($_POST['person_sex'] == "Мужской") {
+	$person_sex = 1;
+} 
+if ($_POST['person_sex'] == "Женский") {
+	$person_sex = 0;
+}
 $person_gender = $_POST['person_gender']; 
 $person_birth_day = $_POST['person_birth_day']; 
 $person_birth_month = $_POST['person_birth_month']; 
@@ -274,9 +279,17 @@ $army_year_start = $_POST['army_year_start'];
 $army_year_end = $_POST['army_year_end'];
 $army_rank = $_POST['army_rank'];
 for ($i = 0; $i < count($army_suitablility); $i++) {
+	error_log("message" . $army_suitablility[$i]);
+	if ($army_suitablility[$i] == "Годен") {
+		$army_suitability = 1;
+	} 
+	if ($army_suitablility[$i] == "Не годен") {
+		$army_suitability = 0;
+	}
+	error_log("message2" . $army_suitablility[$i]);
 	if ($army_ids[$i]) {
 		$result = $result AND mysqli_query($link, "UPDATE army set 
-													suitablility = '$army_suitablility[$i]'
+													suitablility = '$army_suitability'
 													, unit = '$army_unit[$i]'
 													, year_start = '$army_year_start[$i]'
 													, year_end = '$army_year_end[$i]'
@@ -292,7 +305,7 @@ for ($i = 0; $i < count($army_suitablility); $i++) {
 													, rank) 
 													values 
 													('$id'
-													,'$army_suitablility[$i]'
+													,'$army_suitability'
 													, '$army_unit[$i]'
 													, '$army_year_start[$i]'
 													, '$army_year_end[$i]'

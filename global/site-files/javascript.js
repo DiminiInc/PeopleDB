@@ -44,7 +44,7 @@ function addInput(e, tabName) {
 		case 'armyTableBody':
 			innerText+=`<tr>
 							<td><input name="army_ids[]" placeholder="ID" class="login-input-label" disabled></td>
-							<td><input name="army_suitablility[]" placeholder="Suitability" class="login-input-label"></td>
+							<td><input name="army_suitablility[]" placeholder="Suitability" class="login-input-label" list="army_suitability_list"></td>
 							<td><input name="army_unit[]" placeholder="Unit" class="login-input-label" list="army_unit_list"></td>
 							<td><input name="army_year_start[]" placeholder="Year start" class="login-input-label"></td>
 							<td><input name="army_year_end[]" placeholder="Year end" class="login-input-label"></td>

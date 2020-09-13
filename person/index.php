@@ -63,12 +63,13 @@
 						$father_id = $row['father'];
 						$mother = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$mother_id'"));
 						$father = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$father_id'"));
+						$sex = $row['sex'] == 1 ? "Мужской" : "Женский";
 						echo "<tr><td>Last name</td><td>" . $row['last_name'] . "</td></tr>
 							<tr><td>First name</td><td>" . $row['first_name'] . "</td></tr>
 							<tr><td>Middle name</td><td>" . $row['middle_name'] . "</td></tr>
 							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
 							<tr><td>Acquintance type</td><td>" . $row['acquintance_type'] . "</td></tr>
-							<tr><td>Sex</td><td>" . $row['sex'] . "</td></tr>
+							<tr><td>Sex</td><td>" . $sex . "</td></tr>
 							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
 							<tr><td>Birth day</td><td>" . $row['birth_day'] . "</td></tr>
 							<tr><td>Birth month</td><td>" . $row['birth_month'] . "</td></tr>
@@ -174,8 +175,9 @@
 						$result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
 						$row = mysqli_fetch_assoc($result);
 						do {
+							$suitability = $row['suitablility'] == 0 ? "Не годен" : "Годен";
 							echo "<tr>
-									<td>" . $row['suitablility'] . "</td>
+									<td>" . $suitability . "</td>
 									<td>" . $row['unit'] . "</td>
 									<td>" . $row['year_start'] . "</td>
 									<td>" . $row['year_end'] . "</td>
