@@ -62,7 +62,13 @@
 							$father_id = $row['father'];
 							$mother = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$mother_id'"));
 							$father = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$father_id'"));
-							$sex = $row['sex'] == 1 ? "Мужской" : "Женский";
+							if ($row['sex'] === '1') {
+								$sex = "Мужской";
+							} elseif ($row['sex'] === '0') {
+								$sex = "Женский";
+							} else {
+								$sex = "";
+							}
 							echo '<tr>
 									<td>Last name</td>
 									<td><input name="person_last_name" placeholder="Last name" value="' . $row['last_name'] . '"></td>
@@ -520,7 +526,13 @@
 							$result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
 							$row = mysqli_fetch_array($result);
 							do {
-								$suitability = $row['suitablility'] == 0 ? "Не годен" : "Годен";
+								if ($row['suitablility'] === '1') {
+									$suitability = "Годен";
+								} elseif ($row['suitablility'] === '0') {
+									$suitability = "Не годен";
+								} else {
+									$suitability = "";
+								}
 								echo '<tr>
 										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
 										<td><input name="army_suitablility[]" placeholder="Suitability" value="' . $suitability . '" list="army_suitability_list"></td>
@@ -538,7 +550,7 @@
 						$result = mysqli_query($link, "SELECT DISTINCT suitablility FROM army");
 						$row = mysqli_fetch_array($result);
 						do {
-							$suitability = $row['suitablility'] == 0 ? "Не годен" : "Годен";	
+							$suitability = $row['suitablility'] === 0 ? "Не годен" : "Годен";	
 							echo "<option value='" . $suitability . "'>";
 						} while ($row = mysqli_fetch_array($result));
 						?>

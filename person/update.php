@@ -12,21 +12,50 @@ $person_first_name = $_POST['person_first_name'];
 $person_middle_name = $_POST['person_middle_name']; 
 $person_nickname = $_POST['person_nickname']; 
 $person_acquintance_type = $_POST['person_acquintance_type']; 
-if ($_POST['person_sex'] == "Мужской") {
+if ($_POST['person_sex'] === "Мужской") {
 	$person_sex = 1;
-} 
-if ($_POST['person_sex'] == "Женский") {
+} else if ($_POST['person_sex'] === "Женский") {
 	$person_sex = 0;
+} else {
+	$person_sex = "NULL";
 }
-$person_gender = $_POST['person_gender']; 
-$person_birth_day = $_POST['person_birth_day']; 
-$person_birth_month = $_POST['person_birth_month']; 
-$person_birth_year = $_POST['person_birth_year']; 
-$person_birth_hour = $_POST['person_birth_hour']; 
-$person_birth_minute = $_POST['person_birth_minute']; 
+$person_gender = $_POST['person_gender'];
+if ($_POST['person_birth_day'] === "") {
+	$person_birth_day = "NULL";
+} else {
+	$person_birth_day = $_POST['person_birth_day'];
+}
+if ($_POST['person_birth_month'] === "") {
+	$person_birth_month = "NULL";
+} else {
+	$person_birth_month = $_POST['person_birth_month'];
+}
+if ($_POST['person_birth_year'] === "") {
+	$person_birth_year = "NULL";
+} else {
+	$person_birth_year = $_POST['person_birth_year'];
+}
+if ($_POST['person_birth_hour'] === "") {
+	$person_birth_hour = "NULL";
+} else {
+	$person_birth_hour = $_POST['person_birth_hour'];
+}
+if ($_POST['person_birth_minute'] === "") {
+	$person_birth_minute = "NULL";
+} else {
+	$person_birth_minute = $_POST['person_birth_minute'];
+}
 $person_relationship_status = $_POST['person_relationship_status']; 
-$person_height = (!empty($_POST['person_height']) ? $_POST['person_height'] : NULL); 
-$person_weight = $_POST['person_weight']; 
+if ($_POST['person_height'] === "") {
+	$person_height = "NULL";
+} else {
+	$person_height = $_POST['person_height'];
+}
+if ($_POST['person_weight'] === "") {
+	$person_weight = "NULL";
+} else {
+	$person_weight = $_POST['person_weight'];
+}
 $person_home_city = $_POST['person_home_city']; 
 $person_country = $_POST['person_country']; 
 $person_city = $_POST['person_city']; 
@@ -73,16 +102,16 @@ if ($id != 0) {
 									, middle_name = '$person_middle_name'
 									, nickname = '$person_nickname'
 									, acquintance_type = '$person_acquintance_type'
-									, sex = '$person_sex'
+									, sex = $person_sex
 									, gender = '$person_gender'
-									, birth_day = '$person_birth_day'
-									, birth_month = '$person_birth_month'
-									, birth_year = '$person_birth_year'
-									, birth_hour = '$person_birth_hour'
-									, birth_minute = '$person_birth_minute'
+									, birth_day = $person_birth_day
+									, birth_month = $person_birth_month
+									, birth_year = $person_birth_year
+									, birth_hour = $person_birth_hour
+									, birth_minute = $person_birth_minute
 									, relationship_status = '$person_relationship_status'
-									, height = '$person_height'
-									, weight = '$person_weight'
+									, height = $person_height
+									, weight = $person_weight
 									, home_city = '$person_home_city'
 									, country = '$person_country'
 									, city = '$person_city'
@@ -168,23 +197,23 @@ if ($id != 0) {
 									, '$person_middle_name'
 									, '$person_nickname'
 									, '$person_acquintance_type'
-									, '$person_sex'
+									, $person_sex
 									, '$person_gender'
-									,'$person_birth_day'
-									, '$person_birth_month'
-									, '$person_birth_year'
-									, '$person_birth_hour'
-									, '$person_birth_minute'
+									, $person_birth_day
+									, $person_birth_month
+									, $person_birth_year
+									, $person_birth_hour
+									, $person_birth_minute
 									, '$person_relationship_status'
-									, '$person_height'
-									, '$person_weight'
+									, $person_height
+									, $person_weight
 									, '$person_home_city'
 									, '$person_country'
 									, '$person_city'
 									, '$person_street'
 									, '$person_building'
 									, '$person_floor'
-									,'$person_apartment'
+									, '$person_apartment'
 									, $person_mother
 									, $person_father
 									, '$person_religion'
@@ -246,12 +275,18 @@ $education_year_start = $_POST['education_year_start'];
 $education_year_end = $_POST['education_year_end'];
 $education_group = $_POST['education_group'];
 for ($i = 0; $i < count($education_type); $i++) {
+	if ($education_year_start[$i] === "") {
+		$education_year_start[$i] = "NULL";
+	}
+	if ($education_year_end[$i] === "") {
+		$education_year_end[$i] = "NULL";
+	}
 	if ($education_ids[$i]) {
 		$result = $result AND mysqli_query($link, "UPDATE education set 
 													type = '$education_type[$i]'
 													, institution = '$education_institution[$i]'
-													, year_start = '$education_year_start[$i]'
-													, year_end = '$education_year_end[$i]'
+													, year_start = $education_year_start[$i]
+													, year_end = $education_year_end[$i]
 													, `group` = '$education_group[$i]' 
 													where id = '$education_ids[$i]'");
 	} else {
@@ -266,33 +301,38 @@ for ($i = 0; $i < count($education_type); $i++) {
 													('$id'
 													, '$education_type[$i]'
 													, '$education_institution[$i]'
-													, '$education_year_start[$i]'
-													, '$education_year_end[$i]'
+													, $education_year_start[$i]
+													, $education_year_end[$i]
 													,'$education_group[$i]')");
 	}
 }
 
 $army_ids = $_POST['army_ids'];
-$army_suitablility = $_POST['army_suitablility'];
+$army_suitablility = $_POST['army_suitablility'] == "" ? "NULL" : $_POST['army_suitablility'];
 $army_unit = $_POST['army_unit'];
 $army_year_start = $_POST['army_year_start'];
 $army_year_end = $_POST['army_year_end'];
 $army_rank = $_POST['army_rank'];
 for ($i = 0; $i < count($army_suitablility); $i++) {
-	error_log("message" . $army_suitablility[$i]);
-	if ($army_suitablility[$i] == "Годен") {
+	if ($army_suitablility[$i] === "Годен") {
 		$army_suitability = 1;
-	} 
-	if ($army_suitablility[$i] == "Не годен") {
+	} elseif ($army_suitablility[$i] === "Не годен") {
 		$army_suitability = 0;
+	} else {
+		$army_suitability = "NULL";
 	}
-	error_log("message2" . $army_suitablility[$i]);
+	if ($army_year_start[$i] === "") {
+		$army_year_start[$i] = "NULL";
+	}
+	if ($army_year_end[$i] === "") {
+		$army_year_end[$i] = "NULL";
+	}
 	if ($army_ids[$i]) {
 		$result = $result AND mysqli_query($link, "UPDATE army set 
-													suitablility = '$army_suitability'
+													suitablility = $army_suitability
 													, unit = '$army_unit[$i]'
-													, year_start = '$army_year_start[$i]'
-													, year_end = '$army_year_end[$i]'
+													, year_start = $army_year_start[$i]
+													, year_end = $army_year_end[$i]
 													, rank = '$army_rank[$i]' 
 													where id = '$army_ids[$i]'");
 	} else {
@@ -305,10 +345,10 @@ for ($i = 0; $i < count($army_suitablility); $i++) {
 													, rank) 
 													values 
 													('$id'
-													,'$army_suitability'
+													, $army_suitability
 													, '$army_unit[$i]'
-													, '$army_year_start[$i]'
-													, '$army_year_end[$i]'
+													, $army_year_start[$i]
+													, $army_year_end[$i]
 													, '$army_rank[$i]')");
 	}
 }
@@ -319,12 +359,18 @@ $work_post = $_POST['work_post'];
 $work_year_start = $_POST['work_year_start'];
 $work_year_end = $_POST['work_year_end'];
 for ($i = 0; $i < count($work_company); $i++) {
+	if ($work_year_start[$i] === "") {
+		$work_year_start[$i] = "NULL";
+	}
+	if ($work_year_end[$i] === "") {
+		$work_year_end[$i] = "NULL";
+	}
 	if ($work_ids[$i]) {
 		$result = $result AND mysqli_query($link, "UPDATE work set 
 													company = '$work_company[$i]'
 													, post = '$work_post[$i]'
-													, year_start = '$work_year_start[$i]'
-													, year_end = '$work_year_end[$i]' 
+													, year_start = $work_year_start[$i]
+													, year_end = $work_year_end[$i] 
 													where id = '$work_ids[$i]'");
 	} else {
 		$result = $result AND mysqli_query($link, "INSERT into work 
@@ -337,8 +383,8 @@ for ($i = 0; $i < count($work_company); $i++) {
 													('$id'
 													, '$work_company[$i]'
 													, '$work_post[$i]'
-													, '$work_year_start[$i]'
-													, '$work_year_end[$i]')");
+													, $work_year_start[$i]
+													, $work_year_end[$i])");
 	}
 }
 
@@ -363,15 +409,21 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
 	} else {
 		$relationship_person_2[$i] = "NULL";
 	} 
+	if ($relationship_year_start[$i] === "") {
+		$relationship_year_start[$i] = "NULL";
+	}
+	if ($relationship_year_end[$i] === "") {
+		$relationship_year_end[$i] = "NULL";
+	}
 	if ($relationship_ids[$i]) {
 		$result = $result AND mysqli_query($link, "UPDATE relationship set 
 													person_1 = $relationship_person_1[$i]
 													, person_2 = $relationship_person_2[$i]
 													, relation_type = '$relationship_relation_type[$i]'
-													, year_start = '$relationship_year_start[$i]'
+													, year_start = $relationship_year_start[$i]
 													, month_start = '$relationship_month_start[$i]'
 													, day_start = '$relationship_day_start[$i]'
-													, year_end = '$relationship_year_end[$i]'
+													, year_end = $relationship_year_end[$i]
 													, month_end = '$relationship_month_end[$i]'
 													, day_end = '$relationship_day_end[$i]' 
 													where id = '$relationship_ids[$i]'");
@@ -390,10 +442,10 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
 													($relationship_person_1[$i]
 													, $relationship_person_2[$i]
 													, '$relationship_relation_type[$i]'
-													, '$relationship_year_start[$i]'
+													, $relationship_year_start[$i]
 													, '$relationship_month_start[$i]'
 													, '$relationship_day_start[$i]'
-													, '$relationship_year_end[$i]'
+													, $relationship_year_end[$i]
 													, '$relationship_month_end[$i]'
 													, '$relationship_day_end[$i]' )");
 	}

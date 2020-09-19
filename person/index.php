@@ -63,7 +63,13 @@
 						$father_id = $row['father'];
 						$mother = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$mother_id'"));
 						$father = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$father_id'"));
-						$sex = $row['sex'] == 1 ? "Мужской" : "Женский";
+						if ($row['sex'] === '1') {
+							$sex = "Мужской";
+						} elseif ($row['sex'] === '0') {
+							$sex = "Женский";
+						} else {
+							$sex = "";
+						}
 						echo "<tr><td>Last name</td><td>" . $row['last_name'] . "</td></tr>
 							<tr><td>First name</td><td>" . $row['first_name'] . "</td></tr>
 							<tr><td>Middle name</td><td>" . $row['middle_name'] . "</td></tr>
@@ -175,7 +181,13 @@
 						$result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
 						$row = mysqli_fetch_assoc($result);
 						do {
-							$suitability = $row['suitablility'] == 0 ? "Не годен" : "Годен";
+							if ($row['suitablility'] === '1') {
+								$suitability = "Годен";
+							} elseif ($row['suitablility'] === '0') {
+								$suitability = "Не годен";
+							} else {
+								$suitability = "";
+							}
 							echo "<tr>
 									<td>" . $suitability . "</td>
 									<td>" . $row['unit'] . "</td>
