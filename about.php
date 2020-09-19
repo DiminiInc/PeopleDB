@@ -24,7 +24,7 @@
 				<img src="/global/site-files/peopledb-logo.svg"><strong>PeopleDB</strong>
 			</div>
 			<div>
-				<strong>Version: </strong><span id="version">0.0.1</span>
+				<strong>Version: </strong><span id="version">0.1</span>
 			</div>
 			<div>
 				<strong>Development: </strong>Yaskovich Dmitry
