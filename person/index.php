@@ -71,28 +71,17 @@
 						} else {
 							$sex = "";
 						}
-						echo "<tr><td>Last name</td><td>" . $row['last_name'] . "</td></tr>
-							<tr><td>First name</td><td>" . $row['first_name'] . "</td></tr>
-							<tr><td>Middle name</td><td>" . $row['middle_name'] . "</td></tr>
+						echo "<tr><td>Name</td><td>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</td></tr>
 							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
 							<tr><td>Acquintance type</td><td>" . $row['acquintance_type'] . "</td></tr>
 							<tr><td>Sex</td><td>" . $sex . "</td></tr>
 							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
-							<tr><td>Birth day</td><td>" . $row['birth_day'] . "</td></tr>
-							<tr><td>Birth month</td><td>" . $row['birth_month'] . "</td></tr>
-							<tr><td>Birth year</td><td>" . $row['birth_year'] . "</td></tr>
-							<tr><td>Birth hour</td><td>" . $row['birth_hour'] . "</td></tr>
-							<tr><td>Birth minute</td><td>" . $row['birth_minute'] . "</td></tr>
+							<tr><td>Birth date</td><td>" . $row['birth_day'] . "." . $row['birth_month'] . "." . $row['birth_year'] . " " . $row['birth_hour'] . ":" . $row['birth_minute'] ."</td></tr>
 							<tr><td>Relationship status</td><td>" . $row['relationship_status'] . "</td></tr>
 							<tr><td>Height</td><td>" . $row['height'] . "</td></tr>
 							<tr><td>Weight</td><td>" . $row['weight'] . "</td></tr>
 							<tr><td>Home city</td><td>" . $row['home_city'] . "</td></tr>
-							<tr><td>Country</td><td>" . $row['country'] . "</td></tr>
-							<tr><td>City</td><td>" . $row['city'] . "</td></tr>
-							<tr><td>Street</td><td>" . $row['street'] . "</td></tr>
-							<tr><td>Building</td><td>" . $row['building'] . "</td></tr>
-							<tr><td>Floor</td><td>" . $row['floor'] . "</td></tr>
-							<tr><td>Apartment</td><td>" . $row['apartment'] . "</td></tr>
+							<tr><td>Address</td><td>" . $row['country'] . ", " . $row['city'] . ", " . $row['street'] . ", д. " . $row['building'] . ", этаж " . $row['floor'] . ", кв. " . $row['apartment'] . "</td></tr>
 							<tr onclick='window.location=\"/person/index.php?id=$mother_id\";'>
 								<td>Mother</td>
 								<td>" . $mother['last_name'] . " " . $mother['first_name'] . " " . $mother['middle_name'] . " "."</td>
@@ -118,11 +107,7 @@
 							<tr><td>Bennet test</td><td>" . $row['bennet_test'] . "</td></tr>
 							<tr><td>Hikka test</td><td>" . $row['hikka_test'] . "</td></tr>
 							<tr><td>Death status</td><td>" . $row['death_status'] . "</td></tr>
-							<tr><td>Death day</td><td>" . $row['death_day'] . "</td></tr>
-							<tr><td>Death month</td><td>" . $row['death_month'] . "</td></tr>
-							<tr><td>Death year</td><td>" . $row['death_year'] . "</td></tr>
-							<tr><td>Death hour</td><td>" . $row['death_hour'] . "</td></tr>
-							<tr><td>Death minute</td><td>" . $row['death_minute'] . "</td></tr>";
+							<tr><td>Death date</td><td>" . $row['death_day'] . "." . $row['death_month'] . "." . $row['death_year'] . " " . $row['death_hour'] . ":" . $row['death_minute'] ."</td></tr>";
 						?>
 					</tbody>
 				</table>
