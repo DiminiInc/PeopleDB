@@ -147,6 +147,10 @@ div.dataTables_wrapper {
   cursor: pointer;
 }
 
+#site #content #personsTable img {
+  height: 100px;
+}
+
 #site #content #head-section {
   border-bottom: 5px solid #161616;
   display: flex;
@@ -193,6 +197,25 @@ div.dataTables_wrapper {
   display: none;
   padding: 6px 12px;
   border-top: none;
+}
+
+.grid-container {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: 50% 50%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container img{
+  max-height: 900px;
+  max-width: 100%;
 }
 
 .tabcontent.active {

@@ -51,6 +51,7 @@
 				<button class="tablinks" onclick="loginTabsChange(event, 'languages')">Languages</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'likes')">Likes</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'property')">Property</button>
+				<button class="tablinks" onclick="loginTabsChange(event, 'photos')">Photos</button>
 			</div>
 			<div id="general" class="tabcontent active">
 				<h2>General</h2>
@@ -333,6 +334,20 @@
 						?>
 					</tbody>
 				</table>
+			</div>
+			<div id="photos" class="tabcontent">
+				<h2>Photos</h2>
+				<div class="grid-container">
+					<?php 
+					$i = 0;
+					while(file_exists($path . "/images/" . $person_id . "/" . $i . ".jpg")) {
+					  echo "<div>
+					  			<img src=\"/images/" . $person_id . "/" . $i . ".jpg\" alt=\"Person photo\">
+				  			</div>";
+					  $i++;
+					}
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
