@@ -135,6 +135,15 @@ div.dataTables_wrapper {
   border: 1px solid #161616;
 }
 
+th:nth-child(2) {
+  max-width: 150px;
+}
+
+td:nth-child(2) {
+  max-width: 150px;
+  text-align: center;
+}
+
 .table thead th {
   border-bottom: 2px solid #161616;
 }
