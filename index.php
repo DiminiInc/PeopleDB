@@ -33,6 +33,7 @@
 						<th>Middle Name</th>
 						<th>Nickname</th>
 						<th>Acquintance type</th>
+						<th>Alternative names</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,19 +43,26 @@
 					mysqli_set_charset($link, "utf8");
 					$result = mysqli_query($link, "SELECT * FROM person");
 					$row = mysqli_fetch_assoc($result);
-					do{
+					do {
 						$person_id = $row['id'];
-						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'>
-								<td>" . $row['id'] . "</td>
+						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'>";
+						echo "	<td>" . $row['id'] . "</td>
 								<td>" . (file_exists($path . "/images/" . $row['id'] . "/0.jpg") ? "<img src=\"/images/" . $row['id'] . "/0.jpg\" alt=\"Person photo\">" : "") . "</td>
 								<td>" . $row['last_name'] . "</td>
 								<td>" . $row['first_name'] . "</td>
 								<td>" . $row['middle_name'] . "</td>
 								<td>" . $row['nickname'] . "</td>
 								<td>" . $row['acquintance_type'] . "</td>
+								<td>";
+						$sub_result = mysqli_query($link, "SELECT * FROM alternative_last_names WHERE person_id=" . $row['id']);
+						$sub_row = mysqli_fetch_assoc($sub_result);
+						echo $sub_row['last_name'];
+						while ($sub_row = mysqli_fetch_assoc($sub_result)) {
+							echo ", " . $sub_row['last_name'];
+						}
+						echo "	</td>
 							</tr>";
-					}
-					while($row = mysqli_fetch_assoc($result));
+					} while ($row = mysqli_fetch_assoc($result));
 					mysqli_close($link);
 					?>
 				</tbody>

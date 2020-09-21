@@ -51,6 +51,7 @@
 				<button class="tablinks" onclick="loginTabsChange(event, 'languages')">Languages</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'likes')">Likes</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'property')">Property</button>
+				<button class="tablinks" onclick="loginTabsChange(event, 'alternativeNames')">Alternative names</button>
 				<button class="tablinks" onclick="loginTabsChange(event, 'photos')">Photos</button>
 			</div>
 			<div id="general" class="tabcontent active">
@@ -314,6 +315,26 @@
 							echo "<tr>
 									<td>" . $row['property_type'] . "</td>
 									<td>" . $row['property_name'] . "</td>
+								</tr>";
+						} while ($row = mysqli_fetch_assoc($result));
+						?>
+					</tbody>
+				</table>
+			</div>
+			<div id="alternativeNames" class="tabcontent">
+				<h2>Alternative names</h2>
+				<table class="table table-striped table-bordered" style="width:100%">
+					<thead>
+						<tr><td>Name</td><td>Type</td></tr>
+					</thead>
+					<tbody>
+						<?php 
+						$result = mysqli_query($link, "SELECT * FROM alternative_last_names where person_id='$id'");
+						$row = mysqli_fetch_assoc($result);
+						do {
+							echo "<tr>
+									<td>" . $row['last_name'] . "</td>
+									<td>" . $row['change_type'] . "</td>
 								</tr>";
 						} while ($row = mysqli_fetch_assoc($result));
 						?>

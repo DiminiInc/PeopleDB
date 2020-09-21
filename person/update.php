@@ -539,6 +539,27 @@ for ($i = 0; $i < count($property_property_type); $i++) {
 	}
 }
 
+$alternative_names_ids = $_POST['alternative_names_ids'];
+$alternative_names_name = $_POST['alternative_names_name'];
+$alternative_names_type = $_POST['alternative_names_type'];
+for ($i = 0; $i < count($alternative_names_name); $i++) {
+	if ($alternative_names_ids[$i]) {
+		$result = $result AND mysqli_query($link, "UPDATE alternative_last_names set 
+													last_name = '$alternative_names_name[$i]'
+													, change_type = '$alternative_names_type[$i]' 
+													where id = '$alternative_names_ids[$i]'");
+	} else {
+		$result = $result AND mysqli_query($link, "INSERT into alternative_last_names 
+													(person_id
+													, last_name
+													, change_type) 
+													values 
+													('$id'
+													, '$alternative_names_name[$i]'
+													, '$alternative_names_type[$i]')");
+	}
+}
+
 mysqli_close($link);
 if ($result == 'true') { 
 	echo'<span style = "color: red; font-weight: bold;">OK</span>'; 

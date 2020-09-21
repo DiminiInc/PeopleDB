@@ -103,6 +103,13 @@ function addInput(e, tabName) {
 							<td><input name="property_property_name[]" placeholder="Property name" class="login-input-label"></td>
 						</tr>`
 			break;
+		case 'alternativeNamesTableBody':
+			innerText+=`<tr>
+							<td><input name="alternative_names_ids[]" placeholder="ID" class="login-input-label" disabled></td>
+							<td><input name="alternative_names_name[]" placeholder="Name" class="login-input-label"></td>
+							<td><input name="alternative_names_type[]" placeholder="Type" class="login-input-label" list="alternative_names_type_list"></td>
+						</tr>`
+			break;
 	}
 	parent.innerHTML+=innerText;
 }
