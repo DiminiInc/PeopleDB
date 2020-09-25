@@ -27,7 +27,7 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Photo</th>
+						<th class="td-image">Photo</th>
 						<th>Last Name</th>
 						<th>First Name</th>
 						<th>Middle Name</th>
@@ -47,7 +47,7 @@
 						$person_id = $row['id'];
 						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'>";
 						echo "	<td>" . $row['id'] . "</td>
-								<td>" . (file_exists($path . "/images/" . $row['id'] . "/0.jpg") ? "<img src=\"/images/" . $row['id'] . "/0.jpg\" alt=\"Person photo\">" : "") . "</td>
+								<td class=\"td-image\">" . (file_exists($path . "/images/" . $row['id'] . "/0.jpg") ? "<img src=\"/images/" . $row['id'] . "/0.jpg\" alt=\"Person photo\">" : "") . "</td>
 								<td>" . $row['last_name'] . "</td>
 								<td>" . $row['first_name'] . "</td>
 								<td>" . $row['middle_name'] . "</td>

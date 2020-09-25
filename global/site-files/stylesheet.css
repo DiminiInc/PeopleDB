@@ -135,11 +135,11 @@ div.dataTables_wrapper {
   border: 1px solid #161616;
 }
 
-#personsTable th:nth-child(2) {
+th.td-image {
   max-width: 150px;
 }
 
-#personsTable td:nth-child(2) {
+td.td-image {
   max-width: 150px;
   text-align: center;
 }
