@@ -230,7 +230,7 @@
 								</tr>';
 							echo '<tr>
 									<td>Hikka test</td>
-									<td><input name="person_hikka_test" placeholder="Hikka test" value=""' . $row['hikka_test'] . '"></td>
+									<td><input name="person_hikka_test" placeholder="Hikka test" value="' . $row['hikka_test'] . '"></td>
 								</tr>';
 							echo '<tr>
 									<td>Death status</td>
