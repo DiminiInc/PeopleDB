@@ -94,7 +94,7 @@
 							<tr><td>Religion</td><td>" . $row['religion'] . "</td></tr>
 							<tr><td>Political views</td><td>" . $row['political_views'] . "</td></tr>
 							<tr><td>Personal priority</td><td>" . $row['personal_priority'] . "</td></tr>
-							<tr><td>Import in others</td><td>" . $row['important_in_others'] . "</td></tr>
+							<tr><td>Important in others</td><td>" . $row['important_in_others'] . "</td></tr>
 							<tr><td>Views on smoking</td><td>" . $row['views_on_smoking'] . "</td></tr>
 							<tr><td>Views on alcohol</td><td>" . $row['views_on_alcohol'] . "</td></tr>
 							<tr><td>Views on drugs</td><td>" . $row['views_on_drugs'] . "</td></tr>
