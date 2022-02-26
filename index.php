@@ -45,7 +45,7 @@
 					$row = mysqli_fetch_assoc($result);
 					do {
 						$person_id = $row['id'];
-						echo "<tr onclick='window.location=\"/person/index.php?id=$person_id\";'>";
+						echo "<tr onclick='window.open(\"/person/index.php?id=$person_id\", \"_blank\");'>";
 						echo "	<td>" . $row['id'] . "</td>
 								<td class=\"td-image\">" . (file_exists($path . "/images/" . $row['id'] . "/0.jpg") ? "<img src=\"/images/" . $row['id'] . "/0.jpg\" alt=\"Person photo\">" : "") . "</td>
 								<td>" . $row['last_name'] . "</td>
