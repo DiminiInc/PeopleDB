@@ -99,7 +99,11 @@
 							echo '<tr>
 									<td>Gender</td>
 									<td><input name="person_gender" placeholder="Gender" value="' . $row['gender'] . '" list="person_gender_list"></td>
-								</tr>';;
+								</tr>';
+							echo '<tr>
+									<td>Orientation</td>
+									<td><input name="person_orientation" placeholder="Orientation" value="' . $row['orientation'] . '" list="person_orientation_list"></td>
+								</tr>';
 							echo '<tr>
 									<td>Birth day</td>
 									<td><input name="person_birth_day" placeholder="Birth day" value="' . $row['birth_day'] . '"></td>
@@ -284,6 +288,15 @@
 						$row = mysqli_fetch_array($result);
 						do {	
 							echo "<option value='" . $row['gender'] . "'>";
+						} while ($row = mysqli_fetch_array($result));
+						?>
+					</datalist>
+					<datalist id="person_orientation_list">
+						<?php
+						$result = mysqli_query($link, "SELECT DISTINCT orientation FROM person");
+						$row = mysqli_fetch_array($result);
+						do {	
+							echo "<option value='" . $row['orientation'] . "'>";
 						} while ($row = mysqli_fetch_array($result));
 						?>
 					</datalist>

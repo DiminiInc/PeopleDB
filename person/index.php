@@ -77,6 +77,7 @@
 							<tr><td>Acquintance type</td><td>" . $row['acquintance_type'] . "</td></tr>
 							<tr><td>Sex</td><td>" . $sex . "</td></tr>
 							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
+							<tr><td>Orientation</td><td>" . $row['orientation'] . "</td></tr>
 							<tr><td>Birth date</td><td>" . $row['birth_day'] . "." . $row['birth_month'] . "." . $row['birth_year'] . " " . $row['birth_hour'] . ":" . $row['birth_minute'] ."</td></tr>
 							<tr><td>Relationship status</td><td>" . $row['relationship_status'] . "</td></tr>
 							<tr><td>Height</td><td>" . $row['height'] . "</td></tr>

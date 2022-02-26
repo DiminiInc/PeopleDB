@@ -20,6 +20,7 @@ if ($_POST['person_sex'] === "Мужской") {
 	$person_sex = "NULL";
 }
 $person_gender = $_POST['person_gender'];
+$person_orientation = $_POST['person_orientation'];
 if ($_POST['person_birth_day'] === "") {
 	$person_birth_day = "NULL";
 } else {
@@ -104,6 +105,7 @@ if ($id != 0) {
 									, acquintance_type = '$person_acquintance_type'
 									, sex = $person_sex
 									, gender = '$person_gender'
+									, orientation = '$person_orientation'
 									, birth_day = $person_birth_day
 									, birth_month = $person_birth_month
 									, birth_year = $person_birth_year
@@ -153,6 +155,7 @@ if ($id != 0) {
 									, acquintance_type
 									, sex
 									, gender
+									, orientation
 									, birth_day
 									, birth_month
 									, birth_year
@@ -199,6 +202,7 @@ if ($id != 0) {
 									, '$person_acquintance_type'
 									, $person_sex
 									, '$person_gender'
+									, '$person_orientation'
 									, $person_birth_day
 									, $person_birth_month
 									, $person_birth_year
