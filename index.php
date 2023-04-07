@@ -56,7 +56,7 @@
 								<td>";
 						$sub_result = mysqli_query($link, "SELECT * FROM alternative_last_names WHERE person_id=" . $row['id']);
 						$sub_row = mysqli_fetch_assoc($sub_result);
-						echo $sub_row['last_name'];
+						echo isset($sub_row) ? $sub_row['last_name'] : '';
 						while ($sub_row = mysqli_fetch_assoc($sub_result)) {
 							echo ", " . $sub_row['last_name'];
 						}
