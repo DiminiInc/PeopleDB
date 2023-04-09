@@ -7,11 +7,11 @@ $(document).ready(function () {
 
 function loginTabsChange(evt, tabName) {
     let i, tabContent, tabLinks;
-    tabContent = document.getElementsByClassName("tabcontent");
+    tabContent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabContent.length; i++) {
         tabContent[i].style.display = "none";
     }
-    tabLinks = document.getElementsByClassName("tablinks");
+    tabLinks = document.getElementsByClassName("tab-links");
     for (i = 0; i < tabLinks.length; i++) {
         tabLinks[i].className = tabLinks[i].className.replace(" active", "");
     }

@@ -43,20 +43,20 @@ require_once($path . "/header.php");
     </div>
     <div class="data-section">
         <div class="tab">
-            <button class="tablinks active" onclick="loginTabsChange(event, 'general')">General</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'contacts')">Contacts</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'education')">Education</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'army')">Army</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'work')">Work</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'relationship')">Relationship</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'skills')">Skills</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'languages')">Languages</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'likes')">Likes</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'property')">Property</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'alternativeNames')">Alternative names</button>
-            <button class="tablinks" onclick="loginTabsChange(event, 'photos')">Photos</button>
+            <button class="tab-links active" onclick="loginTabsChange(event, 'general')">General</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'contacts')">Contacts</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'education')">Education</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'army')">Army</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'work')">Work</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'relationship')">Relationship</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'skills')">Skills</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'languages')">Languages</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'likes')">Likes</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'property')">Property</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'alternativeNames')">Alternative names</button>
+            <button class="tab-links" onclick="loginTabsChange(event, 'photos')">Photos</button>
         </div>
-        <div id="general" class="tabcontent active">
+        <div id="general" class="tab-content active">
             <h2>General</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <tbody>
@@ -118,7 +118,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="contacts" class="tabcontent">
+        <div id="contacts" class="tab-content">
             <h2>Contacts</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -145,7 +145,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="education" class="tabcontent">
+        <div id="education" class="tab-content">
             <h2>Education</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -176,7 +176,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="army" class="tabcontent">
+        <div id="army" class="tab-content">
             <h2>Army</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -214,7 +214,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="work" class="tabcontent">
+        <div id="work" class="tab-content">
             <h2>Work</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -243,7 +243,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="relationship" class="tabcontent">
+        <div id="relationship" class="tab-content">
             <h2>Relationship</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -286,7 +286,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="skills" class="tabcontent">
+        <div id="skills" class="tab-content">
             <h2>Skills</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -311,7 +311,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="languages" class="tabcontent">
+        <div id="languages" class="tab-content">
             <h2>Languages</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -336,7 +336,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="likes" class="tabcontent">
+        <div id="likes" class="tab-content">
             <h2>Likes</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -363,7 +363,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="property" class="tabcontent">
+        <div id="property" class="tab-content">
             <h2>Property</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -388,7 +388,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="alternativeNames" class="tabcontent">
+        <div id="alternativeNames" class="tab-content">
             <h2>Alternative names</h2>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
@@ -413,7 +413,7 @@ require_once($path . "/header.php");
                 </tbody>
             </table>
         </div>
-        <div id="photos" class="tabcontent">
+        <div id="photos" class="tab-content">
             <h2>Photos</h2>
             <div class="grid-container">
                 <?php

@@ -206,12 +206,12 @@ td.td-image {
     color: #161616;
 }
 
-.tablinks {
+.tab-links {
     font-size: larger;
     color: #e9e9e9;
 }
 
-.tabcontent {
+.tab-content {
     display: none;
     padding: 6px 12px;
     border-top: none;
@@ -236,7 +236,7 @@ td.td-image {
     max-width: 100%;
 }
 
-.tabcontent.active {
+.tab-content.active {
     display: block;
 }
 
