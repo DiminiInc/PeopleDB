@@ -81,7 +81,7 @@
 #site {
     background-color: #e9e9e9;
     color: #161616;
-    font-family: 'Open Sans', Tahoma, Sans-Serif;
+    font-family: 'Open Sans', Tahoma, Sans-Serif, serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
