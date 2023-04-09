@@ -282,7 +282,7 @@ a {
 #site #about-content #about-block {
     max-width: 1000px;
     margin: 20px auto;
-    box-shadow: 0px 0px 5px #161616;
+    box-shadow: 0 0 5px #161616;
     font-size: 150%;
     background-color: white;
 }
