@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 function loginTabsChange(evt, tabName) {
-    var i, tabcontent, tablinks;
+    let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
@@ -20,9 +20,9 @@ function loginTabsChange(evt, tabName) {
 }
 
 function addInput(e, tabName) {
-    var parent = document.getElementById(tabName);
-    var childRow = document.createElement("tr");
-    var innerText = '';
+    let parent = document.getElementById(tabName);
+    let childRow = document.createElement("tr");
+    let innerText = '';
     switch (tabName) {
         case 'contactsTableBody':
             innerText = `<td><input name="contacts_ids[]" placeholder="ID" class="login-input-label" disabled></td>
