@@ -11,7 +11,7 @@
     <meta property="og:title" content="PeopleDB"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="http://peopledb.localhost"/>
-    <meta property="og:image" content="./asocialnetwork.png"/>
+    <meta property="og:image" content="./peopledb.png"/>
     <meta property="og:description" content="PeopleDB"/>
 </head>
 <body id="site">
