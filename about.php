@@ -11,7 +11,7 @@
     <meta property="og:title" content="About - PeopleDB"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="http://peopledb.localhost"/>
-    <meta property="og:image" content="./peopledb.png"/>
+    <meta property="og:image" content="/global/site-files/peopledb-logo.png"/>
     <meta property="og:description" content="About - PeopleDB"/>
 </head>
 <body id="site">

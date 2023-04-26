@@ -7,6 +7,8 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
+echo(json_encode($_POST));
+
 $person_last_name = $_POST['person_last_name'];
 $person_first_name = $_POST['person_first_name'];
 $person_middle_name = $_POST['person_middle_name'];
@@ -420,7 +422,7 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
         $relationship_year_end[$i] = "NULL";
     }
     if ($relationship_ids[$i]) {
-        $result = $result and mysqli_query($link, "UPDATE relationship set 
+        $result = $result and mysqli_query($link, "UPDATE relationship set
 													person_1 = $relationship_person_1[$i]
 													, person_2 = $relationship_person_2[$i]
 													, relation_type = '$relationship_relation_type[$i]'
@@ -429,10 +431,10 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
 													, day_start = '$relationship_day_start[$i]'
 													, year_end = $relationship_year_end[$i]
 													, month_end = '$relationship_month_end[$i]'
-													, day_end = '$relationship_day_end[$i]' 
+													, day_end = '$relationship_day_end[$i]'
 													where id = '$relationship_ids[$i]'");
     } else {
-        $result = $result and mysqli_query($link, "INSERT into relationship 
+        $result = $result and mysqli_query($link, "INSERT into relationship
 													(person_1
 													, person_2
 													, relation_type
@@ -441,8 +443,8 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
 													, day_start
 													, year_end
 													, month_end
-													, day_end) 
-													values 
+													, day_end)
+													values
 													($relationship_person_1[$i]
 													, $relationship_person_2[$i]
 													, '$relationship_relation_type[$i]'
