@@ -21,7 +21,9 @@ require_once($path . "/header.php");
 <div id="about-content">
     <div id="about-block">
         <div>
-            <img src="/global/site-files/peopledb-logo.svg"><strong>PeopleDB</strong>
+            <img src="/global/site-files/peopledb-logo.svg"
+                 alt="PeopleDB logo">
+            <strong>PeopleDB</strong>
         </div>
         <div>
             <strong>Version: </strong><span id="version">0.1.3</span>
@@ -39,9 +41,11 @@ require_once($path . "/header.php");
             <strong>Support: </strong><u><a href="mailto:support@dimini.tk">support@dimini.tk</a></u>
         </div>
         <div>
-            <strong>&#169; <a
-                        href="https://dimini.tk/?utm_source=peopledb&amp;utm_medium=software&amp;utm_campaign=peopledb_about">Dimini
-                    Inc.</a>, <?php echo date('Y') ?></strong>
+            <strong>
+                &#169; <a
+                    href="https://dimini.tk/?utm_source=peopledb&amp;utm_medium=software&amp;utm_campaign=peopledb_about">
+                    Dimini Inc.</a>, <?php echo date('Y') ?>
+            </strong>
         </div>
     </div>
 </div>
