@@ -314,15 +314,15 @@ for ($i = 0; $i < count($education_type); $i++) {
 }
 
 $army_ids = $_POST['army_ids'];
-$army_suitablility = $_POST['army_suitablility'] == "" ? "NULL" : $_POST['army_suitablility'];
+$army_suitability = $_POST['army_suitability'] == "" ? "NULL" : $_POST['army_suitability'];
 $army_unit = $_POST['army_unit'];
 $army_year_start = $_POST['army_year_start'];
 $army_year_end = $_POST['army_year_end'];
 $army_rank = $_POST['army_rank'];
-for ($i = 0; $i < count($army_suitablility); $i++) {
-    if ($army_suitablility[$i] === "Годен") {
+for ($i = 0; $i < count($army_suitability); $i++) {
+    if ($army_suitability[$i] === "Годен") {
         $army_suitability = 1;
-    } elseif ($army_suitablility[$i] === "Не годен") {
+    } elseif ($army_suitability[$i] === "Не годен") {
         $army_suitability = 0;
     } else {
         $army_suitability = "NULL";

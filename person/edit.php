@@ -637,7 +637,7 @@ require_once($path . "/header.php");
                             }
                             echo '<tr>
 										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="army_suitablility[]" placeholder="Suitability" value="' . $suitability . '" list="army_suitability_list"></td>
+										<td><input name="army_suitability[]" placeholder="Suitability" value="' . $suitability . '" list="army_suitability_list"></td>
 										<td><input name="army_unit[]" placeholder="Unit" value="' . $row['unit'] . '" list="army_unit_list"></td>
 										<td><input name="army_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
 										<td><input name="army_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
