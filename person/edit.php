@@ -34,7 +34,7 @@ require_once($path . "/header.php");
         if (!is_null($row)) {
             $person_id = $row['id'];
             echo "<div><h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>";
-            echo "<h4>" . $row['nickname'] . " - " . $row['acquintance_type'] . "</h4></div>";
+            echo "<h4>" . $row['nickname'] . " - " . $row['acquaintance_type'] . "</h4></div>";
             echo "<div><button name='submit' type='submit' value='Update data' form='extForm' class='btn btn-primary btn-lg'>Update</button></div>";
         }
         ?>
@@ -92,7 +92,7 @@ require_once($path . "/header.php");
                         echo '<tr>
 									<td>Acquintance type</td>
 									<td>
-										<input name="person_acquintance_type" placeholder="Acquintance type" value="' . $row['acquintance_type'] . '" list="person_acquintance_type_list">
+										<input name="person_acquaintance_type" placeholder="Acquintance type" value="' . $row['acquaintance_type'] . '" list="person_acquaintance_type_list">
 									</td>
 								</tr>';
                         echo '<tr>
@@ -267,13 +267,13 @@ require_once($path . "/header.php");
                     ?>
                     </tbody>
                 </table>
-                <datalist id="person_acquintance_type_list">
+                <datalist id="person_acquaintance_type_list">
                     <?php
-                    $result = mysqli_query($link, "SELECT DISTINCT acquintance_type FROM person");
+                    $result = mysqli_query($link, "SELECT DISTINCT acquaintance_type FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['acquintance_type'] . "'>";
+                            echo "<option value='" . $row['acquaintance_type'] . "'>";
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>

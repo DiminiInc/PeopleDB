@@ -107,3 +107,14 @@ Launch XAMPP and re-/start Apache and MySQL.
 
 Open localhost (or any name you could have setup at step 2.1., e.g. `peopledb.localhost`) and you are ready to go
 
+### 4. Update
+
+#### 4.1. Update code
+
+Download project files and replace the one you have with the new ones
+
+#### 4.2. Update SQL data
+
+Import all migrations files `migration/migration-YYYY-MM-DD-vX-X-X-X.sql` which were added after the release you were
+using through SQL tab of XAMPP's phpMyAdmin
+

@@ -33,7 +33,7 @@ require_once($path . "/header.php");
             $person_id = $row['id'];
             echo "<div>
 					<h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>
-					<h4>" . $row['nickname'] . " - " . $row['acquintance_type'] . "</h4>
+					<h4>" . $row['nickname'] . " - " . $row['acquaintance_type'] . "</h4>
 				</div>
 				<div>
 					<a href=\"/person/edit.php?id=$id\"class=\"btn btn-primary btn-lg\">Edit</a>
@@ -77,7 +77,7 @@ require_once($path . "/header.php");
                     }
                     echo "<tr><td>Name</td><td>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</td></tr>
 							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
-							<tr><td>Acquintance type</td><td>" . $row['acquintance_type'] . "</td></tr>
+							<tr><td>Acquintance type</td><td>" . $row['acquaintance_type'] . "</td></tr>
 							<tr><td>Sex</td><td>" . $sex . "</td></tr>
 							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
 							<tr><td>Orientation</td><td>" . $row['orientation'] . "</td></tr>

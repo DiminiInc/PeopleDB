@@ -13,7 +13,7 @@ $person_last_name = $_POST['person_last_name'];
 $person_first_name = $_POST['person_first_name'];
 $person_middle_name = $_POST['person_middle_name'];
 $person_nickname = $_POST['person_nickname'];
-$person_acquintance_type = $_POST['person_acquintance_type'];
+$person_acquaintance_type = $_POST['person_acquaintance_type'];
 if ($_POST['person_sex'] === "Мужской") {
     $person_sex = 1;
 } else if ($_POST['person_sex'] === "Женский") {
@@ -104,7 +104,7 @@ if ($id != 0) {
 									, first_name = '$person_first_name'
 									, middle_name = '$person_middle_name'
 									, nickname = '$person_nickname'
-									, acquintance_type = '$person_acquintance_type'
+									, acquaintance_type = '$person_acquaintance_type'
 									, sex = $person_sex
 									, gender = '$person_gender'
 									, orientation = '$person_orientation'
@@ -154,7 +154,7 @@ if ($id != 0) {
 									, first_name
 									, middle_name
 									, nickname
-									, acquintance_type
+									, acquaintance_type
 									, sex
 									, gender
 									, orientation
@@ -201,7 +201,7 @@ if ($id != 0) {
 									, '$person_first_name'
 									, '$person_middle_name'
 									, '$person_nickname'
-									, '$person_acquintance_type'
+									, '$person_acquaintance_type'
 									, $person_sex
 									, '$person_gender'
 									, '$person_orientation'

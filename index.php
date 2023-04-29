@@ -52,7 +52,7 @@ require_once($path . "/header.php");
 								<td>" . $row['first_name'] . "</td>
 								<td>" . $row['middle_name'] . "</td>
 								<td>" . $row['nickname'] . "</td>
-								<td>" . $row['acquintance_type'] . "</td>
+								<td>" . $row['acquaintance_type'] . "</td>
 								<td>";
                 $sub_result = mysqli_query($link, "SELECT * FROM alternative_last_names WHERE person_id=" . $row['id']);
                 $sub_row = mysqli_fetch_assoc($sub_result);
