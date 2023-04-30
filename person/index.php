@@ -77,7 +77,7 @@ require_once($path . "/header.php");
                     }
                     echo "<tr><td>Name</td><td>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</td></tr>
 							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
-							<tr><td>Acquintance type</td><td>" . $row['acquaintance_type'] . "</td></tr>
+							<tr><td>Acquaintance type</td><td>" . $row['acquaintance_type'] . "</td></tr>
 							<tr><td>Sex</td><td>" . $sex . "</td></tr>
 							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
 							<tr><td>Orientation</td><td>" . $row['orientation'] . "</td></tr>

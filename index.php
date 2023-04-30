@@ -32,7 +32,7 @@ require_once($path . "/header.php");
                 <th>First Name</th>
                 <th>Middle Name</th>
                 <th>Nickname</th>
-                <th>Acquintance type</th>
+                <th>Acquaintance type</th>
                 <th>Alternative names</th>
             </tr>
             </thead>

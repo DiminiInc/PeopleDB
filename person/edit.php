@@ -90,9 +90,9 @@ require_once($path . "/header.php");
 									<td><input name="person_nickname" placeholder="Nickname" value="' . $row['nickname'] . '"></td>
 								</tr>';
                         echo '<tr>
-									<td>Acquintance type</td>
+									<td>Acquaintance type</td>
 									<td>
-										<input name="person_acquaintance_type" placeholder="Acquintance type" value="' . $row['acquaintance_type'] . '" list="person_acquaintance_type_list">
+										<input name="person_acquaintance_type" placeholder="Acquaintance type" value="' . $row['acquaintance_type'] . '" list="person_acquaintance_type_list">
 									</td>
 								</tr>';
                         echo '<tr>
