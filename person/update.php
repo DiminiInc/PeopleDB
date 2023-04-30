@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-echo(json_encode($_POST));
+//echo(json_encode($_POST));
 
 $person_last_name = $_POST['person_last_name'];
 $person_first_name = $_POST['person_first_name'];

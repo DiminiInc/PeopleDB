@@ -44,24 +44,32 @@ require_once($path . "/header.php");
             $result = mysqli_query($link, "SELECT * FROM person");
             $row = mysqli_fetch_assoc($result);
             do {
-                $person_id = $row['id'];
-                echo "<tr onclick='window.open(\"/person/index.php?id=$person_id\", \"_blank\");'>";
-                echo "	<td>" . $row['id'] . "</td>
-								<td class=\"td-image\">" . (file_exists($path . "/images/" . $row['id'] . "/0.jpg") ? "<img src=\"/images/" . $row['id'] . "/0.jpg\" alt=\"Person photo\">" : "") . "</td>
-								<td>" . $row['last_name'] . "</td>
-								<td>" . $row['first_name'] . "</td>
-								<td>" . $row['middle_name'] . "</td>
-								<td>" . $row['nickname'] . "</td>
-								<td>" . $row['acquaintance_type'] . "</td>
-								<td>";
-                $sub_result = mysqli_query($link, "SELECT * FROM alternative_last_names WHERE person_id=" . $row['id']);
-                $sub_row = mysqli_fetch_assoc($sub_result);
-                echo isset($sub_row) ? $sub_row['last_name'] : '';
-                while ($sub_row = mysqli_fetch_assoc($sub_result)) {
-                    echo ", " . $sub_row['last_name'];
-                }
-                echo "	</td>
-							</tr>";
+                ?>
+                <tr onclick='window.open("/person/index.php?id=<?php echo $row['id'] ?>", "_blank");'>
+                    <td> <?php echo $row['id'] ?></td>
+                    <td class="td-image">
+                        <?php if (file_exists($path . "/images/" . $row['id'] . "/0.jpg")) { ?>
+                            <img src="/images/<?php echo $row['id'] ?>/0.jpg" alt="Person photo">
+                        <?php } ?>
+                    </td>
+                    <td> <?php echo $row['last_name'] ?></td>
+                    <td> <?php echo $row['first_name'] ?></td>
+                    <td> <?php echo $row['middle_name'] ?></td>
+                    <td> <?php echo $row['nickname'] ?></td>
+                    <td> <?php echo $row['acquaintance_type'] ?></td>
+                    <td>
+                        <?php
+                        $sub_result = mysqli_query($link,
+                            "SELECT * FROM alternative_last_names WHERE person_id=" . $row['id']);
+                        $sub_row = mysqli_fetch_assoc($sub_result);
+                        echo isset($sub_row) ? $sub_row['last_name'] : '';
+                        while ($sub_row = mysqli_fetch_assoc($sub_result)) {
+                            echo ", " . $sub_row['last_name'];
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <?php
             } while ($row = mysqli_fetch_assoc($result));
             mysqli_close($link);
             ?>
