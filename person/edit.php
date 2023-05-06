@@ -628,9 +628,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            if ($row['suitablility'] === '1') {
+                            if ($row['suitability'] === '1') {
                                 $suitability = "Годен";
-                            } elseif ($row['suitablility'] === '0') {
+                            } elseif ($row['suitability'] === '0') {
                                 $suitability = "Не годен";
                             } else {
                                 $suitability = "";
@@ -650,11 +650,11 @@ require_once($path . "/header.php");
                 </table>
                 <datalist id="army_suitability_list">
                     <?php
-                    $result = mysqli_query($link, "SELECT DISTINCT suitablility FROM army");
+                    $result = mysqli_query($link, "SELECT DISTINCT suitability FROM army");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            $suitability = $row['suitablility'] === 0 ? "Не годен" : "Годен";
+                            $suitability = $row['suitability'] === 0 ? "Не годен" : "Годен";
                             echo "<option value='" . $suitability . "'>";
                         } while ($row = mysqli_fetch_array($result));
                     }

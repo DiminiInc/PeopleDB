@@ -335,7 +335,7 @@ for ($i = 0; $i < count($army_suitability); $i++) {
     }
     if ($army_ids[$i]) {
         $result = $result and mysqli_query($link, "UPDATE army set 
-													suitablility = $army_suitability
+													suitability = $army_suitability
 													, unit = '$army_unit[$i]'
 													, year_start = $army_year_start[$i]
 													, year_end = $army_year_end[$i]
@@ -344,7 +344,7 @@ for ($i = 0; $i < count($army_suitability); $i++) {
     } else {
         $result = $result and mysqli_query($link, "INSERT into army 
 													(person_id
-													, suitablility
+													, suitability
 													, unit
 													, year_start
 													, year_end

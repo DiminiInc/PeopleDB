@@ -42,14 +42,14 @@ CREATE TABLE `alternative_last_names` (
 -- Table structure for table `army`
 --
 
-CREATE TABLE `army` (
-  `id` int(11) NOT NULL,
-  `person_id` int(11) DEFAULT NULL,
-  `suitablility` int(11) DEFAULT NULL,
-  `unit` varchar(300) DEFAULT NULL,
-  `year_start` int(11) DEFAULT NULL,
-  `year_end` int(11) DEFAULT NULL,
-  `rank` varchar(300) DEFAULT NULL
+CREATE TABLE `army`(
+                     `id`          int(11) NOT NULL,
+                     `person_id`   int(11)      DEFAULT NULL,
+                     `suitability` int(11)      DEFAULT NULL,
+                     `unit`        varchar(300) DEFAULT NULL,
+                     `year_start`  int(11)      DEFAULT NULL,
+                     `year_end`    int(11)      DEFAULT NULL,
+                     `rank`        varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

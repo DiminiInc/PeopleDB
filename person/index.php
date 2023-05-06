@@ -194,9 +194,9 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        if ($row['suitablility'] === '1') {
+                        if ($row['suitability'] === '1') {
                             $suitability = "Годен";
-                        } elseif ($row['suitablility'] === '0') {
+                        } elseif ($row['suitability'] === '0') {
                             $suitability = "Не годен";
                         } else {
                             $suitability = "";
