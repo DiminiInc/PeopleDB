@@ -31,15 +31,17 @@ require_once($path . "/header.php");
         $row = mysqli_fetch_assoc($result);
         if (!is_null($row)) {
             $person_id = $row['id'];
-            echo "<div>
-					<h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>
-					<h4>" . $row['nickname'] . " - " . $row['acquaintance_type'] . "</h4>
-				</div>
-				<div>
-					<a href=\"/person/edit.php?id=$id\"class=\"btn btn-primary btn-lg\">Edit</a>
-				</div>";
-        }
-        ?>
+            ?>
+            <div>
+                <h1><?php echo $row['last_name'] ?>&#32;
+                    <?php echo $row['first_name'] ?>&#32;
+                    <?php echo $row['middle_name'] ?></h1>
+                <h4><?php echo $row['nickname'] ?> - <?php echo $row['acquaintance_type'] ?></h4>
+            </div>
+            <div>
+                <a href="/person/edit.php?id=<?php echo $row['id'] ?>" class="btn btn-primary btn-lg">Edit</a>
+            </div>
+        <?php } ?>
     </div>
     <div class="data-section">
         <div class="tab">
@@ -75,46 +77,157 @@ require_once($path . "/header.php");
                     } else {
                         $sex = "";
                     }
-                    echo "<tr><td>Name</td><td>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</td></tr>
-							<tr><td>Nickname</td><td>" . $row['nickname'] . "</td></tr>
-							<tr><td>Acquaintance type</td><td>" . $row['acquaintance_type'] . "</td></tr>
-							<tr><td>Sex</td><td>" . $sex . "</td></tr>
-							<tr><td>Gender</td><td>" . $row['gender'] . "</td></tr>
-							<tr><td>Orientation</td><td>" . $row['orientation'] . "</td></tr>
-							<tr><td>Birth date</td><td>" . $row['birth_day'] . "." . $row['birth_month'] . "." . $row['birth_year'] . " " . $row['birth_hour'] . ":" . $row['birth_minute'] . "</td></tr>
-							<tr><td>Relationship status</td><td>" . $row['relationship_status'] . "</td></tr>
-							<tr><td>Height</td><td>" . $row['height'] . "</td></tr>
-							<tr><td>Weight</td><td>" . $row['weight'] . "</td></tr>
-							<tr><td>Home city</td><td>" . $row['home_city'] . "</td></tr>
-							<tr><td>Address</td><td>" . $row['country'] . ", " . $row['city'] . ", " . $row['street'] . ", д. " . $row['building'] . ", этаж " . $row['floor'] . ", кв. " . $row['apartment'] . "</td></tr>
-							<tr onclick='window.location=\"/person/index.php?id=$mother_id\";'>
-								<td>Mother</td>
-								<td>" . ($mother ? $mother['last_name'] : '') . " " . ($mother ? $mother['first_name'] : '') . " " . ($mother ? $mother['middle_name'] : '') . " " . "</td>
-							</tr>
-							<tr onclick='window.location=\"/person/index.php?id=$father_id\";'>
-								<td>Father</td>
-								<td>" . ($father ? $father['last_name'] : '') . " " . ($father ? $father['first_name'] : '') . " " . ($father ? $father['middle_name'] : '') . " " . "</td>
-							</tr>
-							<tr><td>Religion</td><td>" . $row['religion'] . "</td></tr>
-							<tr><td>Political views</td><td>" . $row['political_views'] . "</td></tr>
-							<tr><td>Personal priority</td><td>" . $row['personal_priority'] . "</td></tr>
-							<tr><td>Important in others</td><td>" . $row['important_in_others'] . "</td></tr>
-							<tr><td>Views on smoking</td><td>" . $row['views_on_smoking'] . "</td></tr>
-							<tr><td>Views on alcohol</td><td>" . $row['views_on_alcohol'] . "</td></tr>
-							<tr><td>Views on drugs</td><td>" . $row['views_on_drugs'] . "</td></tr>
-							<tr><td>Drive license</td><td>" . $row['drive_license'] . "</td></tr>
-							<tr><td>School results</td><td>" . $row['school_results'] . "</td></tr>
-							<tr><td>EGE results</td><td>" . $row['ege_results'] . "</td></tr>
-							<tr><td>University results</td><td>" . $row['univer_results'] . "</td></tr>
-							<tr><td>IQ test</td><td>" . $row['iq_test'] . "</td></tr>
-							<tr><td>Socionic test</td><td>" . $row['socionic_test'] . "</td></tr>
-							<tr><td>Political test</td><td>" . $row['political_test'] . "</td></tr>
-							<tr><td>Bennet test</td><td>" . $row['bennet_test'] . "</td></tr>
-							<tr><td>Hikka test</td><td>" . $row['hikka_test'] . "</td></tr>
-							<tr><td>Death status</td><td>" . $row['death_status'] . "</td></tr>
-							<tr><td>Death date</td><td>" . $row['death_day'] . "." . $row['death_month'] . "." . $row['death_year'] . " " . $row['death_hour'] . ":" . $row['death_minute'] . "</td></tr>";
-                }
-                ?>
+                    ?>
+                    <tr>
+                        <td>Name</td>
+                        <td>
+                            <?php echo $row['last_name'] ?>&#32;
+                            <?php echo $row['first_name'] ?>&#32;
+                            <?php echo $row['middle_name'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nickname</td>
+                        <td><?php echo $row['nickname'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Acquaintance type</td>
+                        <td><?php echo $row['acquaintance_type'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Sex</td>
+                        <td><?php echo $sex ?></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td><?php echo $row['gender'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Orientation</td>
+                        <td><?php echo $row['orientation'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Birth date</td>
+                        <td>
+                            <?php echo $row['birth_day'] ?>.<?php echo $row['birth_month'] ?>.
+                            <?php echo $row['birth_year'] ?>&#32;
+                            <?php echo $row['birth_hour'] ?>:<?php echo $row['birth_minute'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Relationship status</td>
+                        <td><?php echo $row['relationship_status'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td><?php echo $row['height'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td><?php echo $row['weight'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Home city</td>
+                        <td><?php echo $row['home_city'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>
+                            <?php echo $row['country'] ?>,&#32;<?php echo $row['city'] ?>,&#32;
+                            <?php echo $row['street'] ?>,&#32;д.&#32;<?php echo $row['building'] ?>,&#32;этаж&#32;
+                            <?php echo $row['floor'] ?>,&#32;кв.&#32;<?php echo $row['apartment'] ?>
+                        </td>
+                    </tr>
+                    <tr onclick='window.location="/person/index.php?id=<?php echo $mother_id ?>";'>
+                        <td>Mother</td>
+                        <td><?php echo $mother ? $mother['last_name'] : '' ?>&#32;
+                            <?php echo $mother ? $mother['first_name'] : '' ?>&#32;
+                            <?php echo $mother ? $mother['middle_name'] : '' ?>
+                        </td>
+                    </tr>
+                    <tr onclick='window.location="/person/index.php?id=<?php echo $father_id ?>";'>
+                        <td>Father</td>
+                        <td><?php echo $father ? $father['last_name'] : '' ?>&#32;
+                            <?php echo $father ? $father['first_name'] : '' ?>&#32;
+                            <?php echo $father ? $father['middle_name'] : '' ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Religion</td>
+                        <td><?php echo $row['religion'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Political views</td>
+                        <td><?php echo $row['political_views'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Personal priority</td>
+                        <td><?php echo $row['personal_priority'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Important in others</td>
+                        <td><?php echo $row['important_in_others'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Views on smoking</td>
+                        <td><?php echo $row['views_on_smoking'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Views on alcohol</td>
+                        <td><?php echo $row['views_on_alcohol'] ?>"</td>
+                    </tr>
+                    <tr>
+                        <td>Views on drugs</td>
+                        <td><?php echo $row['views_on_drugs'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Drive license</td>
+                        <td><?php echo $row['drive_license'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>School results</td>
+                        <td><?php echo $row['school_results'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>EGE results</td>
+                        <td><?php echo $row['ege_results'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>University results</td>
+                        <td><?php echo $row['univer_results'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>IQ test</td>
+                        <td><?php echo $row['iq_test'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Socionic test</td>
+                        <td><?php echo $row['socionic_test'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Political test</td>
+                        <td><?php echo $row['political_test'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Bennet test</td>
+                        <td><?php echo $row['bennet_test'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Hikka test</td>
+                        <td><?php echo $row['hikka_test'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Death status</td>
+                        <td><?php echo $row['death_status'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>Death date</td>
+                        <td><?php echo $row['death_day'] ?>.<?php echo $row['death_month'] ?>.
+                            <?php echo $row['death_year'] ?>&#32;
+                            <?php echo $row['death_hour'] ?>:<?php echo $row['death_minute'] ?>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -134,11 +247,13 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-									<td>" . $row['account'] . "</td>
-									<td>" . $row['account_id'] . "</td>
-									<td>" . $row['status'] . "</td>
-								</tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['account'] ?></td>
+                            <td><?php echo $row['account_id'] ?></td>
+                            <td><?php echo $row['status'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -163,13 +278,15 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['type'] . "</td>
-                                        <td>" . $row['institution'] . "</td>
-                                        <td>" . $row['year_start'] . "</td>
-                                        <td>" . $row['year_end'] . "</td>
-                                        <td>" . $row['group'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['type'] ?></td>
+                            <td><?php echo $row['institution'] ?></td>
+                            <td><?php echo $row['year_start'] ?></td>
+                            <td><?php echo $row['year_end'] ?></td>
+                            <td><?php echo $row['group'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -201,13 +318,15 @@ require_once($path . "/header.php");
                         } else {
                             $suitability = "";
                         }
-                        echo "<tr>
-                                        <td>" . $suitability . "</td>
-                                        <td>" . $row['unit'] . "</td>
-                                        <td>" . $row['year_start'] . "</td>
-                                        <td>" . $row['year_end'] . "</td>
-                                        <td>" . $row['rank'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['suitability'] ?></td>
+                            <td><?php echo $row['unit'] ?></td>
+                            <td><?php echo $row['year_start'] ?></td>
+                            <td><?php echo $row['home_city'] ?></td>
+                            <td><?php echo $row['rank'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -231,12 +350,14 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['company'] . "</td>
-                                        <td>" . $row['post'] . "</td>
-                                        <td>" . $row['year_start'] . "</td>
-                                        <td>" . $row['year_end'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['company'] ?></td>
+                            <td><?php echo $row['post'] ?></td>
+                            <td><?php echo $row['year_start'] ?></td>
+                            <td><?php echo $row['year_end'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -269,17 +390,27 @@ require_once($path . "/header.php");
                         $person_2_id = $row['person_2'];
                         $person_1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
                         $person_2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
-                        echo "<tr>
-                                        <td>" . $person_1['last_name'] . " " . $person_1['first_name'] . " " . $person_1['middle_name'] . "</td>
-                                        <td>" . $person_2['last_name'] . " " . $person_2['first_name'] . " " . $person_2['middle_name'] . "</td>
-                                        <td>" . $row['relation_type'] . "</td>
-                                        <td>" . $row['year_start'] . "</td>
-                                        <td>" . $row['month_start'] . "</td>
-                                        <td>" . $row['day_start'] . "</td>
-                                        <td>" . $row['year_end'] . "</td>
-                                        <td>" . $row['month_end'] . "</td>
-                                        <td>" . $row['day_end'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $person_1['last_name'] ?>&#32;
+                                <?php echo $person_1['first_name'] ?>&#32;
+                                <?php echo $person_1['middle_name'] ?>
+                            </td>
+                            <td>
+                                <?php echo $person_2['last_name'] ?>&#32;
+                                <?php echo $person_2['first_name'] ?>&#32;
+                                <?php echo $person_2['middle_name'] ?>
+                            </td>
+                            <td><?php echo $row['relation_type'] ?></td>
+                            <td><?php echo $row['year_start'] ?></td>
+                            <td><?php echo $row['month_start'] ?></td>
+                            <td><?php echo $row['day_start'] ?></td>
+                            <td><?php echo $row['year_end'] ?></td>
+                            <td><?php echo $row['month_end'] ?></td>
+                            <td><?php echo $row['day_end'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -301,10 +432,12 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['skill'] . "</td>
-                                        <td>" . $row['level'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['skill'] ?></td>
+                            <td><?php echo $row['level'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -326,10 +459,12 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['language'] . "</td>
-                                        <td>" . $row['level'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['language'] ?></td>
+                            <td><?php echo $row['level'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -352,11 +487,13 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['like_status'] . "</td>
-                                        <td>" . $row['object_type'] . "</td>
-                                        <td>" . $row['object'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['like_status'] ?></td>
+                            <td><?php echo $row['object_type'] ?></td>
+                            <td><?php echo $row['object'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -378,10 +515,12 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['property_type'] . "</td>
-                                        <td>" . $row['property_name'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['property_type'] ?></td>
+                            <td><?php echo $row['property_name'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -403,10 +542,12 @@ require_once($path . "/header.php");
                 $row = mysqli_fetch_assoc($result);
                 do {
                     if (!is_null($row)) {
-                        echo "<tr>
-                                        <td>" . $row['last_name'] . "</td>
-                                        <td>" . $row['change_type'] . "</td>
-                                    </tr>";
+                        ?>
+                        <tr>
+                            <td><?php echo $row['last_name'] ?></td>
+                            <td><?php echo $row['change_type'] ?></td>
+                        </tr>
+                        <?php
                     }
                 } while ($row = mysqli_fetch_assoc($result));
                 ?>
@@ -420,9 +561,11 @@ require_once($path . "/header.php");
                 $i = 0;
                 if (isset($person_id)) {
                     while (file_exists($path . "/images/" . $person_id . "/" . $i . ".jpg")) {
-                        echo "<div>
-					  			<img src=\"/images/" . $person_id . "/" . $i . ".jpg\" alt=\"Person photo\">
-				  			</div>";
+                        ?>
+                        <div>
+                            <img src="/images/<?php echo $person_id ?>/<?php echo $i ?>.jpg" alt="Person photo">
+                        </div>
+                        <?php
                         $i++;
                     }
                 }
