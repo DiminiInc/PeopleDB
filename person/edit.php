@@ -490,7 +490,7 @@ require_once($path . "/header.php");
                     <tr>
                         <td>ID</td>
                         <td>Account</td>
-                        <td>Identificator</td>
+                        <td>Identifier</td>
                         <td>Status</td>
                     </tr>
                     </thead>

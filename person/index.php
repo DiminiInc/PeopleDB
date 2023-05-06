@@ -124,7 +124,7 @@ require_once($path . "/header.php");
                 <thead>
                 <tr>
                     <td>Account</td>
-                    <td>Identificator</td>
+                    <td>Identifier</td>
                     <td>Status</td>
                 </tr>
                 </thead>
