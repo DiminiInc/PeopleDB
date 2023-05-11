@@ -356,251 +356,250 @@ require_once($path . "/header.php");
                     $result = mysqli_query($link, "SELECT DISTINCT acquaintance_type FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['acquaintance_type'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['acquaintance_type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_sex_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT sex FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    $sex = $row['sex'] == 1 ? "Мужской" : "Женский";
-                    ?>
-                    <option value='<?php echo $sex ?>'>
-                        <?php
+                        do {
+                            $sex = $row['sex'] == 1 ? "Мужской" : "Женский";
+                            ?>
+                            <option value='<?php echo $sex ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_gender_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT gender FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    echo "
-                    <option value='<?php echo $row['gender'] ?>'>";
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['gender'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_orientation_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT orientation FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['orientation'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['orientation'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_relationship_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT relationship_status FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['relationship_status'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['relationship_status'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_home_city_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT home_city FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['home_city'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['home_city'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_country_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT country FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['country'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['country'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_city_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT city FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['city'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['city'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_street_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT street FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['street'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['street'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_mother_list">
                     <?php
                     $result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=0");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option
-                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option
+                                value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_father_list">
                     <?php
                     $result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=1");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option
-                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option
+                                value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_religion_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT religion FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['religion'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['religion'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_political_views_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT political_views FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['political_views'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['political_views'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_personal_priority_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT personal_priority FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['personal_priority'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['personal_priority'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_important_in_others_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT important_in_others FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['important_in_others'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['important_in_others'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_views_on_smoking_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_smoking FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['views_on_smoking'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['views_on_smoking'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_views_on_alcohol_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_alcohol FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['views_on_alcohol'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['views_on_alcohol'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_views_on_drugs_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_drugs FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['views_on_drugs'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['views_on_drugs'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="person_death_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT death_status FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['death_status'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['death_status'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
             </div>
             <div id="contacts" class="tab-content">
@@ -649,26 +648,26 @@ require_once($path . "/header.php");
                     $result = mysqli_query($link, "SELECT DISTINCT account FROM contacts");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['account'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['account'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
                 <datalist id="contacts_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT status FROM contacts");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                    do {
-                    ?>
-                    <option value='<?php echo $row['status'] ?>'>
-                        <?php
+                        do {
+                            ?>
+                            <option value='<?php echo $row['status'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
-                        }
-                        ?>
+                    }
+                    ?>
                 </datalist>
             </div>
             <div id="education" class="tab-content">
@@ -723,9 +722,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['type'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -736,9 +735,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['institution'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['institution'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -749,9 +748,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['group'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['group'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -815,10 +814,10 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    $suitability = $row['suitability'] === '0' ? "Не годен" : "Годен";
-                    ?>
-                    <option value='<?php echo $suitability ?>'>
-                        <?php
+                            $suitability = $row['suitability'] === '0' ? "Не годен" : "Годен";
+                            ?>
+                            <option value='<?php echo $suitability ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -828,13 +827,13 @@ require_once($path . "/header.php");
                     $result = mysqli_query($link, "SELECT DISTINCT unit FROM army");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
+                    do {
                     ?>
                     <option value='<?php echo $row['unit'] ?>'>
                         <?php
                         } while ($row = mysqli_fetch_array($result));
-                    }
-                    ?>
+                        }
+                        ?>
                 </datalist>
                 <datalist id="army_rank_list">
                     <?php
@@ -842,9 +841,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['rank'] ?>"'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['rank'] ?>"'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -898,9 +897,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['company'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['company'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -911,9 +910,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['post'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['post'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -990,10 +989,10 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option
-                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
-                        <?php
+                            ?>
+                            <option
+                                value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1004,9 +1003,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['relation_type'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['relation_type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1054,9 +1053,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['skill'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['skill'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1067,9 +1066,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['level'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['level'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1117,9 +1116,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['language'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['language'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1130,9 +1129,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['level'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['level'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1183,9 +1182,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['like_status'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['like_status'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1196,10 +1195,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    echo "
-                    <option value='<?php echo $row['object_type'] ?>'>";
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['object_type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1248,9 +1246,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['property_type'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['property_type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1299,9 +1297,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    ?>
-                    <option value='<?php echo $row['change_type'] ?>'>
-                        <?php
+                            ?>
+                            <option value='<?php echo $row['change_type'] ?>'></option>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
