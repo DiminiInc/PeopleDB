@@ -33,9 +33,24 @@ require_once($path . "/header.php");
         $row = mysqli_fetch_array($result);
         if (!is_null($row)) {
             $person_id = $row['id'];
-            echo "<div><h1>" . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "</h1>";
-            echo "<h4>" . $row['nickname'] . " - " . $row['acquaintance_type'] . "</h4></div>";
-            echo "<div><button name='submit' type='submit' value='Update data' form='extForm' class='btn btn-primary btn-lg'>Update</button></div>";
+            ?>
+            <div>
+                <h1>
+                    <?php echo $row['last_name'] ?>&#32;
+                    <?php echo $row['first_name'] ?>&#32;
+                    <?php echo $row['middle_name'] ?>
+                </h1>
+                <h4>
+                    <?php echo $row['nickname'] ?>&#32;-&#32;
+                    <?php echo $row['acquaintance_type'] ?>
+                </h4>
+            </div>
+            <div>
+                <button name='submit' type='submit' value='Update data' form='extForm' class='btn btn-primary btn-lg'>
+                    Update
+                </button>
+            </div>
+            <?php
         }
         ?>
     </div>
@@ -53,7 +68,7 @@ require_once($path . "/header.php");
             <button class="tab-links" onclick="loginTabsChange(event, 'property')">Property</button>
             <button class="tab-links" onclick="loginTabsChange(event, 'alternativeNames')">Alternative names</button>
         </div>
-        <form id='extForm' action='<?php echo "update.php?id=$id"; ?>' method='post' name='form'>
+        <form id='extForm' action='update.php?id=<?php echo $id; ?>' method='post' name='form'>
             <div id="general" class="tab-content active">
                 <h2>General</h2>
                 <table class="table table-striped table-bordered" style="width:100%">
@@ -73,196 +88,265 @@ require_once($path . "/header.php");
                         } else {
                             $sex = "";
                         }
-                        echo '<tr>
-									<td>Last name</td>
-									<td><input name="person_last_name" placeholder="Last name" value="' . $row['last_name'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>First name</td>
-									<td><input name="person_first_name" placeholder="First name" value="' . $row['first_name'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Middle name</td>
-									<td><input name="person_middle_name" placeholder="Middle name" value="' . $row['middle_name'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Nickname</td>
-									<td><input name="person_nickname" placeholder="Nickname" value="' . $row['nickname'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Acquaintance type</td>
-									<td>
-										<input name="person_acquaintance_type" placeholder="Acquaintance type" value="' . $row['acquaintance_type'] . '" list="person_acquaintance_type_list">
-									</td>
-								</tr>';
-                        echo '<tr>
-									<td>Sex</td>
-									<td><input name="person_sex" placeholder="Sex" value="' . $sex . '" list="person_sex_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Gender</td>
-									<td><input name="person_gender" placeholder="Gender" value="' . $row['gender'] . '" list="person_gender_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Orientation</td>
-									<td><input name="person_orientation" placeholder="Orientation" value="' . $row['orientation'] . '" list="person_orientation_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Birth day</td>
-									<td><input name="person_birth_day" placeholder="Birth day" value="' . $row['birth_day'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Birth month</td>
-									<td><input name="person_birth_month" placeholder="Birth month" value="' . $row['birth_month'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Birth year</td>
-									<td><input name="person_birth_year" placeholder="Birth year" value="' . $row['birth_year'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Birth hour</td>
-									<td><input name="person_birth_hour" placeholder="Birth hour" value="' . $row['birth_hour'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Birth minute</td>
-									<td><input name="person_birth_minute" placeholder="Birth minute" value="' . $row['birth_minute'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Relationship status</td>
-									<td><input name="person_relationship_status" placeholder="Relationship status" value="' . $row['relationship_status'] . '" list="person_relationship_status_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Height</td>
-									<td><input name="person_height" placeholder="Height" value="' . $row['height'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Weight</td>
-									<td><input name="person_weight" placeholder="Weight" value="' . $row['weight'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Home city</td>
-									<td><input name="person_home_city" placeholder="Home city" value="' . $row['home_city'] . '" list="person_home_city_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Country</td>
-									<td><input name="person_country" placeholder="Country" value="' . $row['country'] . '" list="person_country_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>City</td>
-									<td><input name="person_city" placeholder="City" value="' . $row['city'] . '" list="person_city_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Street</td>
-									<td><input name="person_street" placeholder="Street" value="' . $row['street'] . '" list="person_street_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Building</td>
-									<td><input name="person_building" placeholder="Building" value="' . $row['building'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Floor</td>
-									<td><input name="person_floor" placeholder="Floor" value="' . $row['floor'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Apartment</td>
-									<td><input name="person_apartment" placeholder="Apartment" value="' . $row['apartment'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Mother</td>
-									<td><input name="person_mother" placeholder="Mother" value="' . ($mother ? $mother['id'] : '') . ". " . ($mother ? $mother['last_name'] : '') . " " . ($mother ? $mother['first_name'] : '') . " " . ($mother ? $mother['middle_name'] : '') . '" list="person_mother_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Father</td>
-									<td><input name="person_father" placeholder="Father" value="' . ($father ? $father['id'] : '') . ". " . ($father ? $father['last_name'] : '') . " " . ($father ? $father['first_name'] : '') . " " . ($father ? $father['middle_name'] : '') . '" list="person_father_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Religion</td>
-									<td><input name="person_religion" placeholder="Religion" value="' . $row['religion'] . '" list="person_religion_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Political views</td>
-									<td><input name="person_political_views" placeholder="Political views" value="' . $row['political_views'] . '" list="person_political_views_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Personal priority</td>
-									<td><input name="person_personal_priority" placeholder="Personal priority" value="' . $row['personal_priority'] . '" list="person_personal_priority_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Important in others</td>
-									<td><input name="person_important_in_others" placeholder="Important in others" value="' . $row['important_in_others'] . '" list="person_important_in_others_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Views on smoking</td>
-									<td><input name="person_views_on_smoking" placeholder="Views on smoking" value="' . $row['views_on_smoking'] . '" list="person_views_on_smoking_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Views on alcohol</td>
-									<td><input name="person_views_on_alcohol" placeholder="Views on alcohol" value="' . $row['views_on_alcohol'] . '" list="person_views_on_alcohol_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Views on drugs</td>
-									<td><input name="person_views_on_drugs" placeholder="Views on drugs" value="' . $row['views_on_drugs'] . '" list="person_views_on_drugs_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Drive license</td>
-									<td><input name="person_drive_license" placeholder="Drive license" value="' . $row['drive_license'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>School results</td>
-									<td><input name="person_school_results" placeholder="School results" value="' . $row['school_results'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>EGE results</td>
-									<td><input name="person_ege_results" placeholder="EGE results" value="' . $row['ege_results'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>University results</td>
-									<td><input name="person_univer_results" placeholder="University results" value="' . $row['univer_results'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>IQ test</td>
-									<td><input name="person_iq_test" placeholder="IQ test" value="' . $row['iq_test'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Socionic test</td>
-									<td><input name="person_socionic_test" placeholder="Socionic test" value="' . $row['socionic_test'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Political test</td>
-									<td><input name="person_political_test" placeholder="Political test" value="' . $row['political_test'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Bennet test</td>
-									<td><input name="person_bennet_test" placeholder="Bennet test" value="' . $row['bennet_test'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Hikka test</td>
-									<td><input name="person_hikka_test" placeholder="Hikka test" value="' . $row['hikka_test'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death status</td>
-									<td><input name="person_death_status" placeholder="Death status" value="' . $row['death_status'] . '" list="person_death_status_list"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death day</td>
-									<td><input name="person_death_day" placeholder="Death day" value="' . $row['death_day'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death month</td>
-									<td><input name="person_death_month" placeholder="Death month" value="' . $row['death_month'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death year</td>
-									<td><input name="person_death_year" placeholder="Death year" value="' . $row['death_year'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death hour</td>
-									<td><input name="person_death_hour" placeholder="Death hour" value="' . $row['death_hour'] . '"></td>
-								</tr>';
-                        echo '<tr>
-									<td>Death minute</td>
-									<td><input name="person_death_minute" placeholder="Death minute" value="' . $row['death_minute'] . '"></td>
-								</tr>';
+                        ?>
+                        <tr>
+                            <td>Last name</td>
+                            <td><input name="person_last_name" placeholder="Last name"
+                                       value="<?php echo $row['last_name'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>First name</td>
+                            <td><input name="person_first_name" placeholder="First name"
+                                       value="<?php echo $row['first_name'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Middle name</td>
+                            <td><input name="person_middle_name" placeholder="Middle name"
+                                       value="<?php echo $row['middle_name'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Nickname</td>
+                            <td><input name="person_nickname" placeholder="Nickname"
+                                       value="<?php echo $row['nickname'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Acquaintance type</td>
+                            <td>
+                                <input name="person_acquaintance_type" placeholder="Acquaintance type"
+                                       value="<?php echo $row['acquaintance_type'] ?>"
+                                       list="person_acquaintance_type_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sex</td>
+                            <td><input name="person_sex" placeholder="Sex" value="<?php echo $sex ?>"
+                                       list="person_sex_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td><input name="person_gender" placeholder="Gender" value="<?php echo $row['gender'] ?>"
+                                       list="person_gender_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Orientation</td>
+                            <td><input name="person_orientation" placeholder="Orientation"
+                                       value="<?php echo $row['orientation'] ?>" list="person_orientation_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth day</td>
+                            <td><input name="person_birth_day" placeholder="Birth day"
+                                       value="<?php echo $row['birth_day'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth month</td>
+                            <td><input name="person_birth_month" placeholder="Birth month"
+                                       value="<?php echo $row['birth_month'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth year</td>
+                            <td><input name="person_birth_year" placeholder="Birth year"
+                                       value="<?php echo $row['birth_year'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth hour</td>
+                            <td><input name="person_birth_hour" placeholder="Birth hour"
+                                       value="<?php echo $row['birth_hour'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth minute</td>
+                            <td><input name="person_birth_minute" placeholder="Birth minute"
+                                       value="<?php echo $row['birth_minute'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Relationship status</td>
+                            <td><input name="person_relationship_status" placeholder="Relationship status"
+                                       value="<?php echo $row['relationship_status'] ?>"
+                                       list="person_relationship_status_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td><input name="person_height" placeholder="Height" value="<?php echo $row['height'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Weight</td>
+                            <td><input name="person_weight" placeholder="Weight" value="<?php echo $row['weight'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Home city</td>
+                            <td><input name="person_home_city" placeholder="Home city"
+                                       value="<?php echo $row['home_city'] ?>"
+                                       list="person_home_city_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td><input name="person_country" placeholder="Country" value="<?php echo $row['country'] ?>"
+                                       list="person_country_list"></td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td><input name="person_city" placeholder="City" value="<?php echo $row['city'] ?>"
+                                       list="person_city_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Street</td>
+                            <td><input name="person_street" placeholder="Street" value="<?php echo $row['street'] ?>"
+                                       list="person_street_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Building</td>
+                            <td><input name="person_building" placeholder="Building"
+                                       value="<?php echo $row['building'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Floor</td>
+                            <td><input name="person_floor" placeholder="Floor" value="<?php echo $row['floor'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Apartment</td>
+                            <td><input name="person_apartment" placeholder="Apartment"
+                                       value="<?php echo $row['apartment'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Mother</td>
+                            <td><input name="person_mother" placeholder="Mother"
+                                       value="<?php echo $mother ? $mother['id'] : '' ?>. <?php echo $mother ? $mother['last_name'] : '' ?> <?php echo $mother ? $mother['first_name'] : '' ?> <?php echo $mother ? $mother['middle_name'] : '' ?>"
+                                       list="person_mother_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Father</td>
+                            <td><input name="person_father" placeholder="Father"
+                                       value="<?php echo $father ? $father['id'] : '' ?>. <?php echo $father ? $father['last_name'] : '' ?> <?php echo $father ? $father['first_name'] : '' ?> <?php echo $father ? $father['middle_name'] : '' ?>"
+                                       list="person_father_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Religion</td>
+                            <td><input name="person_religion" placeholder="Religion"
+                                       value="<?php echo $row['religion'] ?>"
+                                       list="person_religion_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Political views</td>
+                            <td><input name="person_political_views" placeholder="Political views"
+                                       value="<?php echo $row['political_views'] ?>" list="person_political_views_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Personal priority</td>
+                            <td><input name="person_personal_priority" placeholder="Personal priority"
+                                       value="<?php echo $row['personal_priority'] ?>"
+                                       list="person_personal_priority_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Important in others</td>
+                            <td><input name="person_important_in_others" placeholder="Important in others"
+                                       value="<?php echo $row['important_in_others'] ?>"
+                                       list="person_important_in_others_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Views on smoking</td>
+                            <td><input name="person_views_on_smoking" placeholder="Views on smoking"
+                                       value="<?php echo $row['views_on_smoking'] ?>"
+                                       list="person_views_on_smoking_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Views on alcohol</td>
+                            <td><input name="person_views_on_alcohol" placeholder="Views on alcohol"
+                                       value="<?php echo $row['views_on_alcohol'] ?>"
+                                       list="person_views_on_alcohol_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Views on drugs</td>
+                            <td><input name="person_views_on_drugs" placeholder="Views on drugs"
+                                       value="<?php echo $row['views_on_drugs'] ?>" list="person_views_on_drugs_list">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Drive license</td>
+                            <td><input name="person_drive_license" placeholder="Drive license"
+                                       value="<?php echo $row['drive_license'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>School results</td>
+                            <td><input name="person_school_results" placeholder="School results"
+                                       value="<?php echo $row['school_results'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>EGE results</td>
+                            <td><input name="person_ege_results" placeholder="EGE results"
+                                       value="<?php echo $row['ege_results'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>University results</td>
+                            <td><input name="person_univer_results" placeholder="University results"
+                                       value="<?php echo $row['univer_results'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>IQ test</td>
+                            <td><input name="person_iq_test" placeholder="IQ test"
+                                       value="<?php echo $row['iq_test'] ?>"></td>
+                        </tr>
+                        '
+                        <tr>
+                            <td>Socionic test</td>
+                            <td><input name="person_socionic_test" placeholder="Socionic test"
+                                       value="<?php echo $row['socionic_test'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Political test</td>
+                            <td><input name="person_political_test" placeholder="Political test"
+                                       value="<?php echo $row['political_test'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Bennet test</td>
+                            <td><input name="person_bennet_test" placeholder="Bennet test"
+                                       value="<?php echo $row['bennet_test'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Hikka test</td>
+                            <td><input name="person_hikka_test" placeholder="Hikka test"
+                                       value="<?php echo $row['hikka_test'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Death status</td>
+                            <td><input name="person_death_status" placeholder="Death status"
+                                       value="<?php echo $row['death_status'] ?>" list="person_death_status_list"></td>
+                        </tr>
+                        <tr>
+                            <td>Death day</td>
+                            <td><input name="person_death_day" placeholder="Death day"
+                                       value="<?php echo $row['death_day'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Death month</td>
+                            <td><input name="person_death_month" placeholder="Death month"
+                                       value="<?php echo $row['death_month'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Death year</td>
+                            <td><input name="person_death_year" placeholder="Death year"
+                                       value="<?php echo $row['death_year'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Death hour</td>
+                            <td><input name="person_death_hour" placeholder="Death hour"
+                                       value="<?php echo $row['death_hour'] ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Death minute</td>
+                            <td><input name="person_death_minute" placeholder="Death minute"
+                                       value="<?php echo $row['death_minute'] ?>"></td>
+                        </tr>
+                        <?php
                     }
                     ?>
                     </tbody>
@@ -272,217 +356,258 @@ require_once($path . "/header.php");
                     $result = mysqli_query($link, "SELECT DISTINCT acquaintance_type FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['acquaintance_type'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['acquaintance_type'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_sex_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT sex FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            $sex = $row['sex'] == 1 ? "Мужской" : "Женский";
-                            echo "<option value='" . $sex . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
+                    $sex = $row['sex'] == 1 ? "Мужской" : "Женский";
                     ?>
+                    <option value='<?php echo $sex ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_gender_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT gender FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['gender'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    echo "
+                    <option value='<?php echo $row['gender'] ?>'>";
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_orientation_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT orientation FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['orientation'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['orientation'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_relationship_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT relationship_status FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['relationship_status'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['relationship_status'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_home_city_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT home_city FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['home_city'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['home_city'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_country_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT country FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['country'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['country'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_city_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT city FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['city'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['city'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_street_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT street FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['street'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['street'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_mother_list">
                     <?php
                     $result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=0");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option
+                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_father_list">
                     <?php
                     $result = mysqli_query($link, "SELECT id, last_name, first_name, middle_name FROM person where sex=1");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option
+                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_religion_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT religion FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['religion'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['religion'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_political_views_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT political_views FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['political_views'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['political_views'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_personal_priority_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT personal_priority FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['personal_priority'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['personal_priority'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_important_in_others_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT important_in_others FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['important_in_others'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['important_in_others'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_views_on_smoking_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_smoking FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['views_on_smoking'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['views_on_smoking'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_views_on_alcohol_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_alcohol FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['views_on_alcohol'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['views_on_alcohol'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_views_on_drugs_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT views_on_drugs FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['views_on_drugs'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['views_on_drugs'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="person_death_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT death_status FROM person");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['death_status'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['death_status'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
             </div>
             <div id="contacts" class="tab-content">
                 <h2>Contacts</h2>
                 <div>
-                    <button type="button" onclick="addInput(event, 'contactsTableBody')" class="btn btn-primary">Add
-                        more
+                    <button type="button" onclick="addInput(event, 'contactsTableBody')" class="btn btn-primary">
+                        Add more
                     </button>
                 </div>
                 <table class="table table-striped table-bordered" style="width:100%">
@@ -500,11 +625,20 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-                                            <td><input name="contacts_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-                                            <td><input name="contacts_account[]" placeholder="Account type" value="' . $row['account'] . '" list="contacts_account_list"></td>
-                                            <td><input name="contacts_account_id[]" placeholder="Account ID" value="' . $row['account_id'] . '"></td>
-                                            <td><input name="contacts_status[]" placeholder="Status" value="' . $row['status'] . '" list="contacts_status_list"></td></tr>';
+                            ?>
+                            <tr>
+                                <td><input name="contacts_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly>
+                                </td>
+                                <td><input name="contacts_account[]" placeholder="Account type"
+                                           value="<?php echo $row['account'] ?>" list="contacts_account_list"></td>
+                                <td><input name="contacts_account_id[]" placeholder="Account ID"
+                                           value="<?php echo $row['account_id'] ?>"></td>
+                                <td><input name="contacts_status[]" placeholder="Status"
+                                           value="<?php echo $row['status'] ?>"
+                                           list="contacts_status_list"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -515,22 +649,26 @@ require_once($path . "/header.php");
                     $result = mysqli_query($link, "SELECT DISTINCT account FROM contacts");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['account'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['account'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
                 <datalist id="contacts_status_list">
                     <?php
                     $result = mysqli_query($link, "SELECT DISTINCT status FROM contacts");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
-                        do {
-                            echo "<option value='" . $row['status'] . "'>";
-                        } while ($row = mysqli_fetch_array($result));
-                    }
+                    do {
                     ?>
+                    <option value='<?php echo $row['status'] ?>'>
+                        <?php
+                        } while ($row = mysqli_fetch_array($result));
+                        }
+                        ?>
                 </datalist>
             </div>
             <div id="education" class="tab-content">
@@ -557,14 +695,23 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="education_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="education_type[]" placeholder="Type" value="' . $row['type'] . '" list="education_type_list"></td>
-										<td><input name="education_institution[]" placeholder="Institution" value="' . $row['institution'] . '" list="education_institution_list"></td>
-										<td><input name="education_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
-										<td><input name="education_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
-										<td><input name="education_group[]" placeholder="Group" value="' . $row['group'] . '" list="education_group_list"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="education_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="education_type[]" placeholder="Type" value="<?php echo $row['type'] ?>"
+                                           list="education_type_list"></td>
+                                <td><input name="education_institution[]" placeholder="Institution"
+                                           value="<?php echo $row['institution'] ?>" list="education_institution_list">
+                                </td>
+                                <td><input name="education_year_start[]" placeholder="Year start"
+                                           value="<?php echo $row['year_start'] ?>"></td>
+                                <td><input name="education_year_end[]" placeholder="Year end"
+                                           value="<?php echo $row['year_end'] ?>"></td>
+                                <td><input name="education_group[]" placeholder="Group"
+                                           value="<?php echo $row['group'] ?>" list="education_group_list"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -576,7 +723,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['type'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['type'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -587,7 +736,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['institution'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['institution'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -598,7 +749,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['group'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['group'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -607,8 +760,8 @@ require_once($path . "/header.php");
             <div id="army" class="tab-content">
                 <h2>Army</h2>
                 <div>
-                    <button type="button" onclick="addInput(event, 'armyTableBody')" class="btn btn-primary">Add
-                        more
+                    <button type="button" onclick="addInput(event, 'armyTableBody')" class="btn btn-primary">
+                        Add more
                     </button>
                 </div>
                 <table class="table table-striped table-bordered" style="width:100%">
@@ -635,14 +788,22 @@ require_once($path . "/header.php");
                             } else {
                                 $suitability = "";
                             }
-                            echo '<tr>
-										<td><input name="army_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="army_suitability[]" placeholder="Suitability" value="' . $suitability . '" list="army_suitability_list"></td>
-										<td><input name="army_unit[]" placeholder="Unit" value="' . $row['unit'] . '" list="army_unit_list"></td>
-										<td><input name="army_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
-										<td><input name="army_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
-										<td><input name="army_rank[]" placeholder="Rank" value="' . $row['rank'] . '" list="army_rank_list"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="army_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>" readonly>
+                                </td>
+                                <td><input name="army_suitability[]" placeholder="Suitability"
+                                           value="<?php echo $suitability ?>" list="army_suitability_list"></td>
+                                <td><input name="army_unit[]" placeholder="Unit" value="<?php echo $row['unit'] ?>"
+                                           list="army_unit_list"></td>
+                                <td><input name="army_year_start[]" placeholder="Year start"
+                                           value="<?php echo $row['year_start'] ?>"></td>
+                                <td><input name="army_year_end[]" placeholder="Year end"
+                                           value="<?php echo $row['year_end'] ?>"></td>
+                                <td><input name="army_rank[]" placeholder="Rank" value="<?php echo $row['rank'] ?>"
+                                           list="army_rank_list"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -654,8 +815,10 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            $suitability = $row['suitability'] === 0 ? "Не годен" : "Годен";
-                            echo "<option value='" . $suitability . "'>";
+                    $suitability = $row['suitability'] === 0 ? "Не годен" : "Годен";
+                    ?>
+                    <option value='<?php echo $suitability ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -666,7 +829,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['unit'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['unit'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -677,7 +842,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['rank'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['rank'] ?>"'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -706,13 +873,20 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="work_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="work_company[]" placeholder="Company" value="' . $row['company'] . '" list="work_company_list"></td>
-										<td><input name="work_post[]" placeholder="Post" value="' . $row['post'] . '" list="work_post_list"></td>
-										<td><input name="work_year_start[]" placeholder="Year start" value="' . $row['year_start'] . '"></td>
-										<td><input name="work_year_end[]" placeholder="Year end" value="' . $row['year_end'] . '"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="work_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>" readonly>
+                                </td>
+                                <td><input name="work_company[]" placeholder="Company"
+                                           value="<?php echo $row['company'] ?>" list="work_company_list"></td>
+                                <td><input name="work_post[]" placeholder="Post" value="<?php echo $row['post'] ?>"
+                                           list="work_post_list"></td>
+                                <td><input name="work_year_start[]" placeholder="Year start"
+                                           value="<?php echo $row['year_start'] ?>"></td>
+                                <td><input name="work_year_end[]" placeholder="Year end"
+                                           value="<?php echo $row['year_end'] ?>"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -724,7 +898,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['company'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['company'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -735,7 +911,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['post'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['post'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -773,18 +951,34 @@ require_once($path . "/header.php");
                             $person_2_id = $row['person_2'];
                             $person_1 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
                             $person_2 = mysqli_fetch_array(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
-                            echo '<tr>
-										<td><input name="relationship_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="relationship_person_1[]" placeholder="Person 1" value="' . $person_1['id'] . ". " . $person_1['last_name'] . " " . $person_1['first_name'] . " " . $person_1['middle_name'] . '" list="relationship_person_list"></td>
-										<td><input name="relationship_person_2[]" placeholder="Person 2" value="' . $person_2['id'] . ". " . $person_2['last_name'] . " " . $person_2['first_name'] . " " . $person_2['middle_name'] . '" list="relationship_person_list"></td>
-										<td><input name="relationship_relation_type[]" placeholder="Relation type" value="' . $row['relation_type'] . '" list="relationship_relation_type_list"></td>
-										<td><input name="relationship_year_start[]" placeholder="Year start" size="10" value="' . $row['year_start'] . '"></td>
-										<td><input name="relationship_month_start[]" placeholder="Month start" size="10" value="' . $row['month_start'] . '"></td>
-										<td><input name="relationship_day_start[]" placeholder="Day start" size="10" value="' . $row['day_start'] . '"></td><td>
-										<input name="relationship_year_end[]" placeholder="Year end" size="10" value="' . $row['year_end'] . '"></td>
-										<td><input name="relationship_month_end[]" placeholder="Month end" size="10" value="' . $row['month_end'] . '"></td>
-										<td><input name="relationship_day_end[]" placeholder="Day end" size="10" value="' . $row['day_end'] . '"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="relationship_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="relationship_person_1[]" placeholder="Person 1"
+                                           value="<?php echo $person_1['id'] ?>. <?php echo $person_1['last_name'] ?> <?php echo $person_1['first_name'] ?> <?php echo $person_1['middle_name'] ?>"
+                                           list="relationship_person_list"></td>
+                                <td><input name="relationship_person_2[]" placeholder="Person 2"
+                                           value="<?php echo $person_2['id'] ?>. <?php echo $person_2['last_name'] ?> <?php echo $person_2['first_name'] ?> <?php echo $person_2['middle_name'] ?>"
+                                           list="relationship_person_list"></td>
+                                <td><input name="relationship_relation_type[]" placeholder="Relation type"
+                                           value="<?php echo $row['relation_type'] ?>"
+                                           list="relationship_relation_type_list"></td>
+                                <td><input name="relationship_year_start[]" placeholder="Year start" size="10"
+                                           value="<?php echo $row['year_start'] ?>"></td>
+                                <td><input name="relationship_month_start[]" placeholder="Month start" size="10"
+                                           value="<?php echo $row['month_start'] ?>"></td>
+                                <td><input name="relationship_day_start[]" placeholder="Day start" size="10"
+                                           value="<?php echo $row['day_start'] ?>"></td>
+                                <td>
+                                    <input name="relationship_year_end[]" placeholder="Year end" size="10"
+                                           value="<?php echo $row['year_end'] ?>"></td>
+                                <td><input name="relationship_month_end[]" placeholder="Month end" size="10"
+                                           value="<?php echo $row['month_end'] ?>"></td>
+                                <td><input name="relationship_day_end[]" placeholder="Day end" size="10"
+                                           value="<?php echo $row['day_end'] ?>"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -796,7 +990,10 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['id'] . ". " . $row['last_name'] . " " . $row['first_name'] . " " . $row['middle_name'] . "'>";
+                    ?>
+                    <option
+                        value='<?php echo $row['id'] ?>. <?php echo $row['last_name'] ?> <?php echo $row['first_name'] ?> <?php echo $row['middle_name'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -807,7 +1004,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['relation_type'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['relation_type'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -816,8 +1015,8 @@ require_once($path . "/header.php");
             <div id="skills" class="tab-content">
                 <h2>Skills</h2>
                 <div>
-                    <button type="button" onclick="addInput(event, 'skillsTableBody')" class="btn btn-primary">Add
-                        more
+                    <button type="button" onclick="addInput(event, 'skillsTableBody')" class="btn btn-primary">
+                        Add more
                     </button>
                 </div>
                 <table class="table table-striped table-bordered" style="width:100%">
@@ -834,11 +1033,16 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="skills_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="skills_skill[]" placeholder="Skill" value="' . $row['skill'] . '" list="skills_skill_list"></td>
-										<td><input name="skills_level[]" placeholder="Level" value="' . $row['level'] . '" list="skills_level_list"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="skills_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="skills_skill[]" placeholder="Skill" value="<?php echo $row['skill'] ?>"
+                                           list="skills_skill_list"></td>
+                                <td><input name="skills_level[]" placeholder="Level" value="<?php echo $row['level'] ?>"
+                                           list="skills_level_list"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -850,7 +1054,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['skill'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['skill'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -861,7 +1067,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['level'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['level'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -888,11 +1096,16 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="languages_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="languages_language[]" placeholder="Language" value="' . $row['language'] . '" list="languages_language_list"></td>
-										<td><input name="languages_level[]" placeholder="Level" value="' . $row['level'] . '" list="languages_level_list"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="languages_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="languages_language[]" placeholder="Language"
+                                           value="<?php echo $row['language'] ?>" list="languages_language_list"></td>
+                                <td><input name="languages_level[]" placeholder="Level"
+                                           value="<?php echo $row['level'] ?>" list="languages_level_list"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -904,7 +1117,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['language'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['language'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -915,7 +1130,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['level'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['level'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -924,8 +1141,8 @@ require_once($path . "/header.php");
             <div id="likes" class="tab-content">
                 <h2>Likes</h2>
                 <div>
-                    <button type="button" onclick="addInput(event, 'likesTableBody')" class="btn btn-primary">Add
-                        more
+                    <button type="button" onclick="addInput(event, 'likesTableBody')" class="btn btn-primary">
+                        Add more
                     </button>
                 </div>
                 <table class="table table-striped table-bordered" style="width:100%">
@@ -943,12 +1160,18 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="likes_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="likes_like_status[]" placeholder="Like status" value="' . $row['like_status'] . '" list="likes_like_status_list"></td>
-										<td><input name="likes_object_type[]" placeholder="Object type" value="' . $row['object_type'] . '" list="likes_object_type_list"></td>
-										<td><input name="likes_object[]" placeholder="Object" value="' . $row['object'] . '"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="likes_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="likes_like_status[]" placeholder="Like status"
+                                           value="<?php echo $row['like_status'] ?>" list="likes_like_status_list"></td>
+                                <td><input name="likes_object_type[]" placeholder="Object type"
+                                           value="<?php echo $row['object_type'] ?>" list="likes_object_type_list"></td>
+                                <td><input name="likes_object[]" placeholder="Object"
+                                           value="<?php echo $row['object'] ?>"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -960,7 +1183,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['like_status'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['like_status'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -971,7 +1196,10 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['object_type'] . "'>";
+                    ?>
+                    echo "
+                    <option value='<?php echo $row['object_type'] ?>'>";
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -998,11 +1226,17 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="property_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="property_property_type[]" placeholder="Property type" value="' . $row['property_type'] . '" list="property_property_type_list"></td>
-										<td><input name="property_property_name[]" placeholder="Property name" value="' . $row['property_name'] . '"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="property_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
+                                           readonly></td>
+                                <td><input name="property_property_type[]" placeholder="Property type"
+                                           value="<?php echo $row['property_type'] ?>"
+                                           list="property_property_type_list"></td>
+                                <td><input name="property_property_name[]" placeholder="Property name"
+                                           value="<?php echo $row['property_name'] ?>"></td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1014,7 +1248,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['property_type'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['property_type'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1041,11 +1277,17 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo '<tr>
-										<td><input name="alternative_names_ids[]" placeholder="ID" value="' . $row['id'] . '" readonly></td>
-										<td><input name="alternative_names_name[]" placeholder="Name" value="' . $row['last_name'] . '"></td>
-										<td><input name="alternative_names_type[]" placeholder="Type" value="' . $row['change_type'] . '" list="alternative_names_type_list"></td>
-									</tr>';
+                            ?>
+                            <tr>
+                                <td><input name="alternative_names_ids[]" placeholder="ID"
+                                           value="<?php echo $row['id'] ?>" readonly></td>
+                                <td><input name="alternative_names_name[]" placeholder="Name"
+                                           value="<?php echo $row['last_name'] ?>"></td>
+                                <td><input name="alternative_names_type[]" placeholder="Type"
+                                           value="<?php echo $row['change_type'] ?>" list="alternative_names_type_list">
+                                </td>
+                            </tr>
+                            <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
@@ -1057,7 +1299,9 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                            echo "<option value='" . $row['change_type'] . "'>";
+                    ?>
+                    <option value='<?php echo $row['change_type'] ?>'>
+                        <?php
                         } while ($row = mysqli_fetch_array($result));
                     }
                     ?>
