@@ -815,7 +815,7 @@ require_once($path . "/header.php");
                     $row = mysqli_fetch_array($result);
                     if (!is_null($row)) {
                         do {
-                    $suitability = $row['suitability'] === 0 ? "Не годен" : "Годен";
+                    $suitability = $row['suitability'] === '0' ? "Не годен" : "Годен";
                     ?>
                     <option value='<?php echo $suitability ?>'>
                         <?php
