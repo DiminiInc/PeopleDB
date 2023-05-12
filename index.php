@@ -49,7 +49,7 @@ require_once($path . "/header.php");
                     <td> <?php echo $row['id'] ?></td>
                     <td class="td-image">
                         <?php if (file_exists($path . "/images/" . $row['id'] . "/0.jpg")) { ?>
-                            <img src="/images/<?php echo $row['id'] ?>/0.jpg" alt="Person photo">
+                            <img src="/images/<?php echo $row['id'] ?>/0.jpg" loading="lazy" alt="Person photo">
                         <?php } ?>
                     </td>
                     <td> <?php echo $row['last_name'] ?></td>
