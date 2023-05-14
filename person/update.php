@@ -250,7 +250,7 @@ if ($id != 0) {
 }
 
 $contacts_ids = $_POST['contacts_ids'];
-$contacts_account = $_POST['contacts_account'];
+$contacts_account = $_POST['contacts_account'] ?: [];
 $contacts_account_id = $_POST['contacts_account_id'];
 $contacts_status = $_POST['contacts_status'];
 for ($i = 0; $i < count($contacts_account); $i++) {
@@ -275,7 +275,7 @@ for ($i = 0; $i < count($contacts_account); $i++) {
 }
 
 $education_ids = $_POST['education_ids'];
-$education_type = $_POST['education_type'];
+$education_type = $_POST['education_type'] ?: [];
 $education_institution = $_POST['education_institution'];
 $education_year_start = $_POST['education_year_start'];
 $education_year_end = $_POST['education_year_end'];
@@ -314,18 +314,18 @@ for ($i = 0; $i < count($education_type); $i++) {
 }
 
 $army_ids = $_POST['army_ids'];
-$army_suitability = $_POST['army_suitability'] == "" ? "NULL" : $_POST['army_suitability'];
+$army_suitability = $_POST['army_suitability'] ?: [];
 $army_unit = $_POST['army_unit'];
 $army_year_start = $_POST['army_year_start'];
 $army_year_end = $_POST['army_year_end'];
 $army_rank = $_POST['army_rank'];
 for ($i = 0; $i < count($army_suitability); $i++) {
     if ($army_suitability[$i] === "Годен") {
-        $army_suitability = 1;
+        $army_suitability[$i] = 1;
     } elseif ($army_suitability[$i] === "Не годен") {
-        $army_suitability = 0;
+        $army_suitability[$i] = 0;
     } else {
-        $army_suitability = "NULL";
+        $army_suitability[$i] = "NULL";
     }
     if ($army_year_start[$i] === "") {
         $army_year_start[$i] = "NULL";
@@ -335,7 +335,7 @@ for ($i = 0; $i < count($army_suitability); $i++) {
     }
     if ($army_ids[$i]) {
         $result = $result and mysqli_query($link, "UPDATE army set 
-													suitability = $army_suitability
+													suitability = $army_suitability[$i]
 													, unit = '$army_unit[$i]'
 													, year_start = $army_year_start[$i]
 													, year_end = $army_year_end[$i]
@@ -351,7 +351,7 @@ for ($i = 0; $i < count($army_suitability); $i++) {
 													, rank) 
 													values 
 													('$id'
-													, $army_suitability
+													, $army_suitability[$i]
 													, '$army_unit[$i]'
 													, $army_year_start[$i]
 													, $army_year_end[$i]
@@ -360,7 +360,7 @@ for ($i = 0; $i < count($army_suitability); $i++) {
 }
 
 $work_ids = $_POST['work_ids'];
-$work_company = $_POST['work_company'];
+$work_company = $_POST['work_company'] ?: [];
 $work_post = $_POST['work_post'];
 $work_year_start = $_POST['work_year_start'];
 $work_year_end = $_POST['work_year_end'];
@@ -397,7 +397,7 @@ for ($i = 0; $i < count($work_company); $i++) {
 $relationship_ids = $_POST['relationship_ids'];
 $relationship_person_1 = $_POST['relationship_person_1'];
 $relationship_person_2 = $_POST['relationship_person_2'];
-$relationship_relation_type = $_POST['relationship_relation_type'];
+$relationship_relation_type = $_POST['relationship_relation_type'] ?: [];
 $relationship_year_start = $_POST['relationship_year_start'];
 $relationship_month_start = $_POST['relationship_month_start'];
 $relationship_day_start = $_POST['relationship_day_start'];
@@ -458,7 +458,7 @@ for ($i = 0; $i < count($relationship_relation_type); $i++) {
 }
 
 $skills_ids = $_POST['skills_ids'];
-$skills_skill = $_POST['skills_skill'];
+$skills_skill = $_POST['skills_skill'] ?: [];
 $skills_level = $_POST['skills_level'];
 for ($i = 0; $i < count($skills_skill); $i++) {
     if ($skills_ids[$i]) {
@@ -479,7 +479,7 @@ for ($i = 0; $i < count($skills_skill); $i++) {
 }
 
 $languages_ids = $_POST['languages_ids'];
-$languages_language = $_POST['languages_language'];
+$languages_language = $_POST['languages_language'] ?: [];
 $languages_level = $_POST['languages_level'];
 for ($i = 0; $i < count($languages_language); $i++) {
     if ($languages_ids[$i]) {
@@ -500,7 +500,7 @@ for ($i = 0; $i < count($languages_language); $i++) {
 }
 
 $likes_ids = $_POST['likes_ids'];
-$likes_like_status = $_POST['likes_like_status'];
+$likes_like_status = $_POST['likes_like_status'] ?: [];
 $likes_object_type = $_POST['likes_object_type'];
 $likes_object = $_POST['likes_object'];
 for ($i = 0; $i < count($likes_like_status); $i++) {
@@ -525,7 +525,7 @@ for ($i = 0; $i < count($likes_like_status); $i++) {
 }
 
 $property_ids = $_POST['property_ids'];
-$property_property_type = $_POST['property_property_type'];
+$property_property_type = $_POST['property_property_type'] ?: [];
 $property_property_name = $_POST['property_property_name'];
 for ($i = 0; $i < count($property_property_type); $i++) {
     if ($property_ids[$i]) {
@@ -546,7 +546,7 @@ for ($i = 0; $i < count($property_property_type); $i++) {
 }
 
 $alternative_names_ids = $_POST['alternative_names_ids'];
-$alternative_names_name = $_POST['alternative_names_name'];
+$alternative_names_name = $_POST['alternative_names_name'] ?: [];
 $alternative_names_type = $_POST['alternative_names_type'];
 for ($i = 0; $i < count($alternative_names_name); $i++) {
     if ($alternative_names_ids[$i]) {
