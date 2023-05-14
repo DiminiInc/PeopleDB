@@ -318,10 +318,10 @@ require_once($path . "/header.php");
                         }
                         ?>
                         <tr>
-                            <td><?php echo $row['suitability'] ?></td>
+                            <td><?php echo $suitability ?></td>
                             <td><?php echo $row['unit'] ?></td>
                             <td><?php echo $row['year_start'] ?></td>
-                            <td><?php echo $row['home_city'] ?></td>
+                            <td><?php echo $row['year_end'] ?></td>
                             <td><?php echo $row['rank'] ?></td>
                         </tr>
                         <?php
