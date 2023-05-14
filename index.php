@@ -42,8 +42,7 @@ require_once($path . "/header.php");
             $link = mysqli_connect($host, $user, $pass, $database);
             mysqli_set_charset($link, "utf8");
             $result = mysqli_query($link, "SELECT * FROM person");
-            $row = mysqli_fetch_assoc($result);
-            do {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr onclick='window.open("/person/index.php?id=<?php echo $row ? $row['id'] : '' ?>", "_blank");'>
                     <td> <?php echo $row ? $row['id'] : '' ?></td>
@@ -71,7 +70,7 @@ require_once($path . "/header.php");
                     </td>
                 </tr>
                 <?php
-            } while ($row = mysqli_fetch_assoc($result));
+            };
             mysqli_close($link);
             ?>
             </tbody>
