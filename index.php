@@ -39,8 +39,6 @@ require_once($path . "/header.php");
             <tbody>
             <?php
             require_once($path . "/connection.php");
-            $link = mysqli_connect($host, $user, $pass, $database);
-            mysqli_set_charset($link, "utf8");
             $result = mysqli_query($link, "SELECT * FROM person");
             while ($row = mysqli_fetch_assoc($result)) {
                 ?>

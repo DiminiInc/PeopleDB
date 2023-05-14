@@ -1,8 +1,6 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'];
 require_once($path . "/connection.php");
-$link = mysqli_connect($host, $user, $pass, $database);
-mysqli_set_charset($link, "utf8");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
