@@ -242,18 +242,15 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM contacts where owner='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['account'] ?></td>
-                            <td><?php echo $row['account_id'] ?></td>
-                            <td><?php echo $row['status'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['account'] ?></td>
+                        <td><?php echo $row['account_id'] ?></td>
+                        <td><?php echo $row['status'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -273,20 +270,17 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM education where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['type'] ?></td>
-                            <td><?php echo $row['institution'] ?></td>
-                            <td><?php echo $row['year_start'] ?></td>
-                            <td><?php echo $row['year_end'] ?></td>
-                            <td><?php echo $row['group'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['type'] ?></td>
+                        <td><?php echo $row['institution'] ?></td>
+                        <td><?php echo $row['year_start'] ?></td>
+                        <td><?php echo $row['year_end'] ?></td>
+                        <td><?php echo $row['group'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -306,27 +300,24 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        if ($row['suitability'] === '1') {
-                            $suitability = "Годен";
-                        } elseif ($row['suitability'] === '0') {
-                            $suitability = "Не годен";
-                        } else {
-                            $suitability = "";
-                        }
-                        ?>
-                        <tr>
-                            <td><?php echo $suitability ?></td>
+                while ($row = mysqli_fetch_assoc($result)) {
+                    if ($row['suitability'] === '1') {
+                        $suitability = "Годен";
+                    } elseif ($row['suitability'] === '0') {
+                        $suitability = "Не годен";
+                    } else {
+                        $suitability = "";
+                    }
+                    ?>
+                    <tr>
+                        <td><?php echo $suitability ?></td>
                             <td><?php echo $row['unit'] ?></td>
                             <td><?php echo $row['year_start'] ?></td>
                             <td><?php echo $row['year_end'] ?></td>
                             <td><?php echo $row['rank'] ?></td>
                         </tr>
                         <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                }
                 ?>
                 </tbody>
             </table>
@@ -345,19 +336,16 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM work where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['company'] ?></td>
-                            <td><?php echo $row['post'] ?></td>
-                            <td><?php echo $row['year_start'] ?></td>
-                            <td><?php echo $row['year_end'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['company'] ?></td>
+                        <td><?php echo $row['post'] ?></td>
+                        <td><?php echo $row['year_start'] ?></td>
+                        <td><?php echo $row['year_end'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -381,19 +369,17 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM relationship where person_1='$id' or person_2='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        $person_1_id = $row['person_1'];
-                        $person_2_id = $row['person_2'];
-                        $person_1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
-                        $person_2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $person_1['last_name'] ?>&#32;
-                                <?php echo $person_1['first_name'] ?>&#32;
-                                <?php echo $person_1['middle_name'] ?>
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $person_1_id = $row['person_1'];
+                    $person_2_id = $row['person_2'];
+                    $person_1 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_1_id'"));
+                    $person_2 = mysqli_fetch_assoc(mysqli_query($link, "SELECT * FROM person where id='$person_2_id'"));
+                    ?>
+                    <tr>
+                        <td>
+                            <?php echo $person_1['last_name'] ?>&#32;
+                            <?php echo $person_1['first_name'] ?>&#32;
+                            <?php echo $person_1['middle_name'] ?>
                             </td>
                             <td>
                                 <?php echo $person_2['last_name'] ?>&#32;
@@ -409,8 +395,7 @@ require_once($path . "/header.php");
                             <td><?php echo $row['day_end'] ?></td>
                         </tr>
                         <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                }
                 ?>
                 </tbody>
             </table>
@@ -427,17 +412,14 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM skills where person='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['skill'] ?></td>
-                            <td><?php echo $row['level'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['skill'] ?></td>
+                        <td><?php echo $row['level'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -454,17 +436,14 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM languages where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['language'] ?></td>
-                            <td><?php echo $row['level'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['language'] ?></td>
+                        <td><?php echo $row['level'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -482,18 +461,15 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM likes where person='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['like_status'] ?></td>
-                            <td><?php echo $row['object_type'] ?></td>
-                            <td><?php echo $row['object'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['like_status'] ?></td>
+                        <td><?php echo $row['object_type'] ?></td>
+                        <td><?php echo $row['object'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -510,17 +486,14 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM property where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['property_type'] ?></td>
-                            <td><?php echo $row['property_name'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['property_type'] ?></td>
+                        <td><?php echo $row['property_name'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
@@ -537,17 +510,14 @@ require_once($path . "/header.php");
                 <tbody>
                 <?php
                 $result = mysqli_query($link, "SELECT * FROM alternative_last_names where person_id='$id'");
-                $row = mysqli_fetch_assoc($result);
-                do {
-                    if (!is_null($row)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['last_name'] ?></td>
-                            <td><?php echo $row['change_type'] ?></td>
-                        </tr>
-                        <?php
-                    }
-                } while ($row = mysqli_fetch_assoc($result));
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['last_name'] ?></td>
+                        <td><?php echo $row['change_type'] ?></td>
+                    </tr>
+                    <?php
+                }
                 ?>
                 </tbody>
             </table>
