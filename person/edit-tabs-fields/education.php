@@ -18,23 +18,32 @@
     <?php
     $result = mysqli_query($link, "SELECT * FROM education where person_id='$id'");
     $row = mysqli_fetch_array($result);
+    require_once($path . "/person/edit-tabs-fields/template-fields/datalistSelect.php");
     if (!is_null($row)) {
         do {
             ?>
             <tr>
                 <td><input name="education_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
                            readonly></td>
-                <td><input name="education_type[]" placeholder="Type" value="<?php echo $row['type'] ?>"
-                           list="education_type_list"></td>
-                <td><input name="education_institution[]" placeholder="Institution"
-                           value="<?php echo $row['institution'] ?>" list="education_institution_list">
-                </td>
+                <td><?php datalistSelect(link: $link, name: 'education_type', placeholder: 'Type',
+                        value: 'type', table: 'education', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
+                <td><?php datalistSelect(link: $link, name: 'education_institution', placeholder: 'Institution',
+                        value: 'institution', table: 'education', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
                 <td><input name="education_year_start[]" placeholder="Year start"
                            value="<?php echo $row['year_start'] ?>"></td>
                 <td><input name="education_year_end[]" placeholder="Year end"
                            value="<?php echo $row['year_end'] ?>"></td>
-                <td><input name="education_group[]" placeholder="Group"
-                           value="<?php echo $row['group'] ?>" list="education_group_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'education_group', placeholder: 'Group',
+                        value: 'group', table: 'education', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
             </tr>
             <?php
         } while ($row = mysqli_fetch_array($result));
@@ -42,42 +51,3 @@
     ?>
     </tbody>
 </table>
-<datalist id="education_type_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT type FROM education");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['type'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
-<datalist id="education_institution_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT institution FROM education");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['institution'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
-<datalist id="education_group_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT `group` FROM education");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['group'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
