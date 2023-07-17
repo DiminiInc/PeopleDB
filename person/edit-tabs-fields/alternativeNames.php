@@ -15,6 +15,7 @@
     <?php
     $result = mysqli_query($link, "SELECT * FROM alternative_last_names where person_id='$id'");
     $row = mysqli_fetch_array($result);
+    require_once($path . "/person/edit-tabs-fields/template-fields/datalistSelect.php");
     if (!is_null($row)) {
         do {
             ?>
@@ -23,9 +24,11 @@
                            value="<?php echo $row['id'] ?>" readonly></td>
                 <td><input name="alternative_names_name[]" placeholder="Name"
                            value="<?php echo $row['last_name'] ?>"></td>
-                <td><input name="alternative_names_type[]" placeholder="Type"
-                           value="<?php echo $row['change_type'] ?>" list="alternative_names_type_list">
-                </td>
+                <td><?php datalistSelect(link: $link, name: 'alternative_names_type', placeholder: 'Type',
+                        value: 'change_type', table: 'alternative_last_names', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
             </tr>
             <?php
         } while ($row = mysqli_fetch_array($result));
@@ -33,16 +36,3 @@
     ?>
     </tbody>
 </table>
-<datalist id="alternative_names_type_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT change_type FROM alternative_last_names");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['change_type'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
