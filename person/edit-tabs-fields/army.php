@@ -18,6 +18,7 @@
     <?php
     $result = mysqli_query($link, "SELECT * FROM army where person_id='$id'");
     $row = mysqli_fetch_array($result);
+    require_once($path . "/person/edit-tabs-fields/template-fields/datalistSelect.php");
     if (!is_null($row)) {
         do {
             if ($row['suitability'] === '1') {
@@ -31,16 +32,31 @@
             <tr>
                 <td><input name="army_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>" readonly>
                 </td>
-                <td><input name="army_suitability[]" placeholder="Suitability"
-                           value="<?php echo $suitability ?>" list="army_suitability_list"></td>
-                <td><input name="army_unit[]" placeholder="Unit" value="<?php echo $row['unit'] ?>"
-                           list="army_unit_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'army_suitability', placeholder: 'Suitability',
+                        value: 'suitability', table: 'army', row: $row,
+                        value_function: function ($value) {
+                            if ($value === '1') {
+                                return "Годен";
+                            } elseif ($value === '0') {
+                                return "Не годен";
+                            } else {
+                                return "";
+                            }
+                        }) ?></td>
+                <td><?php datalistSelect(link: $link, name: 'army_unit', placeholder: 'Unit',
+                        value: 'unit', table: 'army', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
                 <td><input name="army_year_start[]" placeholder="Year start"
                            value="<?php echo $row['year_start'] ?>"></td>
                 <td><input name="army_year_end[]" placeholder="Year end"
                            value="<?php echo $row['year_end'] ?>"></td>
-                <td><input name="army_rank[]" placeholder="Rank" value="<?php echo $row['rank'] ?>"
-                           list="army_rank_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'army_rank', placeholder: 'Rank',
+                        value: 'rank', table: 'army', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
             </tr>
             <?php
         } while ($row = mysqli_fetch_array($result));
@@ -48,43 +64,3 @@
     ?>
     </tbody>
 </table>
-<datalist id="army_suitability_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT suitability FROM army");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            $suitability = $row['suitability'] === '0' ? "Не годен" : "Годен";
-            ?>
-            <option value='<?php echo $suitability ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
-<datalist id="army_unit_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT unit FROM army");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-    do {
-    ?>
-    <option value='<?php echo $row['unit'] ?>'>
-        <?php
-        } while ($row = mysqli_fetch_array($result));
-        }
-        ?>
-</datalist>
-<datalist id="army_rank_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT rank FROM army");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['rank'] ?>"'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
