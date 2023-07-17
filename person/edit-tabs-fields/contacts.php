@@ -16,6 +16,7 @@
     <?php
     $result = mysqli_query($link, "SELECT * FROM contacts where owner='$id'");
     $row = mysqli_fetch_array($result);
+    require_once($path . "/person/edit-tabs-fields/template-fields/datalistSelect.php");
     if (!is_null($row)) {
         do {
             ?>
@@ -23,13 +24,18 @@
                 <td><input name="contacts_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>"
                            readonly>
                 </td>
-                <td><input name="contacts_account[]" placeholder="Account type"
-                           value="<?php echo $row['account'] ?>" list="contacts_account_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'contacts_account', placeholder: 'Account type',
+                        value: 'account', table: 'contacts', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
                 <td><input name="contacts_account_id[]" placeholder="Account ID"
                            value="<?php echo $row['account_id'] ?>"></td>
-                <td><input name="contacts_status[]" placeholder="Status"
-                           value="<?php echo $row['status'] ?>"
-                           list="contacts_status_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'contacts_status', placeholder: 'Status',
+                        value: 'status', table: 'contacts', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
             </tr>
             <?php
         } while ($row = mysqli_fetch_array($result));
@@ -37,29 +43,3 @@
     ?>
     </tbody>
 </table>
-<datalist id="contacts_account_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT account FROM contacts");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['account'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
-<datalist id="contacts_status_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT status FROM contacts");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['status'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
