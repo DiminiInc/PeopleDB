@@ -17,16 +17,23 @@
     <?php
     $result = mysqli_query($link, "SELECT * FROM work where person_id='$id'");
     $row = mysqli_fetch_array($result);
+    require_once($path . "/person/edit-tabs-fields/template-fields/datalistSelect.php");
     if (!is_null($row)) {
         do {
             ?>
             <tr>
                 <td><input name="work_ids[]" placeholder="ID" value="<?php echo $row['id'] ?>" readonly>
                 </td>
-                <td><input name="work_company[]" placeholder="Company"
-                           value="<?php echo $row['company'] ?>" list="work_company_list"></td>
-                <td><input name="work_post[]" placeholder="Post" value="<?php echo $row['post'] ?>"
-                           list="work_post_list"></td>
+                <td><?php datalistSelect(link: $link, name: 'work_company', placeholder: 'Company',
+                        value: 'company', table: 'work', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
+                <td><?php datalistSelect(link: $link, name: 'work_post', placeholder: 'Post',
+                        value: 'post', table: 'work', row: $row,
+                        value_function: function ($value) {
+                            return $value;
+                        }) ?></td>
                 <td><input name="work_year_start[]" placeholder="Year start"
                            value="<?php echo $row['year_start'] ?>"></td>
                 <td><input name="work_year_end[]" placeholder="Year end"
@@ -38,29 +45,3 @@
     ?>
     </tbody>
 </table>
-<datalist id="work_company_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT company FROM work");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['company'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
-<datalist id="work_post_list">
-    <?php
-    $result = mysqli_query($link, "SELECT DISTINCT post FROM work");
-    $row = mysqli_fetch_array($result);
-    if (!is_null($row)) {
-        do {
-            ?>
-            <option value='<?php echo $row['post'] ?>'></option>
-            <?php
-        } while ($row = mysqli_fetch_array($result));
-    }
-    ?>
-</datalist>
