@@ -1,6 +1,10 @@
 <?php
-function datalistSelect($link, $name, $placeholder, $value, $table, $row, $value_function): void
+function datalistSelect($link, $name, $placeholder, $value, $table, $row,
+                        $value_function = null): void
 {
+    $value_function ??= function ($value) {
+        return $value;
+    };
     ?>
     <input name="<?php echo $name ?>[]" placeholder="<?php echo $placeholder ?>"
            value="<?php echo $value_function($row[$value]) ?>" list="<?php echo $name ?>_list">
